@@ -12,8 +12,17 @@ $fallback_pages = brendon_core_sidebar_fallback_pages();
 $social_links = brendon_core_get_sidebar_social_links();
 ?>
 
-<div class="flex flex-col gap-6 rounded-2xl border border-[#F2A25C]/30 bg-white p-6 shadow-sm dark:bg-slate-900 dark:border-[#F2A25C]/20">
+<div class="sidebar-panel flex flex-col gap-6 rounded-2xl border border-[#F2A25C]/30 bg-white p-6 shadow-sm dark:bg-slate-900 dark:border-[#F2A25C]/20">
+	<button type="button" data-theme-toggle class="sidebar-theme-toggle">
+		<span class="sr-only"><?php esc_html_e( 'Toggle light and dark mode', 'brendon-core' ); ?></span>
+		<span class="inline-flex items-center gap-2">
+			<svg class="h-5 w-5 text-[#F26D3D] dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.41 1.41M18.36 18.36l1.41 1.41M1 12h2M21 12h2M4.22 19.78l1.41-1.41M18.36 5.64l1.41-1.41"></path></svg>
+			<svg class="hidden h-5 w-5 text-[#F26D3D] dark:inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1019 12.79z"></path></svg>
+			<span class="sr-only"><?php esc_html_e( 'Toggle theme', 'brendon-core' ); ?></span>
+		</span>
+	</button>
 
+	<div class="sidebar-panel__content">
 	<?php
 	$custom_logo_id = get_theme_mod( 'custom_logo' );
 	if ( $custom_logo_id ) :
@@ -28,7 +37,7 @@ $social_links = brendon_core_get_sidebar_social_links();
 		);
 		?>
 		<div class="flex justify-center">
-			<a class="h-[180px] w-[180px] overflow-hidden rounded-full border border-[#F2A25C]/20 bg-white shadow-sm dark:border-[#F2A25C]/30 dark:bg-slate-900" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( $site_title ); ?>">
+			<a class="sidebar-avatar h-[180px] w-[180px] overflow-hidden rounded-full border border-[#F2A25C]/20 bg-white shadow-sm dark:border-[#F2A25C]/30 dark:bg-slate-900" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( $site_title ); ?>">
 				<?php echo $logo_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</a>
 		</div>
@@ -105,36 +114,28 @@ $social_links = brendon_core_get_sidebar_social_links();
 		</div>
 	</form>
 
-		<div class="rounded-xl border border-[#F2A25C]/30 bg-[#F2F2F2] p-4 dark:bg-slate-900 dark:border-[#F2A25C]/20">
-				<div class="flex items-center justify-between">
-					<p class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"><?php esc_html_e('Socials', 'brendon-core'); ?></p>
-				</div>
-				<ul class="mt-3 space-y-2 text-sm text-slate-700 dark:text-slate-200">
-					<?php foreach ($social_links as $social) : ?>
-						<li>
-							<a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" class="flex w-full items-center gap-3 rounded-lg border border-transparent bg-white px-3 py-2 font-medium text-slate-700 transition hover:border-[#F2A25C]/40 hover:bg-[#F2EB8D]/40 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2A25C]/70 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-800 dark:hover:bg-[#F2EB8D]/40">
-								<span class="flex h-5 w-5 items-center justify-center rounded-full border border-[#F2A25C]/20 bg-white text-[#F26D3D] dark:border-[#F2A25C]/30 dark:bg-slate-900">
-									<?php echo brendon_core_get_social_icon_svg($social['icon'], 'h-4 w-4'); ?>
-								</span>
-								<span><?php echo esc_html($social['label']); ?></span>
-							</a>
-						</li>
-					<?php endforeach; ?>
-			</ul>
-			<button type="button" data-theme-toggle class="mt-4 flex w-full items-center justify-center gap-2 rounded-lg border border-[#F2A25C]/30 bg-white px-3 py-2 text-sm font-semibold text-slate-900 transition hover:border-[#F2A25C]/40 hover:bg-[#F2EB8D]/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2A25C]/70 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
-				<span class="sr-only"><?php esc_html_e( 'Toggle light and dark mode', 'brendon-core' ); ?></span>
-				<span class="inline-flex items-center gap-2">
-					<svg class="h-5 w-5 text-[#F26D3D] dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.41 1.41M18.36 18.36l1.41 1.41M1 12h2M21 12h2M4.22 19.78l1.41-1.41M18.36 5.64l1.41-1.41"></path></svg>
-					<svg class="hidden h-5 w-5 text-[#F26D3D] dark:inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1019 12.79z"></path></svg>
-					<span><?php esc_html_e( 'Toggle theme', 'brendon-core' ); ?></span>
-				</span>
-			</button>
+		<div class="flex items-center justify-between">
+			<p class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"><?php esc_html_e('Socials', 'brendon-core'); ?></p>
 		</div>
+		<ul class="sidebar-socials__list mt-3 text-sm text-slate-700 dark:text-slate-200">
+			<?php foreach ($social_links as $social) : ?>
+				<li class="sidebar-socials__item">
+					<a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" class="sidebar-socials__link">
+						<span class="sidebar-socials__icon">
+							<?php echo brendon_core_get_social_icon_svg($social['icon'], 'h-4 w-4'); ?>
+						</span>
+						<span class="sr-only"><?php echo esc_html($social['label']); ?></span>
+						<span class="sidebar-socials__tooltip" role="tooltip"><?php echo esc_html($social['label']); ?></span>
+					</a>
+				</li>
+			<?php endforeach; ?>
+		</ul>
 
 	<div class="mt-4 text-xs text-center text-slate-500 dark:text-slate-400">
 		<?php printf( wp_kses_post( __( 'Theme made by <a class="font-semibold text-[#F26D3D] hover:text-[#F24E29]" href="%1$s">Brendon Baugh</a>.', 'brendon-core' ) ), esc_url( 'https://brendonbaugh.com' ) ); ?>
 	</div>
 
+	</div>
 </div>
 <script>
 	(function () {

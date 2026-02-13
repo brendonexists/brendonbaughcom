@@ -18,7 +18,7 @@ get_header();
 			<?php get_template_part('template-parts/mobile-sidebar-panel'); ?>
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
+		<div class="grid grid-cols-1 gap-8 lg:grid-cols-[330px_1fr]">
 
 			<aside class="hidden lg:block">
 				<?php get_template_part('template-parts/sidebar-panel'); ?>

@@ -61,13 +61,13 @@ if (is_singular()) :
 			<div class="mb-6 lg:hidden">
 				<?php get_template_part('template-parts/mobile-sidebar-panel'); ?>
 			</div>
-			<div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
+			<div class="grid grid-cols-1 gap-8 lg:grid-cols-[330px_1fr]">
 
-				<aside class="hidden lg:block lg:col-span-3 lg:sticky lg:top-8 self-start">
+				<aside class="hidden lg:block lg:sticky lg:top-8 self-start">
 					<?php get_template_part('template-parts/sidebar-panel'); ?>
 				</aside>
 
-				<section class="lg:col-span-9 space-y-6">
+				<section class="space-y-6">
 
 					<article id="post-<?php the_ID(); ?>" <?php post_class($content_card_classes); ?>>
 
