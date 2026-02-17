@@ -28,14 +28,17 @@ $social_links = brendon_core_get_sidebar_social_links();
 				]
 			);
 		?>
-			<div class="text-center">
-				<h2 class="text-2xl font-extrabold tracking-[0.04em] leading-tight text-slate-900 font-display"><?php echo esc_html($site_title); ?></h2>
-			</div>
 			<div class="flex justify-center mt-0 pt-0 mb-0 pb-0">
 				<a class="sidebar-avatar h-[180px] w-[180px] overflow-hidden rounded-full border border-border bg-white shadow-sm" data-crt-avatar href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr($site_title); ?>">
 					<?php echo $logo_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
 				</a>
+			</div>
+			<div class="text-center">
+				<h1 class="site-title text-2xl font-extrabold tracking-[0.04em] leading-tight text-slate-900 font-display">
+					<span class="site-title__name"><?php echo esc_html($site_title); ?></span><span class="bb-flap" aria-hidden="true"></span>
+					<span class="sr-only" id="bbFlapSR"><?php printf(esc_html__('%s exists', 'brendon-core'), esc_html($site_title)); ?></span>
+				</h1>
 			</div>
 			<?php if ($site_description) : ?>
 				<p class="text-sm text-slate-600 text-center mt-0"><?php echo esc_html($site_description); ?></p>
@@ -43,7 +46,10 @@ $social_links = brendon_core_get_sidebar_social_links();
 
 		<?php else : ?>
 			<div class="space-y-1">
-				<h2 class="text-2xl font-extrabold tracking-[0.04em] leading-tight text-slate-900 font-display"><?php echo esc_html($site_title); ?></h2>
+				<h1 class="site-title text-2xl font-extrabold tracking-[0.04em] leading-tight text-slate-900 font-display">
+					<span class="site-title__name"><?php echo esc_html($site_title); ?></span><span class="bb-flap" aria-hidden="true"></span>
+					<span class="sr-only" id="bbFlapSR"><?php printf(esc_html__('%s exists', 'brendon-core'), esc_html($site_title)); ?></span>
+				</h1>
 				<?php if ($site_description) : ?>
 					<p class="text-sm text-slate-600"><?php echo esc_html($site_description); ?></p>
 				<?php endif; ?>

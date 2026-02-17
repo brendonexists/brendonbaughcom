@@ -186,6 +186,9 @@ function _s_scripts()
 	$mosaic_js_path = get_template_directory() . '/js/mosaic.js';
 	$mosaic_js_ver  = file_exists( $mosaic_js_path ) ? filemtime( $mosaic_js_path ) : _S_VERSION;
 	wp_enqueue_script('brendon-core-mosaic', get_template_directory_uri() . '/js/mosaic.js', array(), $mosaic_js_ver, true);
+	$splitflap_js_path = get_template_directory() . '/assets/js/bb-splitflap.js';
+	$splitflap_js_ver  = file_exists( $splitflap_js_path ) ? filemtime( $splitflap_js_path ) : _S_VERSION;
+	wp_enqueue_script('brendon-core-bb-splitflap', get_template_directory_uri() . '/assets/js/bb-splitflap.js', array(), $splitflap_js_ver, true);
 	if (is_singular()) {
 		$embeds_js_path = get_template_directory() . '/assets/js/embeds.js';
 		$embeds_js_ver  = file_exists( $embeds_js_path ) ? filemtime( $embeds_js_path ) : _S_VERSION;
