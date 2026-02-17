@@ -106,9 +106,9 @@ $social_links = brendon_core_get_sidebar_social_links();
 		<?php endif; ?>
 
 
-		<div class="flex items-center justify-between">
+		<!-- <div class="flex items-center justify-between">
 			<p class="text-xs font-semibold uppercase tracking-wide text-slate-500"><?php esc_html_e('Socials', 'brendon-core'); ?></p>
-		</div>
+		</div> -->
 		<ul class="sidebar-socials__list mt-3 text-sm text-slate-700">
 			<?php foreach ($social_links as $social) : ?>
 				<li class="sidebar-socials__item">
