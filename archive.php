@@ -48,8 +48,7 @@ get_header();
 					?>
 
 					<header class="rounded-3xl border border-border bg-white p-8 shadow-lg">
-						<!-- <p class="text-xs font-semibold uppercase tracking-[0.4em] text-primary"><?php esc_html_e('Archive', 'brendon-core'); ?></p> -->
-						<h1 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
+						<h1 class="mt-0 text-3xl font-semibold tracking-tight text-slate-900">
 							<?php echo esc_html($archive_heading); ?>
 						</h1>
 						<?php if (is_category() || is_tag() || is_post_type_archive()) : ?>
