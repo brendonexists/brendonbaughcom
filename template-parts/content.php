@@ -22,7 +22,7 @@ if ('post' === get_post_type() && ! empty($category_objects)) {
 		}
 
 		$category_badges .= sprintf(
-			'<a href="%s" class="inline-flex items-center rounded-full bg-[#F2EB8D]/60 px-3 py-1 text-[11px] font-semibold text-slate-900 transition hover:bg-[#F2EB8D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2A25C]/60">%s</a>',
+			'<a href="%s" class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold text-slate-900 transition hover:bg-primary/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">%s</a>',
 			esc_url($category_link),
 			esc_html($category_object->name)
 		);
@@ -42,7 +42,7 @@ if ('post' === get_post_type()) {
 	);
 }
 
-$card_classes = 'group relative overflow-hidden rounded-2xl border border-[#F2A25C]/30 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-[1px] hover:border-[#F2A25C]/60 hover:shadow-lg focus-within:-translate-y-[1px] focus-within:border-[#F2A25C]/60 focus-within:shadow-lg dark:bg-slate-900 dark:border-[#F2A25C]/20 dark:text-slate-100';
+$card_classes = 'group relative overflow-hidden rounded-2xl border border-border bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-[1px] hover:shadow-lg focus-within:-translate-y-[1px] focus-within:shadow-lg';
 $content_card_classes = is_singular() ? $card_classes : $card_classes . ' flex flex-col gap-4 h-full';
 if (! is_singular()) {
 	$tile_span = get_query_var('content_tile_span', '');
@@ -56,12 +56,12 @@ if (is_singular()) :
 	$show_featured_image = $has_thumb && ! $is_video_post;
 ?>
 
-	<main id="primary" class="site-main min-h-screen bg-[#F2F2F2] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+	<main id="primary" class="site-main min-h-screen bg-canvas text-slate-900">
 		<div class="w-full px-6 py-8">
 			<div class="mb-6 lg:hidden">
 				<?php get_template_part('template-parts/mobile-sidebar-panel'); ?>
 			</div>
-			<div class="grid grid-cols-1 gap-8 lg:grid-cols-[330px_1fr]">
+			<div class="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
 
 				<aside class="hidden lg:block lg:sticky lg:top-8 self-start">
 					<?php get_template_part('template-parts/sidebar-panel'); ?>
@@ -74,28 +74,30 @@ if (is_singular()) :
 						<div class="flex flex-col gap-3">
 
 							<?php if ($show_featured_image) : ?>
-								<div class="overflow-hidden rounded-2xl border border-[#F2A25C]/30 bg-white shadow-sm max-h-[420px]">
+								<div class="overflow-hidden rounded-2xl border border-border bg-white shadow-sm max-h-[420px]">
 									<?php the_post_thumbnail('large', ['class' => 'h-full w-full object-cover transition duration-300 group-hover:scale-105']); ?>
 								</div>
 							<?php elseif (! $is_video_post) : ?>
-								<div class="flex h-64 items-center justify-center rounded-2xl border border-[#F2A25C]/30 bg-gradient-to-r from-[#F2EB8D]/40 via-[#F2F2F2]/70 to-[#F2F2F2]/70 text-sm font-semibold uppercase tracking-wide text-slate-500">
+								<div class="flex h-64 items-center justify-center rounded-2xl border border-border bg-surface-2 text-sm font-semibold uppercase tracking-wide text-slate-500">
 									<?php esc_html_e('No featured image', 'brendon-core'); ?>
 								</div>
 							<?php endif; ?>
 
 							<header class="flex flex-col gap-3">
-								<?php if ($category_badges) : ?>
-									<div class="flex flex-wrap gap-2">
-										<?php echo wp_kses_post($category_badges); ?>
-									</div>
-								<?php endif; ?>
+								<div class="flex flex-wrap items-start justify-between gap-3">
+									<h1 class="text-3xl font-bold tracking-tight leading-tight text-slate-900 transition-colors duration-200">
+										<?php echo esc_html($title); ?>
+									</h1>
 
-								<h1 class="text-3xl font-semibold tracking-tight leading-tight text-slate-900 transition-colors duration-200 dark:text-slate-100">
-									<?php echo esc_html($title); ?>
-								</h1>
+									<?php if ($category_badges) : ?>
+										<div class="ml-auto flex flex-wrap justify-end gap-2 text-right">
+											<?php echo wp_kses_post($category_badges); ?>
+										</div>
+									<?php endif; ?>
+								</div>
 
 								<?php if ('post' === get_post_type()) : ?>
-									<div class="flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+									<div class="flex flex-wrap items-center gap-2 text-sm text-slate-600">
 										<span><?php echo esc_html($date); ?></span>
 										<span class="text-slate-300">•</span>
 										<span><?php echo esc_html($author); ?></span>
@@ -105,9 +107,11 @@ if (is_singular()) :
 										<?php endif; ?>
 									</div>
 								<?php endif; ?>
+
+								<div class="mt-3 h-px w-full bg-danger"></div>
 							</header>
 
-							<div class="entry-content prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed prose-headings:text-slate-900 prose-headings:font-semibold prose-blockquote:border-[#F2A25C] prose-blockquote:border-l-4 prose-blockquote:bg-[#F2EB8D]/20 prose-blockquote:text-slate-800 prose-blockquote:px-4 prose-blockquote:py-2 prose-blockquote:rounded-lg prose-a:text-[#F26D3D] prose-a:hover:text-[#F24E29] [&_iframe]:w-full [&_iframe]:max-w-full [&_iframe]:rounded-2xl [&_iframe]:border [&_iframe]:border-[#F2A25C]/30 [&_iframe]:shadow-lg [&_iframe]:bg-white [&_iframe]:dark:bg-slate-900 [&_iframe]:mx-auto [&_iframe]:transition [&_iframe]:duration-300 [&_iframe]:ease-in-out [&_video]:w-full [&_video]:rounded-2xl [&_video]:shadow-lg dark:text-slate-200 dark:prose-dark prose-p:mt-0 prose-p:mb-2 prose-figure:mt-2 prose-figure:mb-2 prose-iframe:mt-2 prose-iframe:mb-2">
+							<div class="entry-content prose prose-lg max-w-none text-slate-600 leading-relaxed prose-headings:font-bold prose-headings:text-slate-900 prose-blockquote:border-border prose-blockquote:border-l-4 prose-blockquote:bg-surface-2 prose-blockquote:text-slate-800 prose-blockquote:px-4 prose-blockquote:py-2 prose-blockquote:rounded-lg prose-a:text-primary prose-a:hover:text-primary-hover [&_iframe]:w-full [&_iframe]:max-w-full [&_iframe]:rounded-2xl [&_iframe]:border [&_iframe]:border-border [&_iframe]:shadow-lg [&_iframe]:bg-white [&_iframe]:mx-auto [&_iframe]:transition [&_iframe]:duration-300 [&_iframe]:ease-in-out [&_video]:w-full [&_video]:rounded-2xl [&_video]:shadow-lg prose-p:mt-0 prose-p:mb-2 prose-figure:mt-2 prose-figure:mb-2 prose-iframe:mt-2 prose-iframe:mb-2">
 								<?php
 								the_content();
 								wp_link_pages(
@@ -120,7 +124,7 @@ if (is_singular()) :
 							</div>
 
 							<?php if ('post' === get_post_type()) : ?>
-								<footer class="pt-2 text-sm text-slate-600 dark:text-slate-300">
+								<footer class="pt-2 text-sm text-slate-600">
 									<?php the_tags('Tags: ', ', ', ''); ?>
 								</footer>
 							<?php endif; ?>
@@ -147,11 +151,11 @@ if (is_singular()) :
 		<div class="flex flex-col gap-4">
 
 			<?php if ($has_thumb) : ?>
-				<a class="overflow-hidden rounded-2xl border border-[#F2A25C]/30 bg-white shadow-sm transition duration-300 group-hover:shadow-lg h-64" href="<?php echo esc_url($permalink); ?>" aria-label="<?php echo esc_attr($title); ?>">
+				<a class="overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition duration-300 group-hover:shadow-lg h-64" href="<?php echo esc_url($permalink); ?>" aria-label="<?php echo esc_attr($title); ?>">
 					<?php the_post_thumbnail('large', ['class' => 'h-full w-full object-cover transition duration-300 group-hover:scale-105']); ?>
 				</a>
 			<?php else : ?>
-				<div class="flex h-64 items-center justify-center rounded-2xl border border-[#F2A25C]/30 bg-gradient-to-r from-[#F2EB8D]/40 via-[#F2F2F2]/80 to-[#F2F2F2]/80 text-sm font-semibold uppercase tracking-wide text-slate-500">
+				<div class="flex h-64 items-center justify-center rounded-2xl border border-border bg-surface-2 text-sm font-semibold uppercase tracking-wide text-slate-500">
 					<?php esc_html_e('No featured image', 'brendon-core'); ?>
 				</div>
 			<?php endif; ?>
@@ -163,14 +167,14 @@ if (is_singular()) :
 					</div>
 				<?php endif; ?>
 
-				<h2 class="text-2xl font-semibold tracking-tight leading-tight">
-					<a class="text-slate-900 transition-colors duration-200 hover:text-[#F26D3D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2A25C]/70 dark:text-slate-100" href="<?php echo esc_url($permalink); ?>" rel="bookmark">
+				<h2 class="text-2xl font-bold tracking-tight leading-tight">
+					<a class="text-slate-900 transition-colors duration-200 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="<?php echo esc_url($permalink); ?>" rel="bookmark">
 						<?php echo esc_html($title); ?>
 					</a>
 				</h2>
 
 				<?php if ('post' === get_post_type()) : ?>
-					<div class="flex flex-wrap items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+					<div class="flex flex-wrap items-center gap-2 text-sm text-slate-600">
 						<span><?php echo esc_html($date); ?></span>
 						<span class="text-slate-300">•</span>
 						<span><?php echo esc_html($author); ?></span>
@@ -182,13 +186,13 @@ if (is_singular()) :
 				<?php endif; ?>
 			</header>
 
-			<div class="prose prose-lg prose-slate max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 prose-headings:font-semibold prose-blockquote:border-[#F2A25C] prose-blockquote:border-l-4 prose-blockquote:bg-[#F2EB8D]/20 prose-blockquote:text-slate-800 prose-blockquote:px-4 prose-blockquote:py-2 prose-blockquote:rounded-lg prose-a:text-[#F26D3D] prose-a:hover:text-[#F24E29] dark:text-slate-200 dark:prose-dark prose-p:mt-0 prose-p:mb-2 prose-figure:mt-2 prose-figure:mb-2 prose-iframe:mt-2 prose-iframe:mb-2">
+			<div class="prose prose-lg max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 prose-headings:font-bold prose-blockquote:border-border prose-blockquote:border-l-4 prose-blockquote:bg-surface-2 prose-blockquote:text-slate-800 prose-blockquote:px-4 prose-blockquote:py-2 prose-blockquote:rounded-lg prose-a:text-primary prose-a:hover:text-primary-hover prose-p:mt-0 prose-p:mb-2 prose-figure:mt-2 prose-figure:mb-2 prose-iframe:mt-2 prose-iframe:mb-2">
 				<?php $archive_excerpt = wp_trim_words(get_the_excerpt(), 16, '…'); ?>
 				<p><?php echo esc_html($archive_excerpt); ?></p>
 			</div>
 
 			<div>
-				<a class="inline-flex items-center gap-2 rounded-lg border border-[#F26D3D] bg-[#F26D3D] px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-[#F24E29] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2A25C]/70" href="<?php echo esc_url($permalink); ?>">
+				<a class="inline-flex items-center gap-2 rounded-lg border border-primary bg-primary px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="<?php echo esc_url($permalink); ?>">
 					<?php esc_html_e('Read more', 'brendon-core'); ?>
 					<span aria-hidden="true">→</span>
 				</a>

@@ -11,7 +11,7 @@
 get_header();
 ?>
 
-<main id="primary" class="site-main min-h-screen bg-[#F2F2F2] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+<main id="primary" class="site-main min-h-screen bg-canvas text-slate-900">
 	<div class="w-full px-6 py-8 space-y-8">
 
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
@@ -47,13 +47,13 @@ get_header();
 					}
 					?>
 
-					<header class="rounded-3xl border border-[#F2A25C]/30 bg-white p-8 shadow-lg dark:border-[#F2A25C]/20 dark:bg-slate-900">
-						<p class="text-xs font-semibold uppercase tracking-[0.4em] text-[#F2A25C]"><?php esc_html_e('Archive', 'brendon-core'); ?></p>
-						<h1 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
+					<header class="rounded-3xl border border-border bg-white p-8 shadow-lg">
+						<p class="text-xs font-semibold uppercase tracking-[0.4em] text-primary"><?php esc_html_e('Archive', 'brendon-core'); ?></p>
+						<h1 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
 							<?php echo esc_html( $archive_heading ); ?>
 						</h1>
 						<?php if (is_category() || is_tag() || is_post_type_archive()) : ?>
-							<p class="mt-2 text-base text-slate-600 dark:text-slate-300">
+							<p class="mt-2 text-base text-slate-600">
 								<?php the_archive_description(); ?>
 							</p>
 						<?php endif; ?>
@@ -85,7 +85,7 @@ get_header();
 						<nav class="mt-10" aria-label="<?php esc_attr_e('Archive pagination', 'brendon-core'); ?>">
 							<ul class="flex flex-wrap gap-2">
 								<?php foreach ($pagination as $link) : ?>
-									<li class="[&>a]:inline-flex [&>a]:items-center [&>a]:rounded-lg [&>a]:border [&>a]:border-slate-200 [&>a]:bg-white [&>a]:px-3 [&>a]:py-2 [&>a]:text-sm [&>a]:text-slate-700 [&>a]:shadow-sm [&>a:hover]:bg-slate-50 [&>span]:inline-flex [&>span]:items-center [&>span]:rounded-lg [&>span]:border [&>span]:border-slate-900 [&>span]:bg-slate-900 [&>span]:px-3 [&>span]:py-2 [&>span]:text-sm [&>span]:text-white [&>span]:shadow-sm">
+									<li class="[&>a]:inline-flex [&>a]:items-center [&>a]:rounded-lg [&>a]:border [&>a]:border-border [&>a]:bg-white [&>a]:px-3 [&>a]:py-2 [&>a]:text-sm [&>a]:text-slate-700 [&>a]:shadow-sm [&>a:hover]:bg-primary/10 [&>span]:inline-flex [&>span]:items-center [&>span]:rounded-lg [&>span]:border [&>span]:border-primary [&>span]:bg-primary [&>span]:px-3 [&>span]:py-2 [&>span]:text-sm [&>span]:text-white [&>span]:shadow-sm">
 										<?php echo wp_kses_post($link); ?>
 									</li>
 								<?php endforeach; ?>
@@ -95,7 +95,7 @@ get_header();
 
 				<?php else : ?>
 
-					<div class="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+					<div class="rounded-xl border border-border bg-white p-8 shadow-sm">
 						<h2 class="text-2xl font-semibold tracking-tight"><?php esc_html_e('Nothing found', 'brendon-core'); ?></h2>
 						<p class="mt-2 text-slate-600"><?php esc_html_e('It seems we can’t find what you’re looking for.', 'brendon-core'); ?></p>
 					</div>

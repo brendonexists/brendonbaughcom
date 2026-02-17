@@ -112,7 +112,7 @@ $status_updated     = date_i18n( get_option( 'date_format' ) . ' ' . get_option(
 
 ?>
 
-<main id="primary" class="site-main min-h-screen bg-[#F2F2F2] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+<main id="primary" class="site-main min-h-screen bg-canvas text-slate-900">
 	<div class="w-full px-6 py-8 space-y-8">
 		<div class="lg:hidden">
 			<?php get_template_part( 'template-parts/mobile-sidebar-panel' ); ?>

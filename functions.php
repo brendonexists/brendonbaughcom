@@ -162,20 +162,30 @@ function _s_scripts()
 {
 	$stylesheet_path = get_stylesheet_directory() . '/style.css';
 	$stylesheet_ver  = file_exists( $stylesheet_path ) ? filemtime( $stylesheet_path ) : _S_VERSION;
-	wp_enqueue_style('_s-style', get_stylesheet_uri(), array(), $stylesheet_ver);
+	$font_url = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=League+Spartan:wght@700;800&display=swap';
+	wp_enqueue_style( 'brendon-core-fonts', $font_url, array(), null );
+	wp_enqueue_style('_s-style', get_stylesheet_uri(), array( 'brendon-core-fonts' ), $stylesheet_ver);
 	wp_style_add_data('_s-style', 'rtl', 'replace');
 	$embeds_css_path = get_template_directory() . '/assets/css/embeds.css';
 	$embeds_css_ver  = file_exists( $embeds_css_path ) ? filemtime( $embeds_css_path ) : _S_VERSION;
 	wp_enqueue_style('brendon-core-embed-style', get_template_directory_uri() . '/assets/css/embeds.css', array('_s-style'), $embeds_css_ver);
+	$brand_theme_deps = array( '_s-style', 'brendon-core-embed-style' );
 	if ( is_page_template( 'page-live-now.php' ) ) {
 		$live_now_css_path = get_template_directory() . '/assets/css/live-now.css';
 		$live_now_css_ver  = file_exists( $live_now_css_path ) ? filemtime( $live_now_css_path ) : _S_VERSION;
 		wp_enqueue_style( 'brendon-core-live-now', get_template_directory_uri() . '/assets/css/live-now.css', array( '_s-style' ), $live_now_css_ver );
+		$brand_theme_deps[] = 'brendon-core-live-now';
 	}
+	$brand_theme_css_path = get_template_directory() . '/assets/css/brand-theme.css';
+	$brand_theme_css_ver  = file_exists( $brand_theme_css_path ) ? filemtime( $brand_theme_css_path ) : _S_VERSION;
+	wp_enqueue_style( 'brendon-core-brand-theme', get_template_directory_uri() . '/assets/css/brand-theme.css', $brand_theme_deps, $brand_theme_css_ver );
 
 	$nav_js_path = get_template_directory() . '/js/navigation.js';
 	$nav_js_ver  = file_exists( $nav_js_path ) ? filemtime( $nav_js_path ) : _S_VERSION;
 	wp_enqueue_script('_s-navigation', get_template_directory_uri() . '/js/navigation.js', array(), $nav_js_ver, true);
+	$mosaic_js_path = get_template_directory() . '/js/mosaic.js';
+	$mosaic_js_ver  = file_exists( $mosaic_js_path ) ? filemtime( $mosaic_js_path ) : _S_VERSION;
+	wp_enqueue_script('brendon-core-mosaic', get_template_directory_uri() . '/js/mosaic.js', array(), $mosaic_js_ver, true);
 	if (is_singular()) {
 		$embeds_js_path = get_template_directory() . '/assets/js/embeds.js';
 		$embeds_js_ver  = file_exists( $embeds_js_path ) ? filemtime( $embeds_js_path ) : _S_VERSION;
@@ -365,19 +375,19 @@ function brendon_core_responsive_embed( $html, $url, $attr, $post_id ) {
 	$wide_html = preg_replace( '/(width|height)="\d*"/i', '', $html );
 	$enhanced  = preg_replace(
 		'/<iframe([^>]*)>/i',
-		'<iframe$1 loading="lazy" class="h-full w-full rounded-2xl border-0 bg-slate-900/5 dark:bg-slate-900" referrerpolicy="no-referrer" allowfullscreen>',
+		'<iframe$1 loading="lazy" class="h-full w-full rounded-2xl border-0 bg-surface-2" referrerpolicy="no-referrer" allowfullscreen>',
 		$wide_html,
 		1
 	);
 
 	$label_html = $label
 		? sprintf(
-			'<span class="pointer-events-none absolute left-4 top-4 rounded-full bg-[#F26D3D]/90 px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white shadow-sm">%s</span>',
+			'<span class="pointer-events-none absolute left-4 top-4 rounded-full bg-danger px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white shadow-sm">%s</span>',
 			esc_html( $label )
 		)
 		: '';
 
-	$wrapper_classes = 'relative w-full overflow-hidden rounded-2xl border border-[#F2A25C]/30 bg-white shadow-lg ring-1 ring-slate-900/5 transition focus-within:ring-2 focus-within:ring-[#F2A25C]/60 dark:border-[#F2A25C]/20 dark:bg-slate-900 dark:ring-slate-100/5';
+	$wrapper_classes = 'relative w-full overflow-hidden rounded-2xl border border-border bg-white shadow-lg ring-1 ring-border transition focus-within:ring-2 focus-within:ring-primary/60';
 
 	if ( str_contains( $host, 'spotify' ) ) {
 		$wrapper_classes .= ' h-[120px] sm:h-[150px]';

@@ -1,46 +1,84 @@
 /** @type {import('tailwindcss').Config} */
 const typography = require('@tailwindcss/typography');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  darkMode: 'class',
   content: [
     "./**/*.php",
     "./template-parts/**/*.php",
     "./inc/**/*.php"
   ],
   theme: {
+    fontFamily: {
+      sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      display: ['"League Spartan"', ...defaultTheme.fontFamily.sans],
+    },
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      inherit: 'inherit',
+      white: 'var(--c-surface)',
+      black: 'var(--c-text)',
+      canvas: 'var(--c-canvas)',
+      surface: 'var(--c-surface)',
+      'surface-2': 'var(--c-surface-2)',
+      text: 'var(--c-text)',
+      muted: 'var(--c-muted)',
+      border: 'var(--c-border)',
+      primary: 'rgb(var(--c-primary-rgb) / <alpha-value>)',
+      'primary-hover': 'rgb(var(--c-primary-hover-rgb) / <alpha-value>)',
+      danger: 'rgb(var(--c-danger-rgb) / <alpha-value>)',
+      focus: 'var(--c-focus)',
+      slate: {
+        50: 'var(--c-surface)',
+        100: 'var(--c-surface-2)',
+        200: 'var(--c-border)',
+        300: 'rgb(var(--c-text-rgb) / 0.35)',
+        400: 'rgb(var(--c-text-rgb) / 0.55)',
+        500: 'var(--c-muted)',
+        600: 'var(--c-muted)',
+        700: 'rgb(var(--c-text-rgb) / 0.85)',
+        800: 'var(--c-text)',
+        900: 'rgb(var(--c-text-rgb) / <alpha-value>)',
+        950: 'var(--c-text)',
+      },
+      gray: {
+        300: 'var(--c-border)',
+        900: 'var(--c-text)',
+      },
+    },
     extend: {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme('colors.slate.700'),
+            color: 'var(--c-muted)',
             lineHeight: '1.9',
             strong: {
-              color: theme('colors.slate.900'),
+              color: 'var(--c-text)',
             },
             a: {
-              color: '#F26D3D',
+              color: 'var(--c-primary)',
               fontWeight: '600',
               transition: 'color 0.2s ease',
               '&:hover': {
-                color: '#F24E29',
+                color: 'var(--c-primary-hover)',
               },
             },
             h1: {
-              color: theme('colors.slate.900'),
+              color: 'var(--c-text)',
               fontWeight: '700',
               letterSpacing: '0.01em',
             },
             h2: {
-              color: theme('colors.slate.900'),
+              color: 'var(--c-text)',
               fontWeight: '700',
               letterSpacing: '0.015em',
               paddingBottom: theme('spacing.2'),
-              borderBottom: `2px solid ${theme('colors.slate.200')}`,
+              borderBottom: '2px solid var(--c-border)',
               marginTop: theme('spacing.8'),
             },
             h3: {
-              color: theme('colors.slate.900'),
+              color: 'var(--c-text)',
               fontWeight: '600',
               marginTop: theme('spacing.6'),
             },
@@ -48,69 +86,29 @@ module.exports = {
               marginTop: theme('spacing.3'),
             },
             blockquote: {
-              borderLeftColor: '#F2A25C',
-              backgroundColor: '#FEF9EB',
-              color: theme('colors.slate.800'),
+              borderLeftColor: 'var(--c-border)',
+              backgroundColor: 'var(--c-surface-2)',
+              color: 'var(--c-text)',
               paddingLeft: theme('spacing.4'),
               paddingRight: theme('spacing.4'),
             },
             code: {
-              backgroundColor: 'rgba(242,162,92,0.15)',
-              color: theme('colors.slate.900'),
+              backgroundColor: 'var(--c-surface-2)',
+              color: 'var(--c-text)',
               borderRadius: theme('borderRadius.md'),
               padding: '0.1rem 0.25rem',
             },
             'ol li::marker': {
-              color: '#F26D3D',
+              color: 'var(--c-primary)',
             },
             'ul li::marker': {
-              color: '#F26D3D',
+              color: 'var(--c-primary)',
             },
             hr: {
-              borderColor: '#F2A25C',
-              opacity: '0.45',
+              borderColor: 'var(--c-border)',
+              opacity: '1',
               marginTop: theme('spacing.10'),
               marginBottom: theme('spacing.10'),
-            },
-          },
-        },
-        dark: {
-          css: {
-            color: theme('colors.slate.200'),
-            strong: {
-              color: theme('colors.slate.100'),
-            },
-            a: {
-              color: '#F26D3D',
-              fontWeight: '600',
-              transition: 'color 0.2s ease',
-              '&:hover': {
-                color: '#F24E29',
-              },
-            },
-            h1: {
-              color: theme('colors.slate.100'),
-            },
-            h2: {
-              color: theme('colors.slate.100'),
-              borderBottomColor: theme('colors.slate.800'),
-            },
-            h3: {
-              color: theme('colors.slate.100'),
-            },
-            p: {
-              color: theme('colors.slate.200'),
-            },
-            blockquote: {
-              backgroundColor: 'rgba(242,235,141,0.1)',
-            },
-            code: {
-              backgroundColor: 'rgba(0,0,0,0.35)',
-              color: theme('colors.slate.100'),
-            },
-            hr: {
-              borderColor: theme('colors.slate.800'),
-              opacity: '0.35',
             },
           },
         },
