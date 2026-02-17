@@ -53,7 +53,8 @@ if (! is_singular()) {
 
 if (is_singular()) :
 	$is_video_post = brendon_core_is_video_post();
-	$show_featured_image = $has_thumb && ! $is_video_post;
+	$hide_page_featured = is_page() && function_exists( 'brendon_core_hide_page_featured_image' ) && brendon_core_hide_page_featured_image();
+	$show_featured_image = $has_thumb && ! $is_video_post && ! $hide_page_featured;
 ?>
 
 	<main id="primary" class="site-main min-h-screen bg-canvas text-slate-900">
@@ -77,7 +78,7 @@ if (is_singular()) :
 								<div class="overflow-hidden rounded-2xl border border-border bg-white shadow-sm max-h-[420px]">
 									<?php the_post_thumbnail('large', ['class' => 'h-full w-full object-cover transition duration-300 group-hover:scale-105']); ?>
 								</div>
-							<?php elseif (! $is_video_post) : ?>
+							<?php elseif (! $is_video_post && ! $hide_page_featured) : ?>
 								<div class="flex h-64 items-center justify-center rounded-2xl border border-border bg-surface-2 text-sm font-semibold uppercase tracking-wide text-slate-500">
 									<?php esc_html_e('No featured image', 'brendon-core'); ?>
 								</div>

@@ -390,3 +390,77 @@ function brendon_core_save_video_post_meta_box( $post_id ) {
 	update_post_meta( $post_id, 'brendon_core_is_video_post', $is_video ? '1' : '0' );
 }
 add_action( 'save_post', 'brendon_core_save_video_post_meta_box' );
+
+/**
+ * Helper to determine whether a page should hide its featured image.
+ *
+ * @param int $post_id
+ * @return bool
+ */
+function brendon_core_hide_page_featured_image( $post_id = 0 ) {
+	$post_id = absint( $post_id ?: get_the_ID() );
+
+	if ( ! $post_id ) {
+		return false;
+	}
+
+	return '1' === get_post_meta( $post_id, 'brendon_core_hide_page_featured_image', true );
+}
+
+/**
+ * Registers the meta box that lets editors hide a page featured image.
+ */
+function brendon_core_register_page_featured_image_meta_box() {
+	add_meta_box(
+		'brendon_core_page_featured_image',
+		esc_html__( 'Featured image', 'brendon-core' ),
+		'brendon_core_render_page_featured_image_meta_box',
+		'page',
+		'side',
+		'core'
+	);
+}
+add_action( 'add_meta_boxes', 'brendon_core_register_page_featured_image_meta_box' );
+
+/**
+ * Renders the featured image checkbox UI for pages.
+ *
+ * @param WP_Post $post
+ */
+function brendon_core_render_page_featured_image_meta_box( $post ) {
+	wp_nonce_field( 'brendon_core_page_featured_image_meta', 'brendon_core_page_featured_image_nonce' );
+
+	printf(
+		'<p><label><input type="checkbox" id="brendon_core_hide_page_featured_image" name="brendon_core_hide_page_featured_image" value="1" %s /> %s</label></p>',
+		checked( brendon_core_hide_page_featured_image( $post->ID ), true, false ),
+		esc_html__( 'Hide the featured image on this page.', 'brendon-core' )
+	);
+}
+
+/**
+ * Saves the page featured image flag when the page is saved.
+ *
+ * @param int $post_id
+ */
+function brendon_core_save_page_featured_image_meta_box( $post_id ) {
+	if ( ! isset( $_POST['brendon_core_page_featured_image_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['brendon_core_page_featured_image_nonce'] ), 'brendon_core_page_featured_image_meta' ) ) {
+		return;
+	}
+
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	if ( 'page' !== get_post_type( $post_id ) ) {
+		return;
+	}
+
+	$hide_featured = isset( $_POST['brendon_core_hide_page_featured_image'] );
+
+	update_post_meta( $post_id, 'brendon_core_hide_page_featured_image', $hide_featured ? '1' : '0' );
+}
+add_action( 'save_post', 'brendon_core_save_page_featured_image_meta_box' );

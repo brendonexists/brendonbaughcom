@@ -124,6 +124,10 @@ if ( ! function_exists( '_s_post_thumbnail' ) ) :
 			return;
 		}
 
+		if ( is_page() && function_exists( 'brendon_core_hide_page_featured_image' ) && brendon_core_hide_page_featured_image() ) {
+			return;
+		}
+
 		if ( is_singular() ) :
 			?>
 
