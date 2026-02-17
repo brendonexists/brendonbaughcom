@@ -245,6 +245,20 @@ a:focus-visible {
   text-align: center;
 }
 
+.sidebar-panel .site-title__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sidebar-panel .site-title__link:hover,
+.sidebar-panel .site-title__link:focus-visible {
+  text-decoration: none;
+}
+
 .sidebar-panel .site-title__name {
   line-height: 1;
   color: var(--bb-cream);

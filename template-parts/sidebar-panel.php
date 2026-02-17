@@ -31,8 +31,10 @@ $social_links = brendon_core_get_sidebar_social_links();
 
 			<div class="text-center">
 				<h1 class="site-title text-2xl font-extrabold tracking-[0.04em] leading-tight text-slate-900 font-display">
-					<span class="site-title__name uppercase"><?php echo esc_html($site_title); ?></span><span class="bb-flap" aria-hidden="true"></span>
-					<span class="sr-only" id="bbFlapSR"><?php printf(esc_html__('%s exists', 'brendon-core'), esc_html($site_title)); ?></span>
+					<a class="site-title__link" href="<?php echo esc_url(home_url('/')); ?>">
+						<span class="site-title__name uppercase"><?php echo esc_html($site_title); ?></span><span class="bb-flap" aria-hidden="true"></span>
+						<span class="sr-only" id="bbFlapSR"><?php printf(esc_html__('%s exists', 'brendon-core'), esc_html($site_title)); ?></span>
+					</a>
 				</h1>
 			</div>
 			<?php if ($site_description) : ?>
@@ -42,8 +44,10 @@ $social_links = brendon_core_get_sidebar_social_links();
 		<?php else : ?>
 			<div class="space-y-1">
 				<h1 class="site-title text-2xl font-extrabold tracking-[0.04em] leading-tight text-slate-900 font-display">
-					<span class="site-title__name uppercase"><?php echo esc_html($site_title); ?></span><span class="bb-flap" aria-hidden="true"></span>
-					<span class="sr-only" id="bbFlapSR"><?php printf(esc_html__('%s exists', 'brendon-core'), esc_html($site_title)); ?></span>
+					<a class="site-title__link" href="<?php echo esc_url(home_url('/')); ?>">
+						<span class="site-title__name uppercase"><?php echo esc_html($site_title); ?></span><span class="bb-flap" aria-hidden="true"></span>
+						<span class="sr-only" id="bbFlapSR"><?php printf(esc_html__('%s exists', 'brendon-core'), esc_html($site_title)); ?></span>
+					</a>
 				</h1>
 				<?php if ($site_description) : ?>
 					<p class="text-sm text-slate-600"><?php echo esc_html($site_description); ?></p>
