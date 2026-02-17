@@ -103,7 +103,7 @@
 
   boards.forEach((board) => {
     const flips = buildBoard(board);
-    let phraseIndex = 0;
+    let phraseIndex = reduceMotion ? 0 : Math.floor(Math.random() * PHRASES.length);
     let current = pad(PHRASES[phraseIndex]);
 
     for (let i = 0; i < WIDTH; i += 1) {
