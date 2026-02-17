@@ -464,3 +464,56 @@ function brendon_core_save_page_featured_image_meta_box( $post_id ) {
 	update_post_meta( $post_id, 'brendon_core_hide_page_featured_image', $hide_featured ? '1' : '0' );
 }
 add_action( 'save_post', 'brendon_core_save_page_featured_image_meta_box' );
+
+/**
+ * Handle contact form submissions.
+ */
+function brendon_core_handle_contact_form() {
+	if ( ! isset( $_POST['brendon_core_contact_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['brendon_core_contact_nonce'] ), 'brendon_core_contact_form' ) ) {
+		wp_safe_redirect( home_url( '/' ) );
+		exit;
+	}
+
+	$redirect_to = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : home_url( '/' );
+	$redirect_to = $redirect_to ? $redirect_to : home_url( '/' );
+
+	$honeypot = isset( $_POST['contact_company'] ) ? sanitize_text_field( wp_unslash( $_POST['contact_company'] ) ) : '';
+	if ( $honeypot ) {
+		wp_safe_redirect( add_query_arg( 'contact', 'success', $redirect_to ) );
+		exit;
+	}
+
+	$name    = isset( $_POST['contact_name'] ) ? sanitize_text_field( wp_unslash( $_POST['contact_name'] ) ) : '';
+	$email   = isset( $_POST['contact_email'] ) ? sanitize_email( wp_unslash( $_POST['contact_email'] ) ) : '';
+	$subject = isset( $_POST['contact_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['contact_subject'] ) ) : '';
+	$message = isset( $_POST['contact_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['contact_message'] ) ) : '';
+
+	if ( ! $name || ! $email || ! is_email( $email ) || ! $message ) {
+		wp_safe_redirect( add_query_arg( 'contact', 'invalid', $redirect_to ) );
+		exit;
+	}
+
+	$subject = $subject ? $subject : sprintf(
+		/* translators: %s: sender name. */
+		esc_html__( 'New message from %s', 'brendon-core' ),
+		$name
+	);
+
+	$body = sprintf(
+		"Name: %s\nEmail: %s\n\nMessage:\n%s\n",
+		$name,
+		$email,
+		$message
+	);
+
+	$headers = array(
+		sprintf( 'Reply-To: %s <%s>', $name, $email ),
+	);
+
+	$sent = wp_mail( 'brendonbaughray@gmail.com', $subject, $body, $headers );
+
+	wp_safe_redirect( add_query_arg( 'contact', $sent ? 'success' : 'error', $redirect_to ) );
+	exit;
+}
+add_action( 'admin_post_nopriv_brendon_core_contact_form', 'brendon_core_handle_contact_form' );
+add_action( 'admin_post_brendon_core_contact_form', 'brendon_core_handle_contact_form' );
