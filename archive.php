@@ -14,43 +14,43 @@ get_header();
 <main id="primary" class="site-main min-h-screen bg-canvas text-slate-900">
 	<div class="w-full px-6 py-8 space-y-8">
 
-		<div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
+		<div class="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
 
-			<aside class="lg:col-span-3 lg:sticky lg:top-8 self-start">
+			<aside class="lg:sticky lg:top-8 self-start">
 				<?php get_template_part('template-parts/sidebar-panel'); ?>
 			</aside>
 
-			<section class="lg:col-span-9 space-y-6">
+			<section class="space-y-6">
 
 
 
 				<?php if (have_posts()) : ?>
 
 					<?php
-					if ( is_category() ) {
-						$archive_heading = single_cat_title( '', false );
-					} elseif ( is_tag() ) {
-						$archive_heading = single_tag_title( '', false );
-					} elseif ( is_tax() ) {
-						$archive_heading = single_term_title( '', false );
-					} elseif ( is_post_type_archive() ) {
-						$archive_heading = post_type_archive_title( '', false );
-					} elseif ( is_author() ) {
+					if (is_category()) {
+						$archive_heading = single_cat_title('', false);
+					} elseif (is_tag()) {
+						$archive_heading = single_tag_title('', false);
+					} elseif (is_tax()) {
+						$archive_heading = single_term_title('', false);
+					} elseif (is_post_type_archive()) {
+						$archive_heading = post_type_archive_title('', false);
+					} elseif (is_author()) {
 						$author_obj = get_queried_object();
-						$archive_heading = $author_obj ? ( $author_obj->display_name ?? '' ) : '';
+						$archive_heading = $author_obj ? ($author_obj->display_name ?? '') : '';
 					} else {
 						$archive_heading = get_the_archive_title();
 					}
 
-					if ( ! $archive_heading ) {
+					if (! $archive_heading) {
 						$archive_heading = get_the_archive_title();
 					}
 					?>
 
 					<header class="rounded-3xl border border-border bg-white p-8 shadow-lg">
-						<p class="text-xs font-semibold uppercase tracking-[0.4em] text-primary"><?php esc_html_e('Archive', 'brendon-core'); ?></p>
+						<!-- <p class="text-xs font-semibold uppercase tracking-[0.4em] text-primary"><?php esc_html_e('Archive', 'brendon-core'); ?></p> -->
 						<h1 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
-							<?php echo esc_html( $archive_heading ); ?>
+							<?php echo esc_html($archive_heading); ?>
 						</h1>
 						<?php if (is_category() || is_tag() || is_post_type_archive()) : ?>
 							<p class="mt-2 text-base text-slate-600">
