@@ -13,6 +13,7 @@ $header_args = wp_parse_args(
 		'site_description' => get_bloginfo( 'description' ),
 		'has_logo'         => false,
 		'flap_width'       => 12,
+		'show_description' => true,
 	]
 );
 
@@ -20,6 +21,7 @@ $site_title       = $header_args['site_title'];
 $site_description = $header_args['site_description'];
 $has_logo         = (bool) $header_args['has_logo'];
 $flap_width       = (int) $header_args['flap_width'];
+$show_description = (bool) $header_args['show_description'];
 if ( $flap_width < 1 ) {
 	$flap_width = 12;
 }
@@ -36,7 +38,7 @@ if ( $flap_width < 1 ) {
 				</a>
 			</h1>
 		</div>
-		<?php if ( $site_description ) : ?>
+		<?php if ( $site_description && $show_description ) : ?>
 			<p class="text-sm text-slate-600 text-center mt-0"><?php echo esc_html( $site_description ); ?></p>
 		<?php endif; ?>
 	<?php else : ?>
@@ -48,7 +50,7 @@ if ( $flap_width < 1 ) {
 					<span class="sr-only"><?php printf( esc_html__( '%s exists', 'brendon-core' ), esc_html( $site_title ) ); ?></span>
 				</a>
 			</h1>
-			<?php if ( $site_description ) : ?>
+			<?php if ( $site_description && $show_description ) : ?>
 				<p class="text-sm text-slate-600"><?php echo esc_html( $site_description ); ?></p>
 			<?php endif; ?>
 		</div>

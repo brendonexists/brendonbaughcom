@@ -106,14 +106,48 @@
 
 	const summary = mobileMenu.querySelector( 'summary' );
 	const panel = mobileMenu.querySelector( '#bb-mobile-menu-panel' );
+	const backdrop = mobileMenu.querySelector( '[data-bb-mobile-backdrop]' );
+	const closeButton = mobileMenu.querySelector( '[data-bb-mobile-close]' );
 	if ( ! summary || ! panel ) {
 		return;
 	}
 
+	const setOpen = ( nextOpen ) => {
+		if ( nextOpen ) {
+			mobileMenu.setAttribute( 'open', '' );
+		} else {
+			mobileMenu.removeAttribute( 'open' );
+		}
+	};
+
 	const updateExpanded = () => {
-		summary.setAttribute( 'aria-expanded', mobileMenu.open ? 'true' : 'false' );
+		const isOpen = mobileMenu.open;
+		summary.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
+		document.body.classList.toggle( 'bb-mobile-menu-open', isOpen );
+		document.documentElement.classList.toggle( 'bb-mobile-menu-open', isOpen );
+	};
+
+	const closeMenu = () => {
+		if ( ! mobileMenu.open ) {
+			return;
+		}
+		setOpen( false );
+		summary.focus();
 	};
 
 	updateExpanded();
 	mobileMenu.addEventListener( 'toggle', updateExpanded );
+
+	if ( backdrop ) {
+		backdrop.addEventListener( 'click', closeMenu );
+	}
+	if ( closeButton ) {
+		closeButton.addEventListener( 'click', closeMenu );
+	}
+
+	document.addEventListener( 'keydown', ( event ) => {
+		if ( event.key === 'Escape' ) {
+			closeMenu();
+		}
+	} );
 }() );

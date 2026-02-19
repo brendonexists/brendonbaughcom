@@ -12,13 +12,13 @@ get_header();
 ?>
 
 <main id="primary" class="site-main min-h-screen bg-canvas text-slate-900">
-	<div class="w-full px-6 py-8">
+	<div class="w-full py-8">
 
 		<div class="lg:hidden mb-2">
 			<?php get_template_part('template-parts/mobile-sidebar-panel'); ?>
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
+		<div class="bb-container grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
 
 			<aside class="hidden lg:block">
 				<?php get_template_part('template-parts/sidebar-panel'); ?>
@@ -71,7 +71,7 @@ get_header();
 								<?php foreach ($slider_posts as $post) : ?>
 									<?php setup_postdata($post); ?>
 									<?php $thumb_url = has_post_thumbnail($post) ? get_the_post_thumbnail_url($post, 'large') : ''; ?>
-									<article class="group relative flex-none w-full basis-full min-w-full snap-start rounded-3xl border border-border bg-white p-6 transition hover:-translate-y-1 animate-featuredWave" style="flex: 0 0 100%; width: 100%; min-width: 100%;">
+									<article class="group relative flex-none w-full basis-full min-w-full snap-start rounded-3xl border border-border bg-white p-6 transition hover:-translate-y-1 animate-featuredWave">
 										<span class="absolute top-5 right-5 z-20 rounded-full bg-danger px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white">
 											<?php esc_html_e('Featured', 'brendon-core'); ?>
 										</span>
@@ -98,6 +98,11 @@ get_header();
 								<?php wp_reset_postdata(); ?>
 							</div>
 						</div>
+						<div class="mt-2 flex items-center justify-center gap-2 lg:hidden" data-slider-dots aria-label="<?php esc_attr_e('Featured slider pagination', 'brendon-core'); ?>">
+							<?php foreach ($slider_posts as $slide_index => $slide_post) : ?>
+								<button type="button" class="h-2 w-2 rounded-full border border-border bg-white/80 transition" data-slider-dot aria-label="<?php echo esc_attr(sprintf(__('Go to slide %d', 'brendon-core'), $slide_index + 1)); ?>"></button>
+							<?php endforeach; ?>
+						</div>
 
 						<div class="flex items-center">
 							<div aria-hidden="true" class="w-full border-t border-border"></div>
@@ -118,12 +123,37 @@ get_header();
 
 							const prev = document.querySelector('[data-slider-prev]');
 							const next = document.querySelector('[data-slider-next]');
+							const dots = Array.from(document.querySelectorAll('[data-slider-dot]'));
+							const cards = Array.from(track.querySelectorAll('article'));
+
+							const updateDots = () => {
+								if (!dots.length || !cards.length) {
+									return;
+								}
+
+								const trackLeft = track.scrollLeft;
+								let closestIndex = 0;
+								let minDelta = Number.POSITIVE_INFINITY;
+
+								cards.forEach((card, index) => {
+									const delta = Math.abs(card.offsetLeft - trackLeft);
+									if (delta < minDelta) {
+										minDelta = delta;
+										closestIndex = index;
+									}
+								});
+
+								dots.forEach((dot, index) => {
+									dot.setAttribute('aria-current', index === closestIndex ? 'true' : 'false');
+								});
+							};
 
 							const getStep = () => Math.max(track.clientWidth * 0.9, 320);
 							let amount = getStep();
 
 							window.addEventListener('resize', () => {
 								amount = getStep();
+								updateDots();
 							});
 
 							const scrollStep = (direction = 1) => {
@@ -142,6 +172,7 @@ get_header();
 									left: target,
 									behavior: 'smooth'
 								});
+								updateDots();
 							};
 
 							let auto = setInterval(() => scrollStep(1), 6000);
@@ -163,6 +194,35 @@ get_header();
 								next.addEventListener('click', () => handleNav(1));
 							}
 
+							let scrollTicking = false;
+							track.addEventListener(
+								'scroll',
+								() => {
+									if (scrollTicking) {
+										return;
+									}
+									scrollTicking = true;
+									window.requestAnimationFrame(() => {
+										updateDots();
+										scrollTicking = false;
+									});
+								},
+								{ passive: true }
+							);
+
+							dots.forEach((dot, index) => {
+								dot.addEventListener('click', () => {
+									if (!cards[index]) {
+										return;
+									}
+									track.scrollTo({
+										left: cards[index].offsetLeft,
+										behavior: 'smooth'
+									});
+									resetAuto();
+								});
+							});
+
 							track.addEventListener('mouseenter', () => clearInterval(auto));
 							track.addEventListener('mouseleave', () => resetAuto());
 							document.addEventListener('visibilitychange', () => {
@@ -173,6 +233,7 @@ get_header();
 								resetAuto();
 							});
 
+							updateDots();
 						})();
 					</script>
 				<?php endif; ?>

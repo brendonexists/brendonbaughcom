@@ -27,11 +27,11 @@ while ( have_posts() ) :
 	?>
 
 	<main id="primary" class="site-main min-h-screen bg-canvas text-slate-900">
-		<div class="w-full px-6 py-8">
+		<div class="w-full py-8">
 			<div class="mb-6 lg:hidden">
 				<?php get_template_part( 'template-parts/mobile-sidebar-panel' ); ?>
 			</div>
-			<div class="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
+			<div class="bb-container grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
 
 				<aside class="hidden lg:block lg:sticky lg:top-8 self-start">
 					<?php get_template_part( 'template-parts/sidebar-panel' ); ?>

@@ -4,6 +4,8 @@
   color-scheme: dark;
   accent-color: var(--bb-blue);
 
+  --bb-gutter: clamp(16px, 4vw, 24px);
+
   --bb-cream: #F2EDD0;
   --bb-black: #0D0D0D;
   --bb-blue: #2975D9;
@@ -488,17 +490,210 @@ a:focus-visible {
   margin-right: 0.5rem;
 }
 
+.bb-container {
+  width: 100%;
+  max-width: 100%;
+  padding-left: var(--bb-gutter);
+  padding-right: var(--bb-gutter);
+}
+
+.bb-mobile-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bb-mobile-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: env(safe-area-inset-top);
+}
+
+.bb-mobile-header__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: center;
+  width: 100%;
+}
+
+.bb-mobile-panel {
+  position: relative;
+}
+
+.bb-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--bb-border-soft);
+  background-color: rgba(13, 13, 13, 0.45);
+  color: var(--bb-text);
+  box-shadow: 0 0 0 1px rgba(13, 13, 13, 0.08), 0 0 14px rgba(41, 117, 217, 0.25);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  list-style: none;
+  cursor: pointer;
+}
+
+.bb-menu-btn::-webkit-details-marker {
+  display: none;
+}
+
+.bb-menu-btn:focus-visible {
+  outline: 2px solid var(--bb-focus);
+  outline-offset: 3px;
+}
+
+.bb-menu-btn:hover {
+  border-color: rgba(41, 117, 217, 0.55);
+}
+
+.bb-mobile-panel[open] .bb-menu-btn {
+  border-color: rgba(41, 117, 217, 0.75);
+  box-shadow: 0 0 0 1px rgba(41, 117, 217, 0.4), 0 0 18px rgba(41, 117, 217, 0.35);
+}
+
+.bb-menu-icon {
+  position: relative;
+  width: 16px;
+  height: 12px;
+  border-top: 2px solid rgba(41, 117, 217, 0.9);
+  border-bottom: 2px solid rgba(41, 117, 217, 0.9);
+  opacity: 0.9;
+}
+
+.bb-menu-icon::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 2px solid rgba(41, 117, 217, 0.65);
+}
+
+.bb-menu-label {
+  display: inline-block;
+  color: var(--bb-cream);
+}
+
+.bb-mobile-panel__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 13, 13, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 35;
+}
+
 .bb-mobile-panel__body {
-  display: grid;
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 0.75rem);
+  left: var(--bb-gutter);
+  width: min(calc(100vw - (var(--bb-gutter) * 2)), 420px);
+  height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 1.5rem);
+  display: flex;
+  flex-direction: column;
   gap: 1.25rem;
-  margin-top: 1rem;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding: 1.5rem;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 1.25rem);
+  border-radius: 1.25rem;
+  border: 1px solid var(--bb-border);
+  background-color: rgba(13, 13, 13, 0.92);
+  box-shadow: 0 20px 60px rgba(13, 13, 13, 0.55);
+  overflow: hidden;
+  transform: translateX(-120%);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  z-index: 40;
+}
+
+.bb-mobile-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--bb-border-soft);
+}
+
+.bb-mobile-panel__title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bb-text-muted);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.bb-mobile-panel__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--bb-border-soft);
+  background-color: rgba(242, 237, 208, 0.1);
+  color: var(--bb-cream);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.bb-mobile-panel__close:focus-visible {
+  outline: 2px solid var(--bb-focus);
+  outline-offset: 3px;
+}
+
+.bb-mobile-panel__scroll {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 0.25rem;
+}
+
+.bb-mobile-panel__scroll .sidebar-socials__list {
+  margin-top: 0;
 }
 
 .bb-mobile-panel[open] .bb-mobile-panel__body {
-  max-height: calc(100vh - 6rem);
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.bb-mobile-panel[open] .bb-mobile-panel__backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+html.bb-mobile-menu-open,
+body.bb-mobile-menu-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-mobile-panel__body,
+  .bb-mobile-panel__backdrop {
+    transition: none;
+  }
+}
 }
 
 /* Component mappings */

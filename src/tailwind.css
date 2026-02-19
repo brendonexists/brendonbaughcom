@@ -334,6 +334,48 @@ Version: 0.1
     transform: translateZ(0);
   }
 
+  [data-slider-track] {
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+  }
+
+  [data-slider-dot] {
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  [data-slider-dot][aria-current="true"] {
+    background-color: var(--c-primary);
+    border-color: var(--c-primary);
+    transform: scale(1.2);
+  }
+
+  @media (max-width: 768px) {
+    [data-slider-track] {
+      scroll-snap-type: x proximity;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      scroll-padding-left: 1rem;
+      scroll-padding-right: 1rem;
+    }
+
+    [data-slider-track] > article {
+      flex: 0 0 92%;
+      width: 92%;
+      min-width: 92%;
+      padding: 1rem;
+    }
+
+    [data-slider-track] > article .mb-4 {
+      margin-bottom: 0.75rem;
+    }
+
+    [data-slider-track] > article .mb-4 > div {
+      height: clamp(220px, 40vh, 360px);
+    }
+  }
+
   /* Latest posts mosaic: dense CSS grid using row-unit packing. */
   .latest-posts-mosaic {
     --latest-posts-gap: var(--gap, 1.5rem);
