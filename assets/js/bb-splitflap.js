@@ -1,10 +1,10 @@
 (() => {
-  const boards = document.querySelectorAll('.bb-flap');
+  const boards = document.querySelectorAll('[data-bb-splitflap]');
   if (!boards.length) {
     return;
   }
 
-  const WIDTH = 12;
+  const DEFAULT_WIDTH = 12;
   const PHRASES = ['exists', 'is real', 'is human', 'builds', 'ships', 'learns', 'logs'];
   const INTERVAL = 3600;
   const FLIP_DURATION = 280;
@@ -12,15 +12,24 @@
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const reduceMotion = prefersReducedMotion.matches;
+  const states = new Map();
 
-  const pad = (value) => {
-    const trimmed = value.slice(0, WIDTH);
-    const totalPad = WIDTH - trimmed.length;
+  const pad = (value, width) => {
+    const trimmed = value.slice(0, width);
+    const totalPad = width - trimmed.length;
     const leftPad = Math.floor(totalPad / 2);
     const rightPad = totalPad - leftPad;
     return `${' '.repeat(leftPad)}${trimmed}${' '.repeat(rightPad)}`;
   };
   const toDisplayChar = (char) => (char === ' ' ? '\u00A0' : char);
+
+  const getBoardWidth = (board) => {
+    const value = Number.parseInt(board.dataset.bbWidth || '', 10);
+    if (Number.isFinite(value) && value > 0) {
+      return value;
+    }
+    return DEFAULT_WIDTH;
+  };
 
   const buildFlip = () => {
     const flip = document.createElement('span');
@@ -87,12 +96,13 @@
     }, delay);
   };
 
-  const buildBoard = (board) => {
-    board.style.setProperty('--bb-width', String(WIDTH));
+  const buildBoard = (board, width) => {
+    board.style.setProperty('--bb-width', String(width));
     board.setAttribute('role', 'presentation');
+    board.innerHTML = '';
     const flips = [];
 
-    for (let i = 0; i < WIDTH; i += 1) {
+    for (let i = 0; i < width; i += 1) {
       const flip = buildFlip();
       board.appendChild(flip.el);
       flips.push(flip);
@@ -101,32 +111,79 @@
     return flips;
   };
 
-  boards.forEach((board) => {
-    const flips = buildBoard(board);
-    let phraseIndex = reduceMotion ? 0 : Math.floor(Math.random() * PHRASES.length);
-    let current = pad(PHRASES[phraseIndex]);
+  const resetBoard = (state) => {
+    for (let i = 0; i < state.width; i += 1) {
+      const flip = state.flips[i];
+      flip.el.classList.remove('is-flipping');
+      flip.isFlipping = false;
+      setChar(flip, state.current[i]);
+    }
+  };
 
-    for (let i = 0; i < WIDTH; i += 1) {
+  const tickBoard = (state) => {
+    state.phraseIndex = (state.phraseIndex + 1) % PHRASES.length;
+    const next = pad(PHRASES[state.phraseIndex], state.width);
+
+    let staggerIndex = 0;
+    for (let i = 0; i < state.width; i += 1) {
+      if (state.current[i] !== next[i]) {
+        flipTo(state.flips[i], next[i], staggerIndex * STAGGER);
+        staggerIndex += 1;
+      }
+    }
+
+    state.current = next;
+  };
+
+  const initBoard = (board) => {
+    if (board.dataset.bbSplitflapInit === 'true' && states.has(board)) {
+      return;
+    }
+
+    const width = getBoardWidth(board);
+    const flips = buildBoard(board, width);
+    const phraseIndex = reduceMotion ? 0 : Math.floor(Math.random() * PHRASES.length);
+    const current = pad(PHRASES[phraseIndex], width);
+
+    for (let i = 0; i < width; i += 1) {
       setChar(flips[i], current[i]);
     }
+
+    const state = {
+      board,
+      width,
+      flips,
+      phraseIndex,
+      current,
+      intervalId: null,
+    };
+
+    states.set(board, state);
+    board.dataset.bbSplitflapInit = 'true';
 
     if (reduceMotion) {
       return;
     }
 
-    window.setInterval(() => {
-      phraseIndex = (phraseIndex + 1) % PHRASES.length;
-      const next = pad(PHRASES[phraseIndex]);
-
-      let staggerIndex = 0;
-      for (let i = 0; i < WIDTH; i += 1) {
-        if (current[i] !== next[i]) {
-          flipTo(flips[i], next[i], staggerIndex * STAGGER);
-          staggerIndex += 1;
-        }
+    state.intervalId = window.setInterval(() => {
+      if (document.visibilityState && document.visibilityState !== 'visible') {
+        return;
       }
-
-      current = next;
+      tickBoard(state);
     }, INTERVAL);
-  });
+  };
+
+  boards.forEach(initBoard);
+
+  const handleVisibility = () => {
+    if (document.visibilityState && document.visibilityState !== 'visible') {
+      return;
+    }
+    states.forEach((state) => {
+      resetBoard(state);
+    });
+  };
+
+  document.addEventListener('visibilitychange', handleVisibility);
+  window.addEventListener('pageshow', handleVisibility);
 })();

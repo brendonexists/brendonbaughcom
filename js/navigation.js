@@ -97,3 +97,23 @@
 		}
 	}
 }() );
+
+( function() {
+	const mobileMenu = document.querySelector( '[data-bb-mobile-menu]' );
+	if ( ! mobileMenu ) {
+		return;
+	}
+
+	const summary = mobileMenu.querySelector( 'summary' );
+	const panel = mobileMenu.querySelector( '#bb-mobile-menu-panel' );
+	if ( ! summary || ! panel ) {
+		return;
+	}
+
+	const updateExpanded = () => {
+		summary.setAttribute( 'aria-expanded', mobileMenu.open ? 'true' : 'false' );
+	};
+
+	updateExpanded();
+	mobileMenu.addEventListener( 'toggle', updateExpanded );
+}() );

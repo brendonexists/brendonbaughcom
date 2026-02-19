@@ -8,6 +8,23 @@
 
 $site_title = get_bloginfo('name');
 $site_description = get_bloginfo('description');
+$custom_logo_id = get_theme_mod('custom_logo');
+$logo_img = '';
+$has_logo = false;
+$flap_width = 12;
+
+if ( $custom_logo_id ) {
+	$has_logo = true;
+	$logo_img = wp_get_attachment_image(
+		$custom_logo_id,
+		'medium',
+		false,
+		[
+			'class' => 'h-full w-full object-cover',
+			'alt'   => esc_attr( $site_title ),
+		]
+	);
+}
 $fallback_pages = brendon_core_sidebar_fallback_pages();
 $social_links = brendon_core_get_sidebar_social_links();
 ?>
@@ -16,61 +33,34 @@ $social_links = brendon_core_get_sidebar_social_links();
 
 	<div class="sidebar-panel__content">
 		<?php
-		$custom_logo_id = get_theme_mod('custom_logo');
-		if ($custom_logo_id) :
-			$logo_img = wp_get_attachment_image(
-				$custom_logo_id,
-				'medium',
-				false,
-				[
-					'class' => 'h-full w-full object-cover',
-					'alt'   => esc_attr($site_title),
-				]
-			);
+		get_template_part(
+			'template-parts/sidebar-header',
+			null,
+			[
+				'site_title'       => $site_title,
+				'site_description' => $site_description,
+				'has_logo'         => $has_logo,
+				'flap_width'       => $flap_width,
+			]
+		);
 		?>
 
-			<div class="text-center">
-				<h1 class="site-title text-2xl font-extrabold tracking-[0.04em] leading-tight text-slate-900 font-display">
-					<a class="site-title__link" href="<?php echo esc_url(home_url('/')); ?>">
-						<span class="site-title__name uppercase"><?php echo esc_html($site_title); ?></span><span class="bb-flap" aria-hidden="true"></span>
-						<span class="sr-only" id="bbFlapSR"><?php printf(esc_html__('%s exists', 'brendon-core'), esc_html($site_title)); ?></span>
-					</a>
-				</h1>
-			</div>
-			<?php if ($site_description) : ?>
-				<p class="text-sm text-slate-600 text-center mt-0"><?php echo esc_html($site_description); ?></p>
-			<?php endif; ?>
-
-		<?php else : ?>
-			<div class="space-y-1">
-				<h1 class="site-title text-2xl font-extrabold tracking-[0.04em] leading-tight text-slate-900 font-display">
-					<a class="site-title__link" href="<?php echo esc_url(home_url('/')); ?>">
-						<span class="site-title__name uppercase"><?php echo esc_html($site_title); ?></span><span class="bb-flap" aria-hidden="true"></span>
-						<span class="sr-only" id="bbFlapSR"><?php printf(esc_html__('%s exists', 'brendon-core'), esc_html($site_title)); ?></span>
-					</a>
-				</h1>
-				<?php if ($site_description) : ?>
-					<p class="text-sm text-slate-600"><?php echo esc_html($site_description); ?></p>
-				<?php endif; ?>
-			</div>
-		<?php endif; ?>
-
-		<nav class="space-y-2 pt-6" aria-label="<?php echo esc_attr_x('Sidebar menu', 'aria label', 'brendon-core'); ?>">
+		<nav class="bb-nav bb-nav--primary pt-6" aria-label="<?php echo esc_attr_x('Sidebar menu', 'aria label', 'brendon-core'); ?>">
 			<?php if (has_nav_menu('sidebar')) : ?>
 				<?php
 				wp_nav_menu([
 					'theme_location' => 'sidebar',
 					'container' => false,
-					'menu_class' => 'space-y-2',
+					'menu_class' => 'bb-nav__list',
 					'depth' => 1,
 					'fallback_cb' => false,
 				]);
 				?>
 			<?php else : ?>
 				<?php $sidebar_menu_link_classes = brendon_core_sidebar_menu_base_classes(); ?>
-				<ul class="space-y-2">
+				<ul class="bb-nav__list">
 					<?php foreach ($fallback_pages as $page) : ?>
-						<li>
+						<li class="bb-nav__item">
 							<a href="<?php echo esc_url($page['url']); ?>" class="<?php echo esc_attr($sidebar_menu_link_classes); ?>">
 								<?php echo esc_html($page['label']); ?>
 							</a>
@@ -87,16 +77,16 @@ $social_links = brendon_core_get_sidebar_social_links();
 				$sidebar_secondary_label = esc_html__('More links', 'brendon-core');
 			}
 			?>
-			<div class="space-y-2">
-				<p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+			<div class="bb-nav__section">
+				<p class="bb-nav__meta">
 					<?php echo esc_html($sidebar_secondary_label); ?>
 				</p>
-				<nav class="space-y-2" aria-label="<?php echo esc_attr_x('Sidebar secondary menu', 'aria label', 'brendon-core'); ?>">
+				<nav class="bb-nav" aria-label="<?php echo esc_attr_x('Sidebar secondary menu', 'aria label', 'brendon-core'); ?>">
 					<?php
 					wp_nav_menu([
 						'theme_location' => 'sidebar-secondary',
 						'container' => false,
-						'menu_class' => 'space-y-2',
+						'menu_class' => 'bb-nav__list',
 						'depth' => 1,
 						'fallback_cb' => false,
 					]);
@@ -124,8 +114,7 @@ $social_links = brendon_core_get_sidebar_social_links();
 		</ul>
 		<div class="flex justify-center mt-0 pt-0 mb-0 pb-0">
 			<a class="sidebar-avatar h-[180px] w-[180px] overflow-hidden rounded-full border border-border bg-white shadow-sm" data-crt-avatar href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr($site_title); ?>">
-				<?php echo $logo_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				?>
+				<?php echo $logo_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</a>
 		</div>
 		<div class="mt-4 text-xs text-center text-slate-500">

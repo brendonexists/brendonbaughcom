@@ -263,13 +263,13 @@ function brendon_core_get_social_icon_svg( $icon, $classes = 'h-4 w-4' ) {
  * @return string
  */
 function brendon_core_sidebar_menu_base_classes( $is_active = false ) {
-	$classes = 'flex w-full items-center rounded-lg border border-border px-3 py-2 text-sm font-medium text-slate-700 bg-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary hover:bg-primary/10 hover:text-slate-900';
+	$classes = [ 'bb-nav__link' ];
 
 	if ( $is_active ) {
-		$classes .= ' bg-primary/10 border-l-4 border-primary font-semibold text-slate-900';
+		$classes[] = 'bb-nav__link--active';
 	}
 
-	return $classes;
+	return implode( ' ', $classes );
 }
 
 /**
@@ -287,6 +287,7 @@ function brendon_core_sidebar_menu_item_classes( $classes, $item, $args, $depth 
 			return false === strpos( $class, 'menu-' );
 		} );
 		$classes[] = 'list-none';
+		$classes[] = 'bb-nav__item';
 	}
 
 	return $classes;
