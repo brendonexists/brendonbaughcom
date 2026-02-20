@@ -556,14 +556,120 @@ Version: 0.1
     outline-offset: 2px;
   }
 
-  .bb-nav .bb-nav__link--active,
-  .bb-nav .bb-nav__link[aria-current="page"] {
-    background-color: rgb(var(--c-primary-rgb) / 0.18);
-    border-left-width: 4px;
-    border-color: var(--c-primary);
-    box-shadow: inset 3px 0 0 var(--c-primary), 0 0 0 1px rgba(13, 13, 13, 0.08);
-    color: var(--c-text);
+  .bb-nav li.current-menu-item > a,
+  .bb-nav li.current_page_item > a,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a[aria-current="page"],
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a.bb-nav__link--active,
+  .bb-nav .bb-nav__link.is-lava-hover {
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+    color: #F2EDD0;
+    background-color: transparent;
+    border-color: transparent;
     font-weight: 600;
+    overflow: hidden;
+  }
+
+  .bb-nav li.current-menu-item > a:hover,
+  .bb-nav li.current_page_item > a:hover,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a[aria-current="page"]:hover,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a.bb-nav__link--active:hover,
+  .bb-nav .bb-nav__link.is-lava-hover:hover,
+  .bb-nav li.current-menu-item > a:focus-visible,
+  .bb-nav li.current_page_item > a:focus-visible,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a[aria-current="page"]:focus-visible,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a.bb-nav__link--active:focus-visible,
+  .bb-nav .bb-nav__link.is-lava-hover:focus-visible {
+    color: #F2EDD0;
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  .bb-nav li.current-menu-item > a::before,
+  .bb-nav li.current_page_item > a::before,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a[aria-current="page"]::before,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a.bb-nav__link--active::before,
+  .bb-nav .bb-nav__link.is-lava-hover::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: var(--c-border);
+    background-size: auto;
+    z-index: -3;
+    opacity: 1;
+    box-shadow: none;
+    animation: none;
+    pointer-events: none;
+  }
+
+  .bb-nav li.current-menu-item > a::after,
+  .bb-nav li.current_page_item > a::after,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a[aria-current="page"]::after,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a.bb-nav__link--active::after,
+  .bb-nav .bb-nav__link.is-lava-hover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: #F22E2E;
+    z-index: -2;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(13, 13, 13, 0.2);
+  }
+
+  .bb-nav li.current-menu-item > a .bb-nav__lava,
+  .bb-nav li.current_page_item > a .bb-nav__lava,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a[aria-current="page"] .bb-nav__lava,
+  .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a.bb-nav__link--active .bb-nav__lava,
+  .bb-nav .bb-nav__link.is-lava-hover .bb-nav__lava {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.6;
+    filter: blur(14px) contrast(12);
+    pointer-events: none;
+  }
+
+  @keyframes bbActiveSweep {
+    0% {
+      background-position: 0% 50%;
+    }
+    14% {
+      background-position: 20% 50%;
+    }
+    32% {
+      background-position: 62% 50%;
+    }
+    46% {
+      background-position: 52% 50%;
+    }
+    62% {
+      background-position: 108% 50%;
+    }
+    76% {
+      background-position: 92% 50%;
+    }
+    88% {
+      background-position: 150% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bb-nav li.current-menu-item > a::before,
+    .bb-nav li.current_page_item > a::before,
+    .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a[aria-current="page"]::before,
+    .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a.bb-nav__link--active::before {
+      animation: none;
+      background-position: 50% 50%;
+    }
   }
 
   .bb-nav__meta {

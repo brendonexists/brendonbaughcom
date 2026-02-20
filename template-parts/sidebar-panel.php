@@ -45,7 +45,7 @@ $social_links = brendon_core_get_sidebar_social_links();
 		);
 		?>
 
-		<nav class="bb-nav bb-nav--primary pt-6" aria-label="<?php echo esc_attr_x('Sidebar menu', 'aria label', 'brendon-core'); ?>">
+		<nav class="bb-nav bb-nav--primary pt-2" aria-label="<?php echo esc_attr_x('Sidebar menu', 'aria label', 'brendon-core'); ?>">
 			<?php if (has_nav_menu('sidebar')) : ?>
 				<?php
 				wp_nav_menu([
