@@ -99,6 +99,13 @@
 }() );
 
 ( function() {
+	if ( typeof navigator !== 'undefined' ) {
+		const isWindows = /Win/.test( navigator.platform || '' ) || /Windows/.test( navigator.userAgent || '' );
+		if ( isWindows ) {
+			document.documentElement.classList.add( 'bb-os-windows' );
+		}
+	}
+
 	const activeSelector = [
 		'.bb-nav li.current-menu-item > a',
 		'.bb-nav li.current_page_item > a',

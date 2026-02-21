@@ -590,6 +590,15 @@ a:focus-visible {
   pointer-events: none;
 }
 
+.bb-os-windows .bb-nav li.current-menu-item > a .bb-nav__lava,
+.bb-os-windows .bb-nav li.current_page_item > a .bb-nav__lava,
+.bb-os-windows .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a[aria-current="page"] .bb-nav__lava,
+.bb-os-windows .bb-nav li:not(.current_page_parent):not(.current_page_ancestor) > a.bb-nav__link--active .bb-nav__lava,
+.bb-os-windows .bb-nav .bb-nav__link.is-lava-hover .bb-nav__lava {
+  opacity: 0.72;
+  filter: blur(13px) contrast(14);
+}
+
 @keyframes bbActiveSweep {
   0% {
     background-position: 0% 50%;
