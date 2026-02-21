@@ -495,7 +495,20 @@
 			}
 		};
 
+		let initAttempts = 0;
+		const ensureSized = () => {
+			if ( lamp || initAttempts >= 8 ) {
+				return;
+			}
+			initAttempts += 1;
+			resize();
+			if ( ! lamp ) {
+				window.requestAnimationFrame( ensureSized );
+			}
+		};
+
 		resize();
+		ensureSized();
 
 		const scheduleResize = () => {
 			if ( resizeRaf ) {
@@ -514,6 +527,7 @@
 			usesWindowResize = true;
 			window.addEventListener( 'resize', scheduleResize, { passive: true } );
 		}
+		window.addEventListener( 'load', scheduleResize, { passive: true, once: true } );
 
 		if ( reducedMotion ) {
 			draw();
