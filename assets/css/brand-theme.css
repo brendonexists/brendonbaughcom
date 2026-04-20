@@ -913,6 +913,8 @@ select {
 
 .bb-singular__wrap {
   max-width: 840px;
+  padding-inline-end: 12px;
+  padding-bottom: 12px;
 }
 
 .bb-singular__paper {
@@ -1622,10 +1624,6 @@ select {
 .bb-contact__form {
   display: grid;
   gap: 16px;
-  border: 1.5px solid color-mix(in srgb, var(--bb-black) 20%, transparent);
-  border-radius: var(--bb-radius);
-  background: var(--bb-cream);
-  padding: clamp(20px, 4vw, 34px);
 }
 
 .bb-contact__form p {
