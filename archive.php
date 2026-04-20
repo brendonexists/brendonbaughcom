@@ -8,7 +8,7 @@
 get_header();
 
 $archive_heading = get_the_archive_title();
-$archive_heading = preg_replace( '/^[^:]+:\s*/', '', $archive_heading );
+$archive_heading = wp_strip_all_tags( preg_replace( '/^[^:]+:\s*/', '', $archive_heading ) );
 ?>
 
 <main id="primary" class="bb-main">

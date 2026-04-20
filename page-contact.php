@@ -29,14 +29,15 @@ while ( have_posts() ) :
 	<main id="primary" class="bb-main">
 		<section class="bb-page-hero bb-section">
 			<div class="bb-wrap">
-				<p class="bb-kicker"><?php esc_html_e('Contact', 'brendon-core'); ?></p>
+				<p class="bb-kicker"><?php esc_html_e('Get in touch', 'brendon-core'); ?></p>
 				<h1><?php the_title(); ?></h1>
 				<p><?php esc_html_e('For thoughtful work, honest questions, and conversations that do not need to be louder than they are true.', 'brendon-core'); ?></p>
 			</div>
 		</section>
 
 		<section class="bb-section">
-			<div class="bb-wrap bb-contact">
+			<div class="bb-wrap">
+			<div class="bb-singular__paper bb-contact">
 				<div class="bb-contact__intro">
 					<?php if ( '' !== trim( get_the_content() ) ) : ?>
 						<div class="entry-content bb-content">
@@ -86,6 +87,7 @@ while ( have_posts() ) :
 
 					<button type="submit"><?php esc_html_e( 'Send message', 'brendon-core' ); ?></button>
 				</form>
+			</div>
 			</div>
 		</section>
 	</main>

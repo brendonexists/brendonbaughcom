@@ -857,16 +857,24 @@ button[type="submit"]:hover {
 }
 
 .bb-page-hero {
-  border-bottom: 2px solid var(--bb-black);
+  border-bottom: 2px solid color-mix(in srgb, var(--bb-cream) 18%, transparent);
+  background: var(--bb-black);
+  color: var(--bb-cream);
 }
 
 .bb-page-hero h1 {
   max-width: 14ch;
+  color: var(--bb-cream);
+}
+
+.bb-page-hero .bb-kicker {
+  color: var(--bb-blue);
 }
 
 .bb-page-hero p,
 .bb-page-hero__description {
   margin-top: 24px;
+  color: color-mix(in srgb, var(--bb-cream) 78%, transparent);
 }
 
 .bb-page-hero form,
@@ -905,6 +913,14 @@ select {
 
 .bb-singular__wrap {
   max-width: 840px;
+}
+
+.bb-singular__paper {
+  border: 2px solid var(--bb-black);
+  border-radius: var(--bb-radius);
+  background: #fff;
+  padding: clamp(28px, 5vw, 64px);
+  box-shadow: 8px 8px 0 var(--bb-blue);
 }
 
 .bb-singular__header {
@@ -1606,11 +1622,10 @@ select {
 .bb-contact__form {
   display: grid;
   gap: 16px;
-  border: 2px solid var(--bb-black);
+  border: 1.5px solid color-mix(in srgb, var(--bb-black) 20%, transparent);
   border-radius: var(--bb-radius);
   background: var(--bb-cream);
   padding: clamp(20px, 4vw, 34px);
-  box-shadow: 8px 8px 0 var(--bb-black);
 }
 
 .bb-contact__form p {

@@ -168,57 +168,35 @@ $next_post = get_next_post();
 <?php endif; ?>
 
 <main id="primary" class="bb-main">
-	<article id="post-<?php the_ID(); ?>" <?php post_class( 'bb-singular bb-section' ); ?>>
-		<div class="bb-wrap bb-singular__wrap">
-			<header class="bb-singular__header">
-				<p class="bb-kicker">
-					<?php echo $is_post ? esc_html__( 'Log entry', 'brendon-core' ) : esc_html__( 'Page', 'brendon-core' ); ?>
-				</p>
-				<h1><?php the_title(); ?></h1>
-				<?php if ( $is_post ) : ?>
-					<div class="bb-singular__meta">
-						<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
-						<span aria-hidden="true">/</span>
-						<span><?php echo esc_html( get_the_author() ); ?></span>
-						<span aria-hidden="true">/</span>
-						<span>
-							<?php
-							printf(
-								/* translators: %s: minutes of reading time. */
-								esc_html__( '%s min read', 'brendon-core' ),
-								esc_html( number_format_i18n( $reading_minutes ) )
-							);
-							?>
-						</span>
-					</div>
-				<?php endif; ?>
-			</header>
+	<section class="bb-page-hero bb-section">
+		<div class="bb-wrap">
+			<h1><?php the_title(); ?></h1>
+		</div>
+	</section>
 
+	<section class="bb-section">
+		<div class="bb-wrap bb-singular__wrap">
 			<?php if ( $show_featured ) : ?>
 				<figure class="bb-singular__media">
 					<?php the_post_thumbnail( 'brendon-core-wide' ); ?>
 				</figure>
 			<?php endif; ?>
 
-			<div class="entry-content bb-content">
-				<?php
-				the_content();
-				wp_link_pages(
-					[
-						'before' => '<nav class="bb-page-links">' . esc_html__( 'Pages:', 'brendon-core' ),
-						'after'  => '</nav>',
-					]
-				);
-				?>
+			<div class="bb-singular__paper">
+				<div class="entry-content bb-content">
+					<?php
+					the_content();
+					wp_link_pages(
+						[
+							'before' => '<nav class="bb-page-links">' . esc_html__( 'Pages:', 'brendon-core' ),
+							'after'  => '</nav>',
+						]
+					);
+					?>
+				</div>
 			</div>
-
-			<?php if ( $is_post ) : ?>
-				<footer class="bb-singular__footer">
-					<?php the_tags( '<span>' . esc_html__( 'Filed under:', 'brendon-core' ) . '</span> ', ', ', '' ); ?>
-				</footer>
-			<?php endif; ?>
 		</div>
-	</article>
+	</section>
 
 	<?php if ( comments_open() || get_comments_number() ) : ?>
 		<section class="bb-section bb-comments-section">
