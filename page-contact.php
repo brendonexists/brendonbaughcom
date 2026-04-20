@@ -35,7 +35,7 @@ while ( have_posts() ) :
 			</div>
 		</section>
 
-		<section class="bb-section">
+		<section class="bb-section bb-page-content">
 			<div class="bb-wrap">
 			<div class="bb-singular__paper bb-contact">
 				<div class="bb-contact__intro">

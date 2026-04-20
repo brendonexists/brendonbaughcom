@@ -174,7 +174,7 @@ $next_post = get_next_post();
 		</div>
 	</section>
 
-	<section class="bb-section">
+	<section class="bb-section bb-page-content">
 		<div class="bb-wrap bb-singular__wrap">
 			<?php if ( $show_featured ) : ?>
 				<figure class="bb-singular__media">

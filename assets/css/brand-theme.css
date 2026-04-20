@@ -917,6 +917,16 @@ select {
   padding-bottom: 12px;
 }
 
+.bb-page-content {
+  padding-top: 0;
+}
+
+.bb-page-content .bb-singular__paper {
+  position: relative;
+  z-index: 1;
+  margin-top: -52px;
+}
+
 .bb-singular__paper {
   border: 2px solid var(--bb-black);
   border-radius: var(--bb-radius);
