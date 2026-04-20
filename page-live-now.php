@@ -112,19 +112,17 @@ $status_updated     = date_i18n( get_option( 'date_format' ) . ' ' . get_option(
 
 ?>
 
-<main id="primary" class="site-main min-h-screen bg-canvas text-slate-900">
-	<div class="w-full py-8 space-y-8">
-		<div class="lg:hidden">
-			<?php get_template_part( 'template-parts/mobile-sidebar-panel' ); ?>
+<main id="primary" class="bb-main">
+	<section class="bb-page-hero bb-section">
+		<div class="bb-wrap">
+			<p class="bb-kicker"><?php echo esc_html( $status_label ); ?></p>
+			<h1><?php esc_html_e( 'Live now.', 'brendon-core' ); ?></h1>
+			<p><?php echo esc_html( $status_description ); ?></p>
 		</div>
+	</section>
 
-		<div class="bb-container grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
-
-			<aside class="hidden lg:block">
-				<?php get_template_part( 'template-parts/sidebar-panel' ); ?>
-			</aside>
-
-			<section class="space-y-6">
+	<section class="bb-section">
+		<div class="bb-wrap">
 				<div class="live-now-page">
 					<div class="live-now-layout">
 						<section class="live-now-player">
@@ -260,9 +258,8 @@ $status_updated     = date_i18n( get_option( 'date_format' ) . ' ' . get_option(
 						</div>
 					</div>
 				</div>
-			</section>
 		</div>
-	</div>
+	</section>
 </main>
 
 <?php

@@ -17,10 +17,6 @@ if (! defined('BB_HOME_POSTS_PER_PAGE')) {
 	define('BB_HOME_POSTS_PER_PAGE', 14);
 }
 
-if (! defined('BB_HOME_SLIDER_POSTS')) {
-	define('BB_HOME_SLIDER_POSTS', 3);
-}
-
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -54,11 +50,43 @@ function _s_setup()
 		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		*/
 	add_theme_support('post-thumbnails');
+	add_theme_support('responsive-embeds');
+	add_theme_support('align-wide');
+	add_theme_support('editor-styles');
+	add_theme_support('wp-block-styles');
+	add_editor_style('style.css');
 
-	// This theme uses wp_nav_menu() in one location.
+	add_theme_support(
+		'editor-color-palette',
+		[
+			[
+				'name'  => esc_html__('Signal Blue', 'brendon-core'),
+				'slug'  => 'signal-blue',
+				'color' => '#2975D9',
+			],
+			[
+				'name'  => esc_html__('Off-White Cream', 'brendon-core'),
+				'slug'  => 'off-white-cream',
+				'color' => '#F2EDD0',
+			],
+			[
+				'name'  => esc_html__('Conviction Red', 'brendon-core'),
+				'slug'  => 'conviction-red',
+				'color' => '#F22E2E',
+			],
+			[
+				'name'  => esc_html__('Deep Black', 'brendon-core'),
+				'slug'  => 'deep-black',
+				'color' => '#0D0D0D',
+			],
+		]
+	);
+
+	// This theme uses WordPress menus for the primary shell and footer.
 	register_nav_menus(
 		array(
 			'menu-1' => esc_html__('Primary', '_s'),
+			'footer' => esc_html__('Footer', 'brendon-core'),
 		)
 	);
 
@@ -85,7 +113,7 @@ function _s_setup()
 		apply_filters(
 			'_s_custom_background_args',
 			array(
-				'default-color' => 'ffffff',
+				'default-color' => 'F2EDD0',
 				'default-image' => '',
 			)
 		)
@@ -108,6 +136,9 @@ function _s_setup()
 			'flex-height' => true,
 		)
 	);
+
+	add_image_size('brendon-core-card', 960, 600, true);
+	add_image_size('brendon-core-wide', 1440, 810, true);
 }
 add_action('after_setup_theme', '_s_setup');
 
@@ -130,7 +161,7 @@ add_action('init', 'brendon_core_load_textdomains');
  */
 function _s_content_width()
 {
-	$GLOBALS['content_width'] = apply_filters('_s_content_width', 640);
+	$GLOBALS['content_width'] = apply_filters('_s_content_width', 840);
 }
 add_action('after_setup_theme', '_s_content_width', 0);
 
@@ -183,12 +214,6 @@ function _s_scripts()
 	$nav_js_path = get_template_directory() . '/js/navigation.js';
 	$nav_js_ver  = file_exists( $nav_js_path ) ? filemtime( $nav_js_path ) : _S_VERSION;
 	wp_enqueue_script('_s-navigation', get_template_directory_uri() . '/js/navigation.js', array(), $nav_js_ver, true);
-	$mosaic_js_path = get_template_directory() . '/js/mosaic.js';
-	$mosaic_js_ver  = file_exists( $mosaic_js_path ) ? filemtime( $mosaic_js_path ) : _S_VERSION;
-	wp_enqueue_script('brendon-core-mosaic', get_template_directory_uri() . '/js/mosaic.js', array(), $mosaic_js_ver, true);
-	$splitflap_js_path = get_template_directory() . '/assets/js/bb-splitflap.js';
-	$splitflap_js_ver  = file_exists( $splitflap_js_path ) ? filemtime( $splitflap_js_path ) : _S_VERSION;
-	wp_enqueue_script('brendon-core-bb-splitflap', get_template_directory_uri() . '/assets/js/bb-splitflap.js', array(), $splitflap_js_ver, true);
 	if (is_singular()) {
 		$embeds_js_path = get_template_directory() . '/assets/js/embeds.js';
 		$embeds_js_ver  = file_exists( $embeds_js_path ) ? filemtime( $embeds_js_path ) : _S_VERSION;
@@ -230,48 +255,6 @@ if (defined('JETPACK__VERSION')) {
 }
 
 /**
- * Ensure the homepage grid always pulls the full set of posts we expect.
- *
- * Uses the blog index template and runs only on the front-end main query so other
- * archives remain untouched. When BB_HOME_DEBUG is true (and WP_DEBUG_LOG is enabled)
- * it records the conditional flags, posts_per_page value, and selected template.
- *
- * @param WP_Query $query The query instance.
- */
-function bb_home_force_posts_per_page( $query ) {
-	if ( is_admin() || ! $query->is_main_query() ) {
-		return;
-	}
-
-	if ( ! $query->is_home() ) {
-		return;
-	}
-
-	$initial_posts_per_page = $query->get( 'posts_per_page' );
-	$target_posts_per_page  = defined( 'BB_HOME_POSTS_PER_PAGE' ) ? (int) BB_HOME_POSTS_PER_PAGE : 50;
-	$slider_posts           = defined( 'BB_HOME_SLIDER_POSTS' ) ? (int) BB_HOME_SLIDER_POSTS : 3;
-	$query->set( 'posts_per_page', $target_posts_per_page + $slider_posts );
-
-	if ( defined( 'BB_HOME_DEBUG' ) && BB_HOME_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
-		$template = get_query_template( 'home' ) ?: get_query_template( 'index' );
-		$template = $template ? wp_basename( $template ) : 'unknown';
-
-		error_log(
-			sprintf(
-				'bb_home_debug: front_page=%s home=%s main_query=%s posts_per_page(before)=%s after=%s template=%s',
-				$query->is_front_page() ? '1' : '0',
-				$query->is_home() ? '1' : '0',
-				$query->is_main_query() ? '1' : '0',
-				$initial_posts_per_page,
-				$query->get( 'posts_per_page' ),
-				$template
-			)
-		);
-	}
-}
-add_action( 'pre_get_posts', 'bb_home_force_posts_per_page', 25 );
-
-/**
  * Load WooCommerce compatibility file.
  */
 if (class_exists('WooCommerce')) {
@@ -297,7 +280,7 @@ function brendon_core_add_featured_meta_box()
 {
 	add_meta_box(
 		'brendon_core_featured_post',
-		esc_html__('Feature in Slider', 'brendon-core'),
+		esc_html__('Feature on Homepage', 'brendon-core'),
 		'brendon_core_featured_meta_box_callback',
 		'post',
 		'side',
@@ -318,7 +301,7 @@ function brendon_core_featured_meta_box_callback($post)
 	?>
 	<label>
 		<input type="checkbox" name="brendon_core_featured_post" value="1" <?php checked($value, '1'); ?> />
-		<?php esc_html_e('Feature this post in the homepage slider', 'brendon-core'); ?>
+		<?php esc_html_e('Feature this post in the homepage record block', 'brendon-core'); ?>
 	</label>
 	<?php
 }
@@ -364,41 +347,38 @@ function brendon_core_responsive_embed( $html, $url, $attr, $post_id ) {
 	$host = wp_parse_url( $url, PHP_URL_HOST );
 	$host = $host ? strtolower( str_replace( 'www.', '', $host ) ) : '';
 
-	$aspect = 'aspect-[16/9]';
 	$label  = '';
 
 	if ( str_contains( $host, 'spotify' ) ) {
-		$aspect = '';
 		$label  = esc_html__( 'Spotify', 'brendon-core' );
 	} elseif ( str_contains( $host, 'youtu' ) ) {
-		$aspect = 'lg:aspect-[21/9]';
 		$label  = esc_html__( 'YouTube', 'brendon-core' );
 	}
 
 	$wide_html = preg_replace( '/(width|height)="\d*"/i', '', $html );
 	$enhanced  = preg_replace(
 		'/<iframe([^>]*)>/i',
-		'<iframe$1 loading="lazy" class="h-full w-full rounded-2xl border-0 bg-surface-2" referrerpolicy="no-referrer" allowfullscreen>',
+		'<iframe$1 loading="lazy" class="bb-embed__iframe" referrerpolicy="no-referrer" allowfullscreen>',
 		$wide_html,
 		1
 	);
 
 	$label_html = $label
 		? sprintf(
-			'<span class="pointer-events-none absolute left-4 top-4 rounded-full bg-danger px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white shadow-sm">%s</span>',
+			'<span class="bb-embed__label">%s</span>',
 			esc_html( $label )
 		)
 		: '';
 
-	$wrapper_classes = 'relative w-full overflow-hidden rounded-2xl border border-border bg-white shadow-lg ring-1 ring-border transition focus-within:ring-2 focus-within:ring-primary/60';
+	$wrapper_classes = 'bb-embed';
 
 	if ( str_contains( $host, 'spotify' ) ) {
-		$wrapper_classes .= ' h-[120px] sm:h-[150px]';
+		$wrapper_classes .= ' bb-embed--audio';
 	} else {
-		$wrapper_classes .= " aspect-[16/9] $aspect";
+		$wrapper_classes .= str_contains( $host, 'youtu' ) ? ' bb-embed--wide' : ' bb-embed--video';
 	}
 
-	$wrapper = '<div class="%1$s">%2$s<div class="relative h-full w-full">%3$s</div></div>';
+	$wrapper = '<div class="%1$s">%2$s<div class="bb-embed__frame">%3$s</div></div>';
 
 	return sprintf(
 		$wrapper,

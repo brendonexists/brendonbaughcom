@@ -37,6 +37,318 @@ function _s_pingback_header() {
 add_action( 'wp_head', '_s_pingback_header' );
 
 /**
+ * Brand mark using the uploaded Custom Logo when available.
+ *
+ * @param string $classes CSS classes for the rendered mark.
+ * @return string
+ */
+function brendon_core_brand_mark( $classes = '' ) {
+	$custom_logo_id = get_theme_mod( 'custom_logo' );
+
+	if ( $custom_logo_id ) {
+		$logo = wp_get_attachment_image(
+			$custom_logo_id,
+			'full',
+			false,
+			[
+				'class' => trim( $classes . ' bb-mark bb-mark--uploaded' ),
+				'alt'   => '',
+			]
+		);
+
+		if ( $logo ) {
+			return $logo;
+		}
+	}
+
+	return brendon_core_split_heart_svg( trim( $classes . ' bb-mark' ) );
+}
+
+/**
+ * Inline split-heart brand mark fallback.
+ *
+ * @param string $classes CSS classes for the SVG element.
+ * @return string
+ */
+function brendon_core_split_heart_svg( $classes = '' ) {
+	return sprintf(
+		'<svg class="%1$s" viewBox="0 0 64 64" role="img" aria-label="%2$s" xmlns="http://www.w3.org/2000/svg"><path fill="#2975D9" d="M30.2 55.5C14.6 44.8 6 35.6 6 24.6 6 15.8 12.1 9.5 20.2 9.5c4.3 0 7.8 1.9 10 5.2v40.8Z"/><path fill="#F22E2E" d="M33.8 55.5V14.7c2.2-3.3 5.7-5.2 10-5.2C51.9 9.5 58 15.8 58 24.6c0 11-8.6 20.2-24.2 30.9Z"/><path fill="#0D0D0D" d="M30.2 12.8h3.6v45.7h-3.6z"/></svg>',
+		esc_attr( $classes ),
+		esc_attr__( 'Split heart mark', 'brendon-core' )
+	);
+}
+
+/**
+ * Adds a lightweight SVG favicon when WordPress has no site icon configured.
+ */
+function brendon_core_brand_favicon() {
+	if ( function_exists( 'has_site_icon' ) && has_site_icon() ) {
+		return;
+	}
+
+	$custom_logo_id = get_theme_mod( 'custom_logo' );
+	if ( $custom_logo_id ) {
+		$logo_url = wp_get_attachment_image_url( $custom_logo_id, 'full' );
+		if ( $logo_url ) {
+			printf( '<link rel="icon" href="%s">', esc_url( $logo_url ) );
+			return;
+		}
+	}
+
+	$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#F2EDD0"/><path fill="#2975D9" d="M30.2 55.5C14.6 44.8 6 35.6 6 24.6 6 15.8 12.1 9.5 20.2 9.5c4.3 0 7.8 1.9 10 5.2v40.8Z"/><path fill="#F22E2E" d="M33.8 55.5V14.7c2.2-3.3 5.7-5.2 10-5.2C51.9 9.5 58 15.8 58 24.6c0 11-8.6 20.2-24.2 30.9Z"/><path fill="#0D0D0D" d="M30.2 12.8h3.6v45.7h-3.6z"/></svg>';
+	printf( '<link rel="icon" href="data:image/svg+xml,%s">', rawurlencode( $svg ) );
+}
+add_action( 'wp_head', 'brendon_core_brand_favicon', 5 );
+
+/**
+ * Primary navigation fallback.
+ */
+function brendon_core_primary_menu_fallback() {
+	$items = brendon_core_identity_nav_items();
+
+	echo '<ul id="primary-menu" class="bb-primary-nav__list">';
+	foreach ( $items as $item ) {
+		printf(
+			'<li><a href="%1$s">%2$s</a></li>',
+			esc_url( $item['url'] ),
+			esc_html( $item['label'] )
+		);
+	}
+	echo '</ul>';
+}
+
+/**
+ * Footer navigation fallback.
+ */
+function brendon_core_footer_menu_fallback() {
+	$items = brendon_core_identity_nav_items();
+
+	echo '<ul class="bb-footer__links">';
+	foreach ( $items as $item ) {
+		printf(
+			'<li><a href="%1$s">%2$s</a></li>',
+			esc_url( $item['url'] ),
+			esc_html( $item['label'] )
+		);
+	}
+	echo '</ul>';
+}
+
+/**
+ * Default identity navigation used when menus have not been configured.
+ *
+ * @return array
+ */
+function brendon_core_identity_nav_items() {
+	return [
+		[
+			'label' => esc_html__( 'Home', 'brendon-core' ),
+			'url'   => home_url( '/' ),
+		],
+		[
+			'label' => esc_html__( 'About', 'brendon-core' ),
+			'url'   => home_url( '/about' ),
+		],
+		[
+			'label' => esc_html__( 'Writing', 'brendon-core' ),
+			'url'   => home_url( '/writing' ),
+		],
+		[
+			'label' => esc_html__( 'Projects', 'brendon-core' ),
+			'url'   => home_url( '/projects' ),
+		],
+		[
+			'label' => esc_html__( 'Faith', 'brendon-core' ),
+			'url'   => home_url( '/faith' ),
+		],
+		[
+			'label' => esc_html__( 'Contact', 'brendon-core' ),
+			'url'   => home_url( '/contact' ),
+		],
+	];
+}
+
+/**
+ * Estimated reading time for a post.
+ *
+ * @param int|null $post_id Post ID. Defaults to the current post.
+ * @return int
+ */
+function brendon_core_reading_minutes( $post_id = null ) {
+	$post_id = $post_id ?: get_the_ID();
+	$content = get_post_field( 'post_content', $post_id );
+	$words   = str_word_count( wp_strip_all_tags( strip_shortcodes( $content ?: '' ) ) );
+
+	return max( 1, (int) ceil( $words / 220 ) );
+}
+
+/**
+ * Best destination for the writing archive.
+ *
+ * @return string
+ */
+function brendon_core_writing_url() {
+	$posts_page_id = (int) get_option( 'page_for_posts' );
+
+	if ( $posts_page_id ) {
+		$posts_page_url = get_permalink( $posts_page_id );
+
+		if ( $posts_page_url ) {
+			return $posts_page_url;
+		}
+	}
+
+	return home_url( '/writing' );
+}
+
+/**
+ * Default homepage copy and editable settings.
+ *
+ * @return array
+ */
+function brendon_core_home_defaults() {
+	return [
+		'hero_kicker'          => esc_html__( 'Brendon Exists', 'brendon-core' ),
+		'hero_heading'         => esc_html__( 'Documenting real life in public, without pretending it is cleaner than it is.', 'brendon-core' ),
+		'hero_lede'            => esc_html__( 'Faith, fatherhood, discipline, building, creative work, and the slow practice of becoming a whole person.', 'brendon-core' ),
+		'hero_primary_label'   => esc_html__( 'Read the Logs', 'brendon-core' ),
+		'hero_primary_url'     => home_url( '/writing' ),
+		'hero_secondary_label' => esc_html__( 'Start With the Story', 'brendon-core' ),
+		'hero_secondary_url'   => home_url( '/about' ),
+		'what_kicker'          => esc_html__( 'What this is', 'brendon-core' ),
+		'what_heading'         => esc_html__( 'A home base for the work under the work.', 'brendon-core' ),
+		'what_body'            => esc_html__( 'Not a persona. Not a content funnel. A place to keep receipts from real life: conviction, doubt, reps, prayers, unfinished builds, and lessons learned the hard way.', 'brendon-core' ),
+		'writing_heading'      => esc_html__( 'Logs from the field.', 'brendon-core' ),
+		'writing_url'          => home_url( '/writing' ),
+		'projects_kicker'      => esc_html__( 'Projects / Builds', 'brendon-core' ),
+		'projects_heading'     => esc_html__( 'The useful things', 'brendon-core' ),
+		'projects_subheading'  => esc_html__( 'Get a paper trail.', 'brendon-core' ),
+		'projects_category'    => 0,
+		'season_kicker'        => esc_html__( 'Current season', 'brendon-core' ),
+		'season_heading'       => esc_html__( 'Build the home. Keep the record. Tell the truth.', 'brendon-core' ),
+		'season_body'          => esc_html__( 'Less performance. More practice. A steady archive of what is being learned, made, repaired, and carried.', 'brendon-core' ),
+	];
+}
+
+/**
+ * Get a homepage setting with a default fallback.
+ *
+ * @param string $key Setting key without prefix.
+ * @return string|int
+ */
+function brendon_core_home_setting( $key ) {
+	$defaults = brendon_core_home_defaults();
+
+	if ( ! array_key_exists( $key, $defaults ) ) {
+		return '';
+	}
+
+	return get_theme_mod( "brendon_core_home_{$key}", $defaults[ $key ] );
+}
+
+/**
+ * Core pillars for the homepage framework section.
+ *
+ * @return array
+ */
+function brendon_core_home_pillars() {
+	return [
+		esc_html__( 'Faith', 'brendon-core' ),
+		esc_html__( 'Fatherhood', 'brendon-core' ),
+		esc_html__( 'Discipline', 'brendon-core' ),
+		esc_html__( 'Building', 'brendon-core' ),
+		esc_html__( 'Creative Process', 'brendon-core' ),
+		esc_html__( 'Growth in Public', 'brendon-core' ),
+	];
+}
+
+/**
+ * Fallback project/build links for the homepage when no category posts exist.
+ *
+ * @return array
+ */
+function brendon_core_default_project_links() {
+	return [
+		[
+			'label'       => esc_html__( 'Systems', 'brendon-core' ),
+			'description' => esc_html__( 'Personal tools, web work, experiments, and repairs.', 'brendon-core' ),
+			'url'         => home_url( '/projects' ),
+		],
+		[
+			'label'       => esc_html__( 'Reflection', 'brendon-core' ),
+			'description' => esc_html__( 'Notes on conviction, surrender, practice, and becoming.', 'brendon-core' ),
+			'url'         => home_url( '/faith' ),
+		],
+		[
+			'label'       => esc_html__( 'Connection', 'brendon-core' ),
+			'description' => esc_html__( 'A direct path for thoughtful work and real conversation.', 'brendon-core' ),
+			'url'         => home_url( '/contact' ),
+		],
+	];
+}
+
+/**
+ * Retrieve project/build preview items.
+ *
+ * Uses posts from the selected category when configured, otherwise falls back
+ * to three editable navigation-style links. This keeps the CMS simple.
+ *
+ * @param int $limit Number of items to return.
+ * @return array
+ */
+function brendon_core_get_project_items( $limit = 3 ) {
+	$category_id = absint( brendon_core_home_setting( 'projects_category' ) );
+	$items       = [];
+
+	if ( $category_id ) {
+		$project_query = new WP_Query(
+			[
+				'cat'                 => $category_id,
+				'posts_per_page'      => $limit,
+				'post_status'         => 'publish',
+				'ignore_sticky_posts' => true,
+			]
+		);
+
+		while ( $project_query->have_posts() ) {
+			$project_query->the_post();
+			$items[] = [
+				'label'       => get_the_title(),
+				'description' => wp_trim_words( get_the_excerpt(), 18, '...' ),
+				'url'         => get_permalink(),
+			];
+		}
+
+		wp_reset_postdata();
+	}
+
+	if ( $items ) {
+		return $items;
+	}
+
+	$defaults = brendon_core_default_project_links();
+
+	foreach ( $defaults as $index => $default ) {
+		$number  = $index + 1;
+		$label   = get_theme_mod( "brendon_core_project_{$number}_label", $default['label'] );
+		$summary = get_theme_mod( "brendon_core_project_{$number}_description", $default['description'] );
+		$url     = get_theme_mod( "brendon_core_project_{$number}_url", $default['url'] );
+
+		if ( ! $label || ! $url ) {
+			continue;
+		}
+
+		$items[] = [
+			'label'       => $label,
+			'description' => $summary,
+			'url'         => $url,
+		];
+	}
+
+	return array_slice( $items, 0, $limit );
+}
+
+/**
  * Retrieve the sidebar menu items assigned to the sidebar location.
  *
  * @return array Array of WP_Post items representing the menu.

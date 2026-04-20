@@ -113,15 +113,6 @@ module.exports = {
           },
         },
       }),
-      keyframes: {
-        featuredWave: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-6px)' },
-        },
-      },
-      animation: {
-        featuredWave: 'featuredWave 10s ease-in-out infinite',
-      },
     },
   },
   plugins: [typography],

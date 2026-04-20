@@ -110,6 +110,135 @@ function brendon_core_customize_social_links( $wp_customize ) {
 add_action( 'customize_register', 'brendon_core_customize_social_links' );
 
 /**
+ * Register homepage identity controls.
+ *
+ * @param WP_Customize_Manager $wp_customize Theme Customizer object.
+ */
+function brendon_core_customize_homepage( $wp_customize ) {
+	$wp_customize->add_section(
+		'brendon_core_homepage',
+		[
+			'title'       => esc_html__( 'Homepage Identity', 'brendon-core' ),
+			'description' => esc_html__( 'Manage the copy and project source for the Brendon Exists homepage.', 'brendon-core' ),
+			'priority'    => 130,
+		]
+	);
+
+	$defaults = brendon_core_home_defaults();
+	$textareas = [
+		'hero_heading',
+		'hero_lede',
+		'what_heading',
+		'what_body',
+		'projects_heading',
+		'projects_subheading',
+		'season_heading',
+		'season_body',
+	];
+	$urls = [
+		'hero_primary_url',
+		'hero_secondary_url',
+		'writing_url',
+	];
+	$labels = [
+		'hero_kicker'          => esc_html__( 'Hero kicker', 'brendon-core' ),
+		'hero_heading'         => esc_html__( 'Hero heading', 'brendon-core' ),
+		'hero_lede'            => esc_html__( 'Hero support copy', 'brendon-core' ),
+		'hero_primary_label'   => esc_html__( 'Primary CTA label', 'brendon-core' ),
+		'hero_primary_url'     => esc_html__( 'Primary CTA URL', 'brendon-core' ),
+		'hero_secondary_label' => esc_html__( 'Secondary CTA label', 'brendon-core' ),
+		'hero_secondary_url'   => esc_html__( 'Secondary CTA URL', 'brendon-core' ),
+		'what_kicker'          => esc_html__( 'What This Is kicker', 'brendon-core' ),
+		'what_heading'         => esc_html__( 'What This Is heading', 'brendon-core' ),
+		'what_body'            => esc_html__( 'What This Is body', 'brendon-core' ),
+		'writing_heading'      => esc_html__( 'Latest Writing heading', 'brendon-core' ),
+		'writing_url'          => esc_html__( 'All Writing URL', 'brendon-core' ),
+		'projects_kicker'      => esc_html__( 'Projects kicker', 'brendon-core' ),
+		'projects_heading'     => esc_html__( 'Projects heading', 'brendon-core' ),
+		'projects_subheading'  => esc_html__( 'Projects subheading', 'brendon-core' ),
+		'season_kicker'        => esc_html__( 'Current Season kicker', 'brendon-core' ),
+		'season_heading'       => esc_html__( 'Current Season heading', 'brendon-core' ),
+		'season_body'          => esc_html__( 'Current Season body', 'brendon-core' ),
+	];
+
+	foreach ( $defaults as $key => $default ) {
+		if ( 'projects_category' === $key ) {
+			continue;
+		}
+
+		$wp_customize->add_setting(
+			"brendon_core_home_{$key}",
+			[
+				'default'           => $default,
+				'sanitize_callback' => in_array( $key, $urls, true ) ? 'esc_url_raw' : ( in_array( $key, $textareas, true ) ? 'sanitize_textarea_field' : 'sanitize_text_field' ),
+			]
+		);
+
+		$wp_customize->add_control(
+			"brendon_core_home_{$key}",
+			[
+				'label'   => $labels[ $key ] ?? $key,
+				'section' => 'brendon_core_homepage',
+				'type'    => in_array( $key, $textareas, true ) ? 'textarea' : ( in_array( $key, $urls, true ) ? 'url' : 'text' ),
+			]
+		);
+	}
+
+	$wp_customize->add_setting(
+		'brendon_core_home_projects_category',
+		[
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+		]
+	);
+
+	$category_choices = [ 0 => esc_html__( 'Use fallback links', 'brendon-core' ) ];
+	foreach ( get_categories( [ 'hide_empty' => false ] ) as $category ) {
+		$category_choices[ $category->term_id ] = $category->name;
+	}
+
+	$wp_customize->add_control(
+		'brendon_core_home_projects_category',
+		[
+			'label'       => esc_html__( 'Projects category', 'brendon-core' ),
+			'description' => esc_html__( 'Posts in this category will populate the Projects / Builds section. Leave empty to use fallback links.', 'brendon-core' ),
+			'section'     => 'brendon_core_homepage',
+			'type'        => 'select',
+			'choices'     => $category_choices,
+		]
+	);
+
+	$project_defaults = brendon_core_default_project_links();
+	foreach ( $project_defaults as $index => $project ) {
+		$number = $index + 1;
+		foreach ( [ 'label', 'description', 'url' ] as $field ) {
+			$setting = "brendon_core_project_{$number}_{$field}";
+			$wp_customize->add_setting(
+				$setting,
+				[
+					'default'           => $project[ $field ],
+					'sanitize_callback' => 'url' === $field ? 'esc_url_raw' : 'sanitize_text_field',
+				]
+			);
+			$wp_customize->add_control(
+				$setting,
+				[
+					'label'   => sprintf(
+						/* translators: 1: project number, 2: field label. */
+						esc_html__( 'Fallback project %1$d %2$s', 'brendon-core' ),
+						$number,
+						$field
+					),
+					'section' => 'brendon_core_homepage',
+					'type'    => 'description' === $field ? 'textarea' : ( 'url' === $field ? 'url' : 'text' ),
+				]
+			);
+		}
+	}
+}
+add_action( 'customize_register', 'brendon_core_customize_homepage' );
+
+/**
  * Customize the Live Now page settings.
  *
  * @param WP_Customize_Manager $wp_customize

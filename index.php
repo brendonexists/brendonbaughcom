@@ -1,9 +1,6 @@
 <?php
-
 /**
- * The main template file
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * Blog index template.
  *
  * @package brendon-core
  */
@@ -11,289 +8,33 @@
 get_header();
 ?>
 
-<main id="primary" class="site-main min-h-screen bg-canvas text-slate-900">
-	<div class="w-full py-8">
-
-		<div class="lg:hidden mb-2">
-			<?php get_template_part('template-parts/mobile-sidebar-panel'); ?>
+<main id="primary" class="bb-main">
+	<section class="bb-page-hero bb-section">
+		<div class="bb-wrap">
+			<p class="bb-kicker"><?php esc_html_e('Writing / Journal / Logs', 'brendon-core'); ?></p>
+			<h1><?php esc_html_e('The public record.', 'brendon-core'); ?></h1>
+			<p><?php esc_html_e('Notes from faith, family, discipline, work, building, and the creative process.', 'brendon-core'); ?></p>
 		</div>
+	</section>
 
-		<div class="bb-container grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
-
-			<aside class="hidden lg:block">
-				<?php get_template_part('template-parts/sidebar-panel'); ?>
-			</aside>
-
-			<section class="space-y-6">
-
-				<?php
-				$slider_limit   = defined('BB_HOME_SLIDER_POSTS') ? (int) BB_HOME_SLIDER_POSTS : 3;
-				$featured_args  = [
-					'posts_per_page'      => $slider_limit,
-					'post_status'         => 'publish',
-					'ignore_sticky_posts' => true,
-					'meta_query'          => [
-						[
-							'key'     => 'brendon_core_featured_post',
-							'value'   => '1',
-							'compare' => '=',
-						],
-					],
-				];
-				$featured_query = new WP_Query($featured_args);
-				$slider_posts  = $featured_query->have_posts() ? $featured_query->posts : [];
-				$featured_ids  = wp_list_pluck($slider_posts, 'ID');
-				wp_reset_postdata();
-
-				if (count($slider_posts) < $slider_limit) {
-					$excluded       = wp_list_pluck($slider_posts, 'ID');
-					$fill_query     = new WP_Query(
-						[
-							'posts_per_page'      => $slider_limit - count($slider_posts),
-							'post_status'         => 'publish',
-							'ignore_sticky_posts' => true,
-							'post__not_in'        => $excluded,
-						]
-					);
-					if ($fill_query->have_posts()) {
-						$slider_posts = array_merge($slider_posts, $fill_query->posts);
-					}
-					wp_reset_postdata();
-				}
-
-				$slider_posts = array_slice($slider_posts, 0, $slider_limit);
-				?>
-
-				<?php if ($slider_posts) : ?>
-					<section class="space-y-4 w-full">
-						<div class="relative w-full" role="region" aria-label="<?php esc_attr_e('Featured posts slider', 'brendon-core'); ?>">
-							<div data-slider-track class="flex w-full flex-nowrap gap-4 overflow-x-auto pb-0 scroll-smooth snap-x snap-mandatory touch-pan-x scrollbar-hidden bg-transparent">
-								<?php foreach ($slider_posts as $post) : ?>
-									<?php setup_postdata($post); ?>
-									<?php $thumb_url = has_post_thumbnail($post) ? get_the_post_thumbnail_url($post, 'large') : ''; ?>
-									<article class="group relative flex-none w-full basis-full min-w-full snap-start rounded-3xl border border-border bg-white p-6 transition hover:-translate-y-1 animate-featuredWave">
-										<span class="absolute top-5 right-5 z-20 rounded-full bg-danger px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white">
-											<?php esc_html_e('Featured', 'brendon-core'); ?>
-										</span>
-										<?php if ($thumb_url) : ?>
-											<div class="mb-4 overflow-hidden rounded-2xl bg-slate-100 z-0">
-												<div class="h-96 w-full overflow-hidden">
-													<img class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105" src="<?php echo esc_url($thumb_url); ?>" alt="<?php echo esc_attr(get_the_title($post)); ?>" />
-												</div>
-											</div>
-										<?php endif; ?>
-										<div class="flex flex-col gap-2">
-											<div class="text-xs font-semibold uppercase tracking-wider text-primary">
-												<?php echo get_the_category_list(' · ', '', $post->ID); ?>
-											</div>
-											<h3 class="text-2xl font-bold leading-tight text-slate-900">
-												<a href="<?php echo esc_url(get_permalink($post)); ?>" class="hover:text-primary"><?php echo esc_html(get_the_title($post)); ?></a>
-											</h3>
-											<p class="text-sm text-slate-600">
-												<?php echo wp_trim_words(get_the_excerpt($post), 30, '…'); ?>
-											</p>
-										</div>
-									</article>
-								<?php endforeach; ?>
-								<?php wp_reset_postdata(); ?>
-							</div>
-						</div>
-						<div class="mt-2 flex items-center justify-center gap-2 lg:hidden" data-slider-dots aria-label="<?php esc_attr_e('Featured slider pagination', 'brendon-core'); ?>">
-							<?php foreach ($slider_posts as $slide_index => $slide_post) : ?>
-								<button type="button" class="h-2 w-2 rounded-full border border-border bg-white/80 transition" data-slider-dot aria-label="<?php echo esc_attr(sprintf(__('Go to slide %d', 'brendon-core'), $slide_index + 1)); ?>"></button>
-							<?php endforeach; ?>
-						</div>
-
-						<div class="flex items-center">
-							<div aria-hidden="true" class="w-full border-t border-border"></div>
-							<div class="relative flex justify-center">
-								<span class="pl-3 pr-2 text-base font-bold text-slate-900 font-display">Latest</span>
-								<span class="pr-3 text-base font-bold text-slate-900 font-display">Posts</span>
-							</div>
-							<div aria-hidden="true" class="w-full border-t border-border"></div>
-						</div>
-
-					</section>
-					<script>
-						(function() {
-							const track = document.querySelector('[data-slider-track]');
-							if (!track) {
-								return;
-							}
-
-							const prev = document.querySelector('[data-slider-prev]');
-							const next = document.querySelector('[data-slider-next]');
-							const dots = Array.from(document.querySelectorAll('[data-slider-dot]'));
-							const cards = Array.from(track.querySelectorAll('article'));
-
-							const updateDots = () => {
-								if (!dots.length || !cards.length) {
-									return;
-								}
-
-								const trackLeft = track.scrollLeft;
-								let closestIndex = 0;
-								let minDelta = Number.POSITIVE_INFINITY;
-
-								cards.forEach((card, index) => {
-									const delta = Math.abs(card.offsetLeft - trackLeft);
-									if (delta < minDelta) {
-										minDelta = delta;
-										closestIndex = index;
-									}
-								});
-
-								dots.forEach((dot, index) => {
-									dot.setAttribute('aria-current', index === closestIndex ? 'true' : 'false');
-								});
-							};
-
-							const getStep = () => Math.max(track.clientWidth * 0.9, 320);
-							let amount = getStep();
-
-							window.addEventListener('resize', () => {
-								amount = getStep();
-								updateDots();
-							});
-
-							const scrollStep = (direction = 1) => {
-								const maxScroll = track.scrollWidth - track.clientWidth;
-								let target = track.scrollLeft + direction * amount;
-
-								if (target > maxScroll) {
-									target = 0;
-								}
-
-								if (target < 0) {
-									target = maxScroll;
-								}
-
-								track.scrollTo({
-									left: target,
-									behavior: 'smooth'
-								});
-								updateDots();
-							};
-
-							let auto = setInterval(() => scrollStep(1), 6000);
-
-							const resetAuto = () => {
-								clearInterval(auto);
-								auto = setInterval(() => scrollStep(1), 6000);
-							};
-
-							const handleNav = (direction) => {
-								scrollStep(direction);
-								resetAuto();
-							};
-
-							if (prev) {
-								prev.addEventListener('click', () => handleNav(-1));
-							}
-							if (next) {
-								next.addEventListener('click', () => handleNav(1));
-							}
-
-							let scrollTicking = false;
-							track.addEventListener(
-								'scroll',
-								() => {
-									if (scrollTicking) {
-										return;
-									}
-									scrollTicking = true;
-									window.requestAnimationFrame(() => {
-										updateDots();
-										scrollTicking = false;
-									});
-								},
-								{ passive: true }
-							);
-
-							dots.forEach((dot, index) => {
-								dot.addEventListener('click', () => {
-									if (!cards[index]) {
-										return;
-									}
-									track.scrollTo({
-										left: cards[index].offsetLeft,
-										behavior: 'smooth'
-									});
-									resetAuto();
-								});
-							});
-
-							track.addEventListener('mouseenter', () => clearInterval(auto));
-							track.addEventListener('mouseleave', () => resetAuto());
-							document.addEventListener('visibilitychange', () => {
-								if (document.hidden) {
-									clearInterval(auto);
-									return;
-								}
-								resetAuto();
-							});
-
-							updateDots();
-						})();
-					</script>
-				<?php endif; ?>
-
-				<?php if (have_posts()) : ?>
-
-					<div class="latest-posts-grid latest-posts-mosaic grid gap-6">
-						<?php
-						while (have_posts()) :
-							the_post();
-							if ($featured_ids && in_array(get_the_ID(), $featured_ids, true)) {
-								continue;
-							}
-							get_template_part(
-								'template-parts/card-grid',
-								null,
-								[
-									'mosaic_item_class' => 'mosaic-item',
-								]
-							);
-						endwhile;
-						?>
-					</div>
-
+	<section class="bb-section">
+		<div class="bb-wrap">
+			<?php if ( have_posts() ) : ?>
+				<div class="bb-card-grid bb-card-grid--archive">
 					<?php
-					$pagination = paginate_links(
-						[
-							'type'      => 'array',
-							'prev_text' => esc_html__('← Previous', 'brendon-core'),
-							'next_text' => esc_html__('Next →', 'brendon-core'),
-						]
-					);
+					while ( have_posts() ) :
+						the_post();
+						get_template_part( 'template-parts/card-grid' );
+					endwhile;
 					?>
+				</div>
 
-					<?php if (! empty($pagination) && is_array($pagination)) : ?>
-						<nav class="mt-10" aria-label="<?php esc_attr_e('Posts pagination', 'brendon-core'); ?>">
-							<ul class="flex flex-wrap gap-2 justify-center">
-								<?php foreach ($pagination as $link) : ?>
-									<li class="[&>a]:inline-flex [&>a]:items-center [&>a]:rounded-lg [&>a]:border [&>a]:border-border [&>a]:bg-white [&>a]:px-3 [&>a]:py-2 [&>a]:text-sm [&>a]:text-slate-700 [&>a]:shadow-sm [&>a]:transition [&>a]:hover:bg-primary/10 [&>a]:hover:text-slate-900 [&>a]:focus-visible:outline [&>a]:focus-visible:outline-2 [&>a]:focus-visible:outline-offset-2 [&>a]:focus-visible:outline-primary [&>span]:inline-flex [&>span]:items-center [&>span]:rounded-lg [&>span]:border [&>span]:border-primary [&>span]:bg-primary [&>span]:px-3 [&>span]:py-2 [&>span]:text-sm [&>span]:text-white [&>span]:shadow-sm">
-										<?php echo wp_kses_post($link); ?>
-									</li>
-								<?php endforeach; ?>
-							</ul>
-						</nav>
-					<?php endif; ?>
-
-				<?php else : ?>
-
-					<div class="rounded-xl border border-border bg-white p-8 shadow-sm">
-						<h2 class="text-2xl font-semibold tracking-tight"><?php esc_html_e('No posts yet', 'brendon-core'); ?></h2>
-						<p class="mt-2 text-slate-600"><?php esc_html_e('Once you publish posts, they’ll show up here.', 'brendon-core'); ?></p>
-					</div>
-
-				<?php endif; ?>
-
-			</section>
-
+				<?php get_template_part( 'template-parts/pagination' ); ?>
+			<?php else : ?>
+				<?php get_template_part( 'template-parts/content-none' ); ?>
+			<?php endif; ?>
 		</div>
-
-	</div>
+	</section>
 </main>
 
 <?php

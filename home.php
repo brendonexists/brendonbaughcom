@@ -1,26 +1,19 @@
 <?php
 /**
- * Archive template.
+ * Posts page template.
  *
  * @package brendon-core
  */
 
 get_header();
-
-$archive_heading = get_the_archive_title();
-$archive_heading = preg_replace( '/^[^:]+:\s*/', '', $archive_heading );
 ?>
 
 <main id="primary" class="bb-main">
 	<section class="bb-page-hero bb-section">
 		<div class="bb-wrap">
-			<p class="bb-kicker"><?php esc_html_e('Archive', 'brendon-core'); ?></p>
-			<h1><?php echo esc_html( $archive_heading ); ?></h1>
-			<?php if ( get_the_archive_description() ) : ?>
-				<div class="bb-page-hero__description">
-					<?php the_archive_description(); ?>
-				</div>
-			<?php endif; ?>
+			<p class="bb-kicker"><?php esc_html_e( 'Writing / Journal / Logs', 'brendon-core' ); ?></p>
+			<h1><?php esc_html_e( 'The public record.', 'brendon-core' ); ?></h1>
+			<p><?php esc_html_e( 'Notes from faith, family, discipline, work, building, and the creative process.', 'brendon-core' ); ?></p>
 		</div>
 	</section>
 
