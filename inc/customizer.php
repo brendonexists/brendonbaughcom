@@ -15,6 +15,21 @@ function _s_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 
+	$wp_customize->add_panel(
+		'brendon_core_theme',
+		[
+			'title'       => esc_html__( 'Brendon Core', 'brendon-core' ),
+			'description' => esc_html__( 'Theme-managed content and settings for the custom sections on the site.', 'brendon-core' ),
+			'priority'    => 125,
+		]
+	);
+
+	$wp_customize->remove_section( 'colors' );
+	$wp_customize->remove_section( 'header_image' );
+	$wp_customize->remove_section( 'background_image' );
+	$wp_customize->remove_panel( 'widgets' );
+	$wp_customize->remove_section( 'custom_css' );
+
 	if ( isset( $wp_customize->selective_refresh ) ) {
 		$wp_customize->selective_refresh->add_partial(
 			'blogname',
@@ -46,6 +61,7 @@ function brendon_core_customize_social_links( $wp_customize ) {
 			'title'       => esc_html__( 'Sidebar Social Links', 'brendon-core' ),
 			'description' => esc_html__( 'Update which links appear in the sidebar card.', 'brendon-core' ),
 			'priority'    => 140,
+			'panel'       => 'brendon_core_theme',
 		]
 	);
 
@@ -118,9 +134,10 @@ function brendon_core_customize_homepage( $wp_customize ) {
 	$wp_customize->add_section(
 		'brendon_core_homepage',
 		[
-			'title'       => esc_html__( 'Homepage Identity', 'brendon-core' ),
-			'description' => esc_html__( 'Manage the copy and project source for the Brendon Exists homepage.', 'brendon-core' ),
+			'title'       => esc_html__( 'Homepage', 'brendon-core' ),
+			'description' => esc_html__( 'Manage the homepage copy, including the Current Season section and fallback project links.', 'brendon-core' ),
 			'priority'    => 130,
+			'panel'       => 'brendon_core_theme',
 		]
 	);
 
@@ -239,6 +256,50 @@ function brendon_core_customize_homepage( $wp_customize ) {
 add_action( 'customize_register', 'brendon_core_customize_homepage' );
 
 /**
+ * Register footer copy controls.
+ *
+ * @param WP_Customize_Manager $wp_customize Theme Customizer object.
+ */
+function brendon_core_customize_footer( $wp_customize ) {
+	$wp_customize->add_section(
+		'brendon_core_footer',
+		[
+			'title'       => esc_html__( 'Footer', 'brendon-core' ),
+			'description' => esc_html__( 'Manage the editable copy shown in the site footer.', 'brendon-core' ),
+			'priority'    => 145,
+			'panel'       => 'brendon_core_theme',
+		]
+	);
+
+	$defaults = brendon_core_footer_defaults();
+	$labels   = [
+		'eyebrow'   => esc_html__( 'Footer eyebrow', 'brendon-core' ),
+		'statement' => esc_html__( 'Footer statement', 'brendon-core' ),
+		'tagline'   => esc_html__( 'Footer tagline', 'brendon-core' ),
+	];
+
+	foreach ( $defaults as $key => $default ) {
+		$wp_customize->add_setting(
+			"brendon_core_footer_{$key}",
+			[
+				'default'           => $default,
+				'sanitize_callback' => 'sanitize_textarea_field',
+			]
+		);
+
+		$wp_customize->add_control(
+			"brendon_core_footer_{$key}",
+			[
+				'label'   => $labels[ $key ] ?? $key,
+				'section' => 'brendon_core_footer',
+				'type'    => 'textarea',
+			]
+		);
+	}
+}
+add_action( 'customize_register', 'brendon_core_customize_footer' );
+
+/**
  * Customize the Live Now page settings.
  *
  * @param WP_Customize_Manager $wp_customize
@@ -250,6 +311,7 @@ function brendon_core_customize_live_now( $wp_customize ) {
 			'title'       => esc_html__( 'Live Now', 'brendon-core' ),
 			'description' => esc_html__( 'Configure the Twitch embeds and schedule.', 'brendon-core' ),
 			'priority'    => 150,
+			'panel'       => 'brendon_core_theme',
 		)
 	);
 

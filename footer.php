@@ -19,8 +19,8 @@
 						<?php echo brendon_core_brand_mark(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</span>
 					<div>
-						<p class="bb-footer__eyebrow"><?php esc_html_e('Brendon Exists', 'brendon-core'); ?></p>
-						<p class="bb-footer__statement"><?php esc_html_e('A living record of faith, fatherhood, discipline, building, and becoming in public.', 'brendon-core'); ?></p>
+						<p class="bb-footer__eyebrow"><?php echo esc_html( brendon_core_footer_setting( 'eyebrow' ) ); ?></p>
+						<p class="bb-footer__statement"><?php echo esc_html( brendon_core_footer_setting( 'statement' ) ); ?></p>
 					</div>
 				</div>
 
@@ -40,7 +40,7 @@
 
 				<div class="bb-footer__small">
 					<p>&copy; <?php echo esc_html(gmdate('Y')); ?> <?php bloginfo('name'); ?>.</p>
-					<p><?php esc_html_e('Built as a home base, not a highlight reel.', 'brendon-core'); ?></p>
+					<p><?php echo esc_html( brendon_core_footer_setting( 'tagline' ) ); ?></p>
 				</div>
 			</div>
 		</footer>

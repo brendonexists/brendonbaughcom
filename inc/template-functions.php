@@ -22,6 +22,10 @@ function _s_body_classes( $classes ) {
 		$classes[] = 'no-sidebar';
 	}
 
+	if ( is_page( 'about' ) ) {
+		$classes[] = 'bb-page-about';
+	}
+
 	return $classes;
 }
 add_filter( 'body_class', '_s_body_classes' );
@@ -244,6 +248,35 @@ function brendon_core_home_setting( $key ) {
 	}
 
 	return get_theme_mod( "brendon_core_home_{$key}", $defaults[ $key ] );
+}
+
+/**
+ * Default copy for the site footer.
+ *
+ * @return array
+ */
+function brendon_core_footer_defaults() {
+	return [
+		'eyebrow'   => esc_html__( 'Brendon Exists', 'brendon-core' ),
+		'statement' => esc_html__( 'A living record of faith, fatherhood, discipline, building, and becoming in public.', 'brendon-core' ),
+		'tagline'   => esc_html__( 'Built as a home base, not a highlight reel.', 'brendon-core' ),
+	];
+}
+
+/**
+ * Get a footer setting with a default fallback.
+ *
+ * @param string $key Setting key without prefix.
+ * @return string
+ */
+function brendon_core_footer_setting( $key ) {
+	$defaults = brendon_core_footer_defaults();
+
+	if ( ! array_key_exists( $key, $defaults ) ) {
+		return '';
+	}
+
+	return get_theme_mod( "brendon_core_footer_{$key}", $defaults[ $key ] );
 }
 
 /**

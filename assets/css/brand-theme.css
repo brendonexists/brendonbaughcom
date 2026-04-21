@@ -510,6 +510,7 @@ button[type="submit"]:hover {
 
 .bb-post-card {
   display: flex;
+  min-width: 0;
   min-height: 100%;
   flex-direction: column;
   border: 2px solid var(--bb-black);
@@ -541,6 +542,7 @@ button[type="submit"]:hover {
 .bb-post-card__body {
   display: flex;
   flex: 1;
+  min-width: 0;
   flex-direction: column;
   padding: 20px;
 }
@@ -568,10 +570,15 @@ button[type="submit"]:hover {
   font-size: clamp(1.65rem, 3vw, 2.25rem);
   line-height: 0.95;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .bb-post-card__title a {
+  display: block;
   text-decoration: none;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .bb-post-card__excerpt {
@@ -915,6 +922,10 @@ select {
   max-width: 840px;
   padding-inline-end: 12px;
   padding-bottom: 12px;
+}
+
+.bb-page-about .bb-singular__wrap {
+  max-width: 920px;
 }
 
 .bb-page-content {

@@ -14,7 +14,6 @@ $archive_heading = wp_strip_all_tags( preg_replace( '/^[^:]+:\s*/', '', $archive
 <main id="primary" class="bb-main">
 	<section class="bb-page-hero bb-section">
 		<div class="bb-wrap">
-			<p class="bb-kicker"><?php esc_html_e('Archive', 'brendon-core'); ?></p>
 			<h1><?php echo esc_html( $archive_heading ); ?></h1>
 			<?php if ( get_the_archive_description() ) : ?>
 				<div class="bb-page-hero__description">
