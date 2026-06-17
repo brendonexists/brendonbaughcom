@@ -16,7 +16,7 @@
 			<div class="bb-wrap bb-footer__grid">
 				<div class="bb-footer__brand">
 					<span class="bb-footer__mark" aria-hidden="true">
-						<?php echo brendon_core_brand_mark(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<img class="bb-mark bb-mark--raven" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/home-retro/raven-logo.png' ); ?>" alt="">
 					</span>
 					<div>
 						<p class="bb-footer__eyebrow"><?php echo esc_html( brendon_core_footer_setting( 'eyebrow' ) ); ?></p>

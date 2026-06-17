@@ -1,0 +1,487 @@
+/*
+Retro stream-hub homepage for Brendon Exists.
+*/
+
+:root {
+  --bb-retro-paper: #f1e6c8;
+  --bb-retro-ink: #10251f;
+  --bb-retro-dark: #081512;
+  --bb-retro-forest: #315d3b;
+  --bb-retro-sage: #7d9a6b;
+  --bb-retro-gold: #d2a43a;
+  --bb-retro-line: rgba(16, 37, 31, 0.28);
+  --bb-retro-shadow: rgba(8, 21, 18, 0.22);
+  --bb-retro-wrap: min(1280px, calc(100vw - 32px));
+}
+
+body.home,
+body.front-page {
+  background: var(--bb-retro-paper);
+}
+
+body.home .bb-header {
+  border-bottom-color: var(--bb-retro-ink);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.9), rgba(241, 230, 200, 0.9)),
+    url("../images/home-retro/paper-texture.jpg") center / cover;
+}
+
+body.home .bb-primary-nav__list a,
+body.home .bb-submenu-toggle,
+body.home .bb-footer__statement {
+  color: var(--bb-retro-ink);
+}
+
+body.home .bb-primary-nav__list a:hover,
+body.home .bb-submenu-toggle:hover,
+body.home .bb-submenu-toggle:focus-visible,
+body.home .bb-primary-nav__list .current-menu-item > a,
+body.home .bb-primary-nav__list .current_page_item > a,
+body.home .bb-primary-nav__list a[aria-current="page"] {
+  border-color: var(--bb-retro-ink);
+  background: var(--bb-retro-forest);
+  color: var(--bb-retro-paper);
+}
+
+body.home .bb-primary-nav__list .sub-menu {
+  border-color: var(--bb-retro-ink);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.94), rgba(241, 230, 200, 0.94)),
+    url("../images/home-retro/paper-texture.jpg") center / cover;
+  box-shadow: 6px 6px 0 var(--bb-retro-ink);
+}
+
+.bb-home-retro {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 14% 16%, rgba(210, 164, 58, 0.13), transparent 26rem),
+    radial-gradient(circle at 86% 10%, rgba(49, 93, 59, 0.12), transparent 24rem),
+    linear-gradient(rgba(241, 230, 200, 0.84), rgba(241, 230, 200, 0.9)),
+    url("../images/home-retro/paper-texture.jpg") center top / 900px auto repeat;
+  color: var(--bb-retro-ink);
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+body.home .bb-brand {
+  gap: 0;
+}
+
+body.home .bb-brand__mark {
+  width: 72px;
+  height: 66px;
+  overflow: visible;
+}
+
+body.home .bb-mark--raven {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.bb-retro-wrap {
+  width: var(--bb-retro-wrap);
+  margin-inline: auto;
+}
+
+.bb-retro-hero {
+  position: relative;
+  overflow: clip;
+  padding-block: clamp(34px, 5vw, 62px) clamp(54px, 7vw, 92px);
+}
+
+.bb-retro-hero::before,
+.bb-retro-hero::after {
+  position: absolute;
+  inset-inline: 0;
+  z-index: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bb-retro-line), transparent);
+  content: "";
+}
+
+.bb-retro-hero::before {
+  top: 18px;
+}
+
+.bb-retro-hero::after {
+  bottom: 22px;
+}
+
+.bb-retro-hero > .bb-retro-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.bb-retro-wordmark {
+  display: grid;
+  justify-items: center;
+  margin-inline: auto;
+  padding-top: clamp(8px, 2vw, 20px);
+  text-align: center;
+}
+
+.bb-retro-wordmark h1 {
+  max-width: 100%;
+  margin: 0;
+  color: var(--bb-retro-dark);
+  font-family: "Bowlby One SC", "League Spartan", Impact, sans-serif;
+  font-size: clamp(3rem, 9.4vw, 8.4rem);
+  font-weight: 400;
+  line-height: 0.82;
+  overflow-wrap: anywhere;
+  white-space: nowrap;
+  text-transform: uppercase;
+  text-shadow:
+    0 0.055em 0 var(--bb-retro-sage),
+    0 0.105em 0 #5f874f,
+    0 0.155em 0 var(--bb-retro-forest),
+    0 0.205em 0 rgba(210, 164, 58, 0.72);
+  transform-origin: center;
+  animation: bb-wordmark-breathe 5.5s ease-in-out infinite;
+}
+
+.bb-retro-pillars {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2vw, 24px);
+  margin: clamp(34px, 5vw, 62px) 0 clamp(28px, 5vw, 54px);
+  padding: 0;
+  color: var(--bb-retro-ink);
+  list-style: none;
+}
+
+.bb-retro-pillars li:not(.bb-retro-pillars__dot) {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  font-size: clamp(1rem, 1.8vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.bb-retro-pillars::before,
+.bb-retro-pillars::after,
+.bb-retro-twitch h2::before,
+.bb-retro-twitch h2::after {
+  display: block;
+  width: min(120px, 12vw);
+  height: 2px;
+  background: var(--bb-retro-ink);
+  content: "";
+}
+
+.bb-retro-pillars__dot {
+  color: var(--bb-retro-gold);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.bb-retro-pillar__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+}
+
+.bb-home-retro svg {
+  width: 100%;
+  height: 100%;
+}
+
+.bb-home-retro svg path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3.4;
+}
+
+.bb-retro-twitch {
+  margin-top: clamp(30px, 5vw, 54px);
+}
+
+.bb-retro-twitch h2 {
+  display: grid;
+  grid-template-columns: minmax(40px, 1fr) auto minmax(40px, 1fr);
+  gap: clamp(14px, 3vw, 28px);
+  align-items: center;
+  margin: 0 0 clamp(18px, 3vw, 28px);
+  color: var(--bb-retro-ink);
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.bb-retro-twitch h2::before,
+.bb-retro-twitch h2::after {
+  width: 100%;
+}
+
+.bb-retro-tiles {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 18px);
+}
+
+.bb-retro-tile {
+  position: relative;
+  display: grid;
+  min-height: 132px;
+  min-width: 0;
+  place-items: center;
+  gap: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 37, 31, 0.18);
+  border-radius: 4px;
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.9), rgba(241, 230, 200, 0.92)),
+    url("../images/home-retro/paper-texture.jpg") center / cover;
+  color: var(--bb-retro-ink);
+  padding: 18px 12px 26px;
+  text-align: center;
+  text-decoration: none;
+  box-shadow:
+    0 10px 18px rgba(8, 21, 18, 0.14),
+    inset 0 0 0 1px rgba(255, 246, 220, 0.55);
+  transition: transform 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+
+.bb-retro-tile::after {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 16px;
+  background:
+    linear-gradient(to bottom, var(--bb-retro-sage) 0 45%, var(--bb-retro-forest) 45% 74%, var(--bb-retro-gold) 74% 100%);
+  content: "";
+}
+
+.bb-retro-tile:hover,
+.bb-retro-tile:focus-visible {
+  color: var(--bb-retro-dark);
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 24px rgba(8, 21, 18, 0.18),
+    inset 0 0 0 2px rgba(16, 37, 31, 0.32);
+}
+
+.bb-retro-tile:focus-visible {
+  outline: 3px solid var(--bb-retro-gold);
+  outline-offset: 4px;
+}
+
+.bb-retro-tile__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+}
+
+.bb-retro-tile__icon svg {
+  width: 44px;
+  height: 44px;
+}
+
+.bb-retro-tile__icon svg path {
+  stroke-width: 2.8;
+}
+
+.bb-retro-tile > span:last-child {
+  max-width: 11ch;
+  font-size: clamp(0.88rem, 1.2vw, 1.05rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+
+.bb-retro-latest {
+  position: relative;
+  border-top: 1px solid rgba(16, 37, 31, 0.24);
+  background:
+    linear-gradient(rgba(8, 21, 18, 0.91), rgba(8, 21, 18, 0.94)),
+    url("../images/home-retro/forest-mountains-wide.jpg") center bottom / cover;
+  padding-block: clamp(54px, 8vw, 96px);
+  color: var(--bb-retro-paper);
+}
+
+.bb-retro-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px 24px;
+  align-items: end;
+  margin-bottom: clamp(24px, 4vw, 38px);
+}
+
+.bb-retro-section-heading p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--bb-retro-gold);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.bb-retro-section-heading h2 {
+  margin: 0;
+  color: var(--bb-retro-paper);
+  font-family: "Bowlby One SC", "League Spartan", Impact, sans-serif;
+  font-size: clamp(2rem, 5vw, 4.25rem);
+  font-weight: 400;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.bb-retro-section-heading a {
+  align-self: center;
+  color: var(--bb-retro-paper);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bb-retro-latest .bb-card-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.bb-retro-latest .bb-post-card {
+  border-color: rgba(241, 230, 200, 0.44);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.9), rgba(241, 230, 200, 0.93)),
+    url("../images/home-retro/paper-texture.jpg") center / cover;
+  box-shadow: 8px 8px 0 rgba(210, 164, 58, 0.78);
+}
+
+.bb-retro-latest .bb-post-card__title {
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif;
+  font-size: clamp(1.7rem, 2.5vw, 2.5rem);
+  line-height: 0.95;
+}
+
+.bb-retro-empty {
+  border: 1px solid rgba(241, 230, 200, 0.38);
+  background: rgba(241, 230, 200, 0.08);
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.bb-retro-empty h3,
+.bb-retro-empty p {
+  margin: 0;
+  color: var(--bb-retro-paper);
+}
+
+.bb-retro-empty p {
+  margin-top: 8px;
+  color: rgba(241, 230, 200, 0.72);
+}
+
+@media (max-width: 980px) {
+  .bb-retro-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .bb-retro-latest .bb-card-grid--three {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --bb-retro-wrap: min(100% - 24px, 1280px);
+  }
+
+  .bb-retro-wordmark h1 {
+    font-size: clamp(2.7rem, 16vw, 5.2rem);
+    line-height: 0.88;
+    white-space: normal;
+  }
+
+  .bb-retro-pillars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-items: center;
+  }
+
+  .bb-retro-pillars::before,
+  .bb-retro-pillars::after,
+  .bb-retro-pillars__dot {
+    display: none;
+  }
+
+  .bb-retro-pillars li:not(.bb-retro-pillars__dot) {
+    width: 100%;
+    justify-content: center;
+    border-block: 1px solid rgba(16, 37, 31, 0.16);
+    padding-block: 10px;
+    font-size: 0.94rem;
+    letter-spacing: 0.12em;
+  }
+
+  .bb-retro-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bb-retro-tile {
+    min-height: 120px;
+  }
+
+  .bb-retro-section-heading {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .bb-retro-pillars,
+  .bb-retro-tiles {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-retro-wordmark h1 {
+    animation: none;
+  }
+
+  .bb-retro-tile {
+    transition: none;
+  }
+
+  .bb-retro-tile:hover,
+  .bb-retro-tile:focus-visible {
+    transform: none;
+  }
+}
+
+@keyframes bb-wordmark-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    text-shadow:
+      0 0.055em 0 var(--bb-retro-sage),
+      0 0.105em 0 #5f874f,
+      0 0.155em 0 var(--bb-retro-forest),
+      0 0.205em 0 rgba(210, 164, 58, 0.72);
+  }
+
+  50% {
+    transform: translateY(-0.018em) scale(1.006);
+    text-shadow:
+      0 0.065em 0 var(--bb-retro-sage),
+      0 0.122em 0 #5f874f,
+      0 0.18em 0 var(--bb-retro-forest),
+      0 0.235em 0 rgba(210, 164, 58, 0.78);
+  }
+}

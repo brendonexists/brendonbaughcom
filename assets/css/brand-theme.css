@@ -1,20 +1,22 @@
 /*
 Brand layer for Brendon Exists.
-Palette is intentionally limited to cream, black, signal blue, and conviction red.
 */
 
 :root {
   color-scheme: light;
-  --bb-blue: #2975D9;
-  --bb-cream: #F2EDD0;
-  --bb-red: #F22E2E;
-  --bb-black: #0D0D0D;
+  --bb-blue: #315D3B;
+  --bb-cream: #F1E6C8;
+  --bb-red: #D2A43A;
+  --bb-black: #10251F;
+  --bb-dark: #081512;
+  --bb-sage: #7D9A6B;
+  --bb-gold: #D2A43A;
 
   --bb-ink-soft: color-mix(in srgb, var(--bb-black) 76%, transparent);
   --bb-ink-muted: color-mix(in srgb, var(--bb-black) 58%, transparent);
   --bb-border: color-mix(in srgb, var(--bb-black) 26%, transparent);
   --bb-border-strong: color-mix(in srgb, var(--bb-black) 72%, transparent);
-  --bb-cream-soft: rgba(242, 237, 208, 0.72);
+  --bb-cream-soft: rgba(241, 230, 200, 0.72);
   --bb-shadow: 0 18px 45px color-mix(in srgb, var(--bb-black) 18%, transparent);
 
   --bb-wrap: min(1180px, calc(100vw - 32px));
@@ -30,7 +32,10 @@ html {
 
 body {
   min-width: 320px;
-  background: var(--bb-cream);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.88), rgba(241, 230, 200, 0.92)),
+    url("../images/home-retro/paper-texture.jpg") center top / 900px auto repeat,
+    var(--bb-cream);
   color: var(--bb-black);
   font-family: Inter, system-ui, sans-serif;
   text-rendering: optimizeLegibility;
@@ -192,6 +197,12 @@ video {
   object-fit: contain;
 }
 
+.bb-footer__mark .bb-mark--raven {
+  width: 76px;
+  height: 68px;
+  object-fit: contain;
+}
+
 .bb-brand__text {
   display: grid;
   gap: 2px;
@@ -270,6 +281,10 @@ video {
   list-style: none;
 }
 
+.bb-primary-nav__list li {
+  position: relative;
+}
+
 .bb-primary-nav__list a {
   display: inline-flex;
   align-items: center;
@@ -284,7 +299,80 @@ video {
   text-transform: uppercase;
 }
 
+.bb-primary-nav__list .menu-item-has-children > a {
+  padding-right: 8px;
+}
+
+.bb-submenu-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  min-width: 32px;
+  min-height: 40px;
+  border: 1px solid transparent;
+  border-radius: var(--bb-radius);
+  background: transparent;
+  color: var(--bb-black);
+}
+
+.bb-submenu-toggle span[aria-hidden="true"] {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.bb-primary-nav__list .menu-item-has-children {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.bb-primary-nav__list .sub-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 20;
+  display: grid;
+  min-width: 220px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  border: 2px solid var(--bb-black);
+  border-radius: var(--bb-radius);
+  background: var(--bb-cream);
+  box-shadow: 6px 6px 0 var(--bb-black);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.bb-primary-nav__list .sub-menu a {
+  width: 100%;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+.bb-primary-nav__list .menu-item-has-children:hover > .sub-menu,
+.bb-primary-nav__list .menu-item-has-children:focus-within > .sub-menu,
+.bb-primary-nav__list .menu-item-has-children.is-submenu-open > .sub-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.bb-primary-nav__list .menu-item-has-children:hover > .bb-submenu-toggle span[aria-hidden="true"],
+.bb-primary-nav__list .menu-item-has-children:focus-within > .bb-submenu-toggle span[aria-hidden="true"],
+.bb-primary-nav__list .menu-item-has-children.is-submenu-open > .bb-submenu-toggle span[aria-hidden="true"] {
+  transform: translateY(2px) rotate(225deg);
+}
+
 .bb-primary-nav__list a:hover,
+.bb-submenu-toggle:hover,
+.bb-submenu-toggle:focus-visible,
 .bb-primary-nav__list .current-menu-item > a,
 .bb-primary-nav__list .current_page_item > a,
 .bb-primary-nav__list a[aria-current="page"] {
@@ -923,7 +1011,7 @@ select {
 }
 
 .bb-page-about .bb-singular__wrap {
-  max-width: 920px;
+  max-width: 2000px;
 }
 
 .bb-page-content {
@@ -1702,6 +1790,224 @@ select {
   text-transform: uppercase;
 }
 
+/* Retro paper system shared by pages, posts, archives, and utility views. */
+.bb-main,
+.bb-log-main {
+  background:
+    radial-gradient(circle at 14% 12%, rgba(210, 164, 58, 0.13), transparent 24rem),
+    radial-gradient(circle at 86% 4%, rgba(49, 93, 59, 0.12), transparent 24rem),
+    linear-gradient(rgba(241, 230, 200, 0.86), rgba(241, 230, 200, 0.92)),
+    url("../images/home-retro/paper-texture.jpg") center top / 900px auto repeat,
+    var(--bb-cream);
+}
+
+.bb-header,
+.bb-primary-nav__list,
+.bb-primary-nav__list .sub-menu,
+.bb-footer {
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.92), rgba(241, 230, 200, 0.92)),
+    url("../images/home-retro/paper-texture.jpg") center / cover,
+    var(--bb-cream);
+}
+
+.bb-header {
+  border-bottom-color: var(--bb-dark);
+}
+
+.bb-footer {
+  background:
+    linear-gradient(rgba(8, 21, 18, 0.94), rgba(8, 21, 18, 0.96)),
+    url("../images/home-retro/forest-mountains-wide.jpg") center bottom / cover,
+    var(--bb-dark);
+}
+
+h1,
+h2,
+.bb-brand__name,
+.bb-post-card__title,
+.bb-log-nav__post strong {
+  font-family: "Barlow Condensed", "League Spartan", Inter, system-ui, sans-serif;
+}
+
+.bb-page-hero,
+.bb-log-hero {
+  border-color: var(--bb-dark);
+  background:
+    linear-gradient(rgba(8, 21, 18, 0.88), rgba(8, 21, 18, 0.94)),
+    url("../images/home-retro/forest-mountains-wide.jpg") center bottom / cover,
+    var(--bb-dark);
+}
+
+.bb-log-hero--has-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bb-page-hero h1,
+.bb-log-hero h1 {
+  max-width: 16ch;
+  color: var(--bb-cream);
+  font-family: "Bowlby One SC", "League Spartan", Impact, sans-serif;
+  font-weight: 400;
+  line-height: 0.92;
+  text-shadow:
+    0 0.055em 0 var(--bb-sage),
+    0 0.105em 0 var(--bb-blue),
+    0 0.16em 0 rgba(210, 164, 58, 0.7);
+}
+
+.bb-page-hero .bb-kicker,
+.bb-log-hero .bb-kicker,
+.bb-retro-section-heading p,
+.bb-log-meta__item > span:first-child,
+.bb-log-rail dt,
+.bb-log-rail__links a,
+.bb-log-tags a,
+.bb-log-nav__post span,
+.bb-post-card__meta a,
+.bb-post-card__footer a {
+  color: var(--bb-gold);
+}
+
+.bb-singular__paper,
+.bb-log-paper,
+.bb-log-featured,
+.bb-log-rail,
+.bb-log-comments,
+.bb-post-card,
+.bb-empty,
+.bb-contact__form,
+.bb-notice,
+.bb-log-nav__post,
+.bb-log-nav__back {
+  border-color: var(--bb-dark);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.9), rgba(241, 230, 200, 0.94)),
+    url("../images/home-retro/paper-texture.jpg") center / cover,
+    var(--bb-cream);
+  color: var(--bb-dark);
+  box-shadow: 7px 7px 0 var(--bb-gold);
+}
+
+.bb-log-paper::before {
+  background: linear-gradient(to right, var(--bb-sage), var(--bb-blue), var(--bb-gold));
+}
+
+.bb-content,
+.bb-log-content,
+.bb-contact__intro p {
+  color: color-mix(in srgb, var(--bb-dark) 82%, transparent);
+}
+
+.single-post .bb-log-content,
+.bb-log-shell > .bb-log-content,
+.bb-log-paper .bb-log-content,
+.bb-log-paper .entry-content,
+.bb-singular__paper .entry-content {
+  background: transparent;
+}
+
+.bb-content h2,
+.bb-content h3,
+.bb-content h4,
+.bb-log-content h2,
+.bb-log-content h3,
+.bb-log-content h4,
+.bb-contact__intro h2 {
+  color: var(--bb-dark);
+  font-family: "Barlow Condensed", "League Spartan", Inter, system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.bb-content h2,
+.bb-log-content h2 {
+  border-bottom-color: color-mix(in srgb, var(--bb-dark) 34%, transparent);
+}
+
+.bb-content a,
+.bb-log-content a,
+.bb-log-rail a,
+.bb-log-nav__back {
+  color: var(--bb-blue);
+}
+
+.bb-content a:hover,
+.bb-log-content a:hover,
+.bb-log-rail a:hover,
+.bb-log-nav__back:hover {
+  color: var(--bb-dark);
+  text-decoration-color: var(--bb-gold);
+}
+
+.bb-content blockquote,
+.bb-log-content blockquote {
+  border-left-color: var(--bb-gold);
+  background:
+    linear-gradient(rgba(125, 154, 107, 0.16), rgba(125, 154, 107, 0.16)),
+    url("../images/home-retro/paper-texture.jpg") center / cover;
+}
+
+.bb-post-card {
+  overflow: hidden;
+}
+
+.bb-post-card__media {
+  border-color: var(--bb-dark);
+  background:
+    linear-gradient(rgba(8, 21, 18, 0.82), rgba(8, 21, 18, 0.86)),
+    url("../images/home-retro/forest-mountains-wide.jpg") center bottom / cover,
+    var(--bb-dark);
+}
+
+.bb-post-card__media img,
+.bb-log-featured img,
+.bb-log-media img,
+.bb-content img,
+.wp-block-image img {
+  filter: saturate(0.82) contrast(1.08);
+}
+
+.bb-button,
+.wp-block-button__link,
+input[type="submit"],
+button[type="submit"] {
+  border-color: var(--bb-dark);
+  background: var(--bb-dark);
+  color: var(--bb-cream);
+  box-shadow: 4px 4px 0 var(--bb-gold);
+}
+
+.bb-button:hover,
+.wp-block-button__link:hover,
+input[type="submit"]:hover,
+button[type="submit"]:hover,
+.bb-log-nav__post:hover,
+.bb-log-nav__back:hover,
+.bb-build-list a:hover {
+  background: var(--bb-blue);
+  color: var(--bb-cream);
+  box-shadow: 2px 2px 0 var(--bb-gold);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+textarea,
+select {
+  border-color: var(--bb-dark);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.86), rgba(241, 230, 200, 0.9)),
+    url("../images/home-retro/paper-texture.jpg") center / cover;
+}
+
 .bb-empty p {
   max-width: 52ch;
   color: var(--bb-ink-soft);
@@ -2030,8 +2336,46 @@ select {
     display: grid;
   }
 
+  .bb-primary-nav__list li,
+  .bb-primary-nav__list .menu-item-has-children {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: stretch;
+  }
+
   .bb-primary-nav__list a {
     width: 100%;
+  }
+
+  .bb-primary-nav__list .menu-item-has-children > a {
+    padding-right: 12px;
+  }
+
+  .bb-submenu-toggle {
+    min-height: 40px;
+    border-color: var(--bb-border);
+  }
+
+  .bb-primary-nav__list .sub-menu {
+    position: static;
+    grid-column: 1 / -1;
+    display: none;
+    min-width: 0;
+    margin: 4px 0 0;
+    border-width: 1px;
+    box-shadow: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .bb-primary-nav__list .menu-item-has-children:hover > .sub-menu,
+  .bb-primary-nav__list .menu-item-has-children:focus-within > .sub-menu {
+    display: none;
+  }
+
+  .bb-primary-nav__list .menu-item-has-children.is-submenu-open > .sub-menu {
+    display: grid;
   }
 
   .bb-hero__identity {

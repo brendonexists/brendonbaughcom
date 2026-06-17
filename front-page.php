@@ -1,6 +1,6 @@
 <?php
 /**
- * Front page identity hub.
+ * Front page retro stream hub.
  *
  * @package brendon-core
  */
@@ -15,74 +15,102 @@ $latest_query = new WP_Query(
 	]
 );
 
-$featured_query = new WP_Query(
+$pillar_items = [
 	[
-		'posts_per_page'      => 1,
-		'post_status'         => 'publish',
-		'ignore_sticky_posts' => true,
-		'meta_query'          => [
-			[
-				'key'     => 'brendon_core_featured_post',
-				'value'   => '1',
-				'compare' => '=',
-			],
-		],
-	]
-);
+		'label' => esc_html__( 'Notes', 'brendon-core' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M11 18h23v12a10 10 0 0 1-10 10h-3A10 10 0 0 1 11 30V18Zm23 4h3a5 5 0 0 1 0 10h-3M17 12c-2-3 2-4 0-7m8 7c-2-3 2-4 0-7m8 7c-2-3 2-4 0-7M8 40h31" /></svg>',
+	],
+	[
+		'label' => esc_html__( 'Music', 'brendon-core' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="m31 6 5 5-13 13m9-15 7-3 3 3-3 7M21 23a10 10 0 1 0 4 4m-9 2 3 3m-7 2 2 2" /></svg>',
+	],
+	[
+		'label' => esc_html__( 'Faith', 'brendon-core' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M8 12c6-2 11-1 16 3 5-4 10-5 16-3v28c-6-2-11-1-16 3-5-4-10-5-16-3V12Zm16 3v28" /></svg>',
+	],
+	[
+		'label' => esc_html__( 'Builds', 'brendon-core' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M10 36h28M14 36V12h20v24M19 18h3m4 0h3m-10 7h3m4 0h3m-10 7h3m4 0h3M7 40h34" /></svg>',
+	],
+];
 
-$project_items = brendon_core_get_project_items( 3 );
+$tile_items = [
+	[
+		'label' => esc_html__( 'About', 'brendon-core' ),
+		'url'   => home_url( '/about' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 11a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM13 38c2.3-7 6-10.5 11-10.5S32.7 31 35 38" /></svg>',
+	],
+	[
+		'label' => esc_html__( 'Writings', 'brendon-core' ),
+		'url'   => home_url( '/category/writings/' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M17 10h17l5 5v23H17V10ZM34 10v6h5M22 22h11M22 29h11M22 36h7" /></svg>',
+	],
+	[
+		'label' => esc_html__( 'Projects', 'brendon-core' ),
+		'url'   => home_url( '/category/projects/' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M18 18 12 24l6 6M30 18l6 6-6 6M27 13 21 35" /></svg>',
+	],
+	[
+		'label' => esc_html__( 'Bible Study', 'brendon-core' ),
+		'url'   => home_url( '/bible-study' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 9v30M14 19h20M18 39h12" /></svg>',
+	],
+	[
+		'label' => esc_html__( 'Sessions', 'brendon-core' ),
+		'url'   => home_url( '/sessions' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M31 10v22a6 6 0 1 1-4-5.6V13l11-3v6l-7 1.8" /></svg>',
+	],
+	[
+		'label' => esc_html__( 'Contact', 'brendon-core' ),
+		'url'   => home_url( '/contact' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M10 16h28v18H10V16ZM12 18l12 10 12-10" /></svg>',
+	],
+];
 ?>
 
-<main id="primary" class="bb-main">
-	<section class="bb-hero bb-section">
-		<div class="bb-wrap bb-hero__grid">
-			<div class="bb-hero__content">
-				<p class="bb-kicker"><?php echo esc_html( brendon_core_home_setting( 'hero_kicker' ) ); ?></p>
-				<h1><?php echo esc_html( brendon_core_home_setting( 'hero_heading' ) ); ?></h1>
-				<p class="bb-hero__lede"><?php echo esc_html( brendon_core_home_setting( 'hero_lede' ) ); ?></p>
-				<div class="bb-actions">
-					<a class="bb-button" href="<?php echo esc_url( brendon_core_home_setting( 'hero_primary_url' ) ); ?>"><?php echo esc_html( brendon_core_home_setting( 'hero_primary_label' ) ); ?></a>
-					<a class="bb-button bb-button--ghost" href="<?php echo esc_url( brendon_core_home_setting( 'hero_secondary_url' ) ); ?>"><?php echo esc_html( brendon_core_home_setting( 'hero_secondary_label' ) ); ?></a>
-				</div>
+<main id="primary" class="bb-main bb-home-retro">
+	<section class="bb-retro-hero" aria-labelledby="bb-retro-title">
+		<div class="bb-retro-wrap">
+			<div class="bb-retro-wordmark" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+				<h1 id="bb-retro-title">BrendonExists</h1>
 			</div>
 
-			<aside class="bb-hero__identity" aria-label="<?php echo esc_attr_x( 'Identity note', 'front page card label', 'brendon-core' ); ?>">
-				<span class="bb-hero__mark" aria-hidden="true">
-					<?php echo brendon_core_brand_mark(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				</span>
-				<p><?php esc_html_e( 'Faith. Fatherhood. Discipline. Building. Creative work. Growth in public.', 'brendon-core' ); ?></p>
-			</aside>
-		</div>
-	</section>
-
-	<section class="bb-section bb-section--black">
-		<div class="bb-wrap bb-manifesto">
-			<p class="bb-kicker"><?php echo esc_html( brendon_core_home_setting( 'what_kicker' ) ); ?></p>
-			<h2><?php echo esc_html( brendon_core_home_setting( 'what_heading' ) ); ?></h2>
-			<p><?php echo esc_html( brendon_core_home_setting( 'what_body' ) ); ?></p>
-		</div>
-	</section>
-
-	<section class="bb-section bb-pillars-section">
-		<div class="bb-wrap">
-			<div class="bb-section-heading">
-				<p class="bb-kicker"><?php esc_html_e( 'Lived code', 'brendon-core' ); ?></p>
-				<h2><?php esc_html_e( 'The framework is simple. The practice is not.', 'brendon-core' ); ?></h2>
-			</div>
-			<ul class="bb-principles" aria-label="<?php echo esc_attr_x( 'Brand foundations', 'front page list label', 'brendon-core' ); ?>">
-				<?php foreach ( brendon_core_home_pillars() as $pillar ) : ?>
-					<li><?php echo esc_html( $pillar ); ?></li>
+			<ul class="bb-retro-pillars" aria-label="<?php echo esc_attr_x( 'Stream hub pillars', 'front page list label', 'brendon-core' ); ?>">
+				<?php foreach ( $pillar_items as $index => $item ) : ?>
+					<li>
+						<span class="bb-retro-pillar__icon">
+							<?php echo $item['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						</span>
+						<span><?php echo esc_html( $item['label'] ); ?></span>
+					</li>
+					<?php if ( $index < count( $pillar_items ) - 1 ) : ?>
+						<li class="bb-retro-pillars__dot" aria-hidden="true">&bull;</li>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			</ul>
+
+			<nav class="bb-retro-twitch" aria-label="<?php echo esc_attr_x( 'Homepage quick links', 'front page navigation label', 'brendon-core' ); ?>">
+				<h2><?php esc_html_e( 'Explore', 'brendon-core' ); ?></h2>
+				<div class="bb-retro-tiles">
+					<?php foreach ( $tile_items as $item ) : ?>
+						<a class="bb-retro-tile" href="<?php echo esc_url( $item['url'] ); ?>">
+							<span class="bb-retro-tile__icon">
+								<?php echo $item['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							</span>
+							<span><?php echo esc_html( $item['label'] ); ?></span>
+						</a>
+					<?php endforeach; ?>
+				</div>
+			</nav>
 		</div>
 	</section>
 
-	<section class="bb-section bb-logs-section">
-		<div class="bb-wrap">
-			<div class="bb-section-heading">
-				<p class="bb-kicker"><?php esc_html_e( 'Latest writing', 'brendon-core' ); ?></p>
-				<h2><?php echo esc_html( brendon_core_home_setting( 'writing_heading' ) ); ?></h2>
-				<a class="bb-text-link" href="<?php echo esc_url( brendon_core_home_setting( 'writing_url' ) ); ?>"><?php esc_html_e( 'All Writing', 'brendon-core' ); ?></a>
+	<section class="bb-retro-latest" aria-labelledby="bb-retro-latest-title">
+		<div class="bb-retro-wrap">
+			<div class="bb-retro-section-heading">
+				<p><?php esc_html_e( 'Latest writing', 'brendon-core' ); ?></p>
+				<h2 id="bb-retro-latest-title"><?php esc_html_e( 'Field notes from the build.', 'brendon-core' ); ?></h2>
+				<a href="<?php echo esc_url( brendon_core_home_setting( 'writing_url' ) ); ?>"><?php esc_html_e( 'All Writing', 'brendon-core' ); ?></a>
 			</div>
 
 			<?php if ( $latest_query->have_posts() ) : ?>
@@ -96,66 +124,13 @@ $project_items = brendon_core_get_project_items( 3 );
 					?>
 				</div>
 			<?php else : ?>
-				<div class="bb-empty">
+				<div class="bb-retro-empty">
 					<h3><?php esc_html_e( 'No logs published yet.', 'brendon-core' ); ?></h3>
 					<p><?php esc_html_e( 'The record starts when the first post goes live.', 'brendon-core' ); ?></p>
 				</div>
 			<?php endif; ?>
 		</div>
 	</section>
-
-	<section class="bb-section bb-builds">
-		<div class="bb-wrap bb-builds__grid">
-			<div>
-				<p class="bb-kicker"><?php echo esc_html( brendon_core_home_setting( 'projects_kicker' ) ); ?></p>
-				<h2>
-					<span><?php echo esc_html( brendon_core_home_setting( 'projects_heading' ) ); ?></span>
-					<em><?php echo esc_html( brendon_core_home_setting( 'projects_subheading' ) ); ?></em>
-				</h2>
-			</div>
-			<div class="bb-build-list">
-				<?php foreach ( $project_items as $project ) : ?>
-					<a href="<?php echo esc_url( $project['url'] ); ?>">
-						<span><?php echo esc_html( $project['label'] ); ?></span>
-						<strong><?php echo esc_html( $project['description'] ); ?></strong>
-					</a>
-				<?php endforeach; ?>
-			</div>
-		</div>
-	</section>
-
-	<section class="bb-section bb-season">
-		<div class="bb-wrap bb-season__grid">
-			<div>
-				<p class="bb-kicker"><?php echo esc_html( brendon_core_home_setting( 'season_kicker' ) ); ?></p>
-				<h2><?php echo esc_html( brendon_core_home_setting( 'season_heading' ) ); ?></h2>
-			</div>
-			<p><?php echo esc_html( brendon_core_home_setting( 'season_body' ) ); ?></p>
-		</div>
-	</section>
-
-	<?php if ( $featured_query->have_posts() ) : ?>
-		<section class="bb-section bb-section--redline">
-			<div class="bb-wrap">
-				<?php
-				while ( $featured_query->have_posts() ) :
-					$featured_query->the_post();
-					?>
-					<article class="bb-featured">
-						<div>
-							<p class="bb-kicker"><?php esc_html_e( 'Featured record', 'brendon-core' ); ?></p>
-							<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-							<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 34, '...' ) ); ?></p>
-						</div>
-						<a class="bb-button" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read it', 'brendon-core' ); ?></a>
-					</article>
-					<?php
-				endwhile;
-				wp_reset_postdata();
-				?>
-			</div>
-		</section>
-	<?php endif; ?>
 </main>
 
 <?php

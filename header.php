@@ -31,11 +31,7 @@
 			<div class="bb-wrap bb-header__inner">
 				<a class="bb-brand" href="<?php echo esc_url(home_url('/')); ?>" rel="home" aria-label="<?php echo esc_attr(get_bloginfo('name')); ?>">
 					<span class="bb-brand__mark" aria-hidden="true">
-						<?php echo brendon_core_brand_mark(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-					</span>
-					<span class="bb-brand__text">
-						<span class="bb-brand__name"><?php bloginfo('name'); ?></span>
-						<span class="bb-brand__line"><?php bloginfo('description'); ?></span>
+						<img class="bb-mark bb-mark--raven" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/home-retro/raven-logo.png' ); ?>" alt="">
 					</span>
 				</a>
 
@@ -51,7 +47,7 @@
 							'menu_id'        => 'primary-menu',
 							'menu_class'     => 'bb-primary-nav__list',
 							'container'      => false,
-							'depth'          => 1,
+							'depth'          => 2,
 							'fallback_cb'    => 'brendon_core_primary_menu_fallback',
 						)
 					);

@@ -60,24 +60,24 @@ function _s_setup()
 		'editor-color-palette',
 		[
 			[
-				'name'  => esc_html__('Signal Blue', 'brendon-core'),
-				'slug'  => 'signal-blue',
-				'color' => '#2975D9',
+				'name'  => esc_html__('Forest Green', 'brendon-core'),
+				'slug'  => 'forest-green',
+				'color' => '#315D3B',
 			],
 			[
-				'name'  => esc_html__('Off-White Cream', 'brendon-core'),
-				'slug'  => 'off-white-cream',
-				'color' => '#F2EDD0',
+				'name'  => esc_html__('Paper Cream', 'brendon-core'),
+				'slug'  => 'paper-cream',
+				'color' => '#F1E6C8',
 			],
 			[
-				'name'  => esc_html__('Conviction Red', 'brendon-core'),
-				'slug'  => 'conviction-red',
-				'color' => '#F22E2E',
+				'name'  => esc_html__('Muted Gold', 'brendon-core'),
+				'slug'  => 'muted-gold',
+				'color' => '#D2A43A',
 			],
 			[
-				'name'  => esc_html__('Deep Black', 'brendon-core'),
-				'slug'  => 'deep-black',
-				'color' => '#0D0D0D',
+				'name'  => esc_html__('Deep Ink Green', 'brendon-core'),
+				'slug'  => 'deep-ink-green',
+				'color' => '#10251F',
 			],
 		]
 	);
@@ -193,7 +193,7 @@ function _s_scripts()
 {
 	$stylesheet_path = get_stylesheet_directory() . '/style.css';
 	$stylesheet_ver  = file_exists( $stylesheet_path ) ? filemtime( $stylesheet_path ) : _S_VERSION;
-	$font_url = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=League+Spartan:wght@700;800&display=swap';
+	$font_url = 'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Bowlby+One+SC&family=Inter:wght@400;500;600;700;800&family=League+Spartan:wght@700;800&display=swap';
 	wp_enqueue_style( 'brendon-core-fonts', $font_url, array(), null );
 	wp_enqueue_style('_s-style', get_stylesheet_uri(), array( 'brendon-core-fonts' ), $stylesheet_ver);
 	wp_style_add_data('_s-style', 'rtl', 'replace');
@@ -210,6 +210,17 @@ function _s_scripts()
 	$brand_theme_css_path = get_template_directory() . '/assets/css/brand-theme.css';
 	$brand_theme_css_ver  = file_exists( $brand_theme_css_path ) ? filemtime( $brand_theme_css_path ) : _S_VERSION;
 	wp_enqueue_style( 'brendon-core-brand-theme', get_template_directory_uri() . '/assets/css/brand-theme.css', $brand_theme_deps, $brand_theme_css_ver );
+	if ( is_front_page() ) {
+		$home_retro_css_path = get_template_directory() . '/assets/css/home-retro.css';
+		$home_retro_css_ver  = file_exists( $home_retro_css_path ) ? filemtime( $home_retro_css_path ) : _S_VERSION;
+		wp_enqueue_style( 'brendon-core-home-retro', get_template_directory_uri() . '/assets/css/home-retro.css', array( 'brendon-core-brand-theme' ), $home_retro_css_ver );
+	}
+	if ( is_page_template( 'page-at-every-turn.php' ) ) {
+		$at_every_turn_css_path = get_template_directory() . '/assets/css/at-every-turn.css';
+		$at_every_turn_css_ver  = file_exists( $at_every_turn_css_path ) ? filemtime( $at_every_turn_css_path ) : _S_VERSION;
+		wp_enqueue_style( 'brendon-core-at-every-turn-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Barlow+Condensed:wght@300;400;600;700;800&family=Barlow:wght@300;400;500&display=swap', array(), null );
+		wp_enqueue_style( 'brendon-core-at-every-turn', get_template_directory_uri() . '/assets/css/at-every-turn.css', array( 'brendon-core-brand-theme', 'brendon-core-at-every-turn-fonts' ), $at_every_turn_css_ver );
+	}
 
 	$nav_js_path = get_template_directory() . '/js/navigation.js';
 	$nav_js_ver  = file_exists( $nav_js_path ) ? filemtime( $nav_js_path ) : _S_VERSION;
@@ -246,6 +257,8 @@ require get_template_directory() . '/inc/template-functions.php';
  */
 require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/live-now.php';
+require get_template_directory() . '/inc/at-every-turn.php';
+require get_template_directory() . '/inc/bible-study-live.php';
 
 /**
  * Load Jetpack compatibility file.
