@@ -56,9 +56,9 @@ $tile_items = [
 		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 9v30M14 19h20M18 39h12" /></svg>',
 	],
 	[
-		'label' => esc_html__( 'Sessions', 'brendon-core' ),
-		'url'   => home_url( '/sessions' ),
-		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M31 10v22a6 6 0 1 1-4-5.6V13l11-3v6l-7 1.8" /></svg>',
+		'label' => esc_html__( 'Prayers', 'brendon-core' ),
+		'url'   => home_url( '/prayer-wall' ),
+		'icon'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 38s-13-7.4-13-17a7 7 0 0 1 13-3.6A7 7 0 0 1 37 21c0 9.6-13 17-13 17ZM24 17v21" /></svg>',
 	],
 	[
 		'label' => esc_html__( 'Contact', 'brendon-core' ),

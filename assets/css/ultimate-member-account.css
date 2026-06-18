@@ -1,0 +1,550 @@
+/*
+Ultimate Member account page overrides.
+Scoped to account output so profile, login, register, and directory pages keep their own styling.
+*/
+
+body.um-page-account,
+.bb-page-content:has(.um.um-account) {
+  --um-account-content: min(1360px, calc(100vw - 64px));
+}
+
+body.um-page-account .bb-page-hero,
+.bb-page-content:has(.um.um-account) {
+  overflow: visible;
+}
+
+body.um-page-account .bb-page-hero {
+  padding-block: clamp(72px, 9vw, 132px) clamp(70px, 8vw, 110px);
+}
+
+body.um-page-account .bb-page-hero h1 {
+  max-width: none;
+  margin: 0;
+  font-size: clamp(3.6rem, 10vw, 7.5rem);
+  line-height: 0.88;
+}
+
+body.um-page-account .bb-singular__wrap,
+.bb-page-content:has(.um.um-account) .bb-singular__wrap {
+  width: var(--um-account-content) !important;
+  max-width: none !important;
+  padding-inline-end: 0;
+}
+
+body.um-page-account .bb-singular__paper,
+.bb-page-content:has(.um.um-account) .bb-singular__paper {
+  margin-top: clamp(-22px, -2vw, -12px);
+  padding: clamp(24px, 4vw, 52px);
+}
+
+.um.um-account {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+.um.um-account,
+.um.um-account .um-form,
+.um.um-account .um-form > form {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.um.um-account .um-form {
+  display: block !important;
+}
+
+.um.um-account .um-form > form {
+  display: grid !important;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 42px);
+  align-items: start;
+}
+
+.um.um-account .um-account-side,
+.um.um-account .um-account-main {
+  float: none !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+.um.um-account .um-account-side {
+  grid-column: 1;
+  overflow: hidden;
+  align-self: start;
+  border: 2px solid var(--bb-black);
+  border-radius: var(--bb-radius);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.9), rgba(241, 230, 200, 0.96)),
+    url("../images/home-retro/paper-texture.jpg") center / 900px auto repeat !important;
+  box-shadow: 6px 6px 0 var(--bb-gold);
+}
+
+.um.um-account .um-account-meta {
+  border: 0 !important;
+  border-bottom: 2px solid rgba(16, 37, 31, 0.18) !important;
+  background: transparent !important;
+  padding: 28px 20px !important;
+  text-align: center;
+}
+
+.um.um-account .um-account-meta img,
+.um.um-account .um-account-meta .um-account-profile-photo img {
+  width: 116px !important;
+  height: 116px !important;
+  border: 3px solid var(--bb-black) !important;
+  border-radius: 50% !important;
+  box-shadow: 5px 5px 0 var(--bb-gold);
+  object-fit: cover;
+}
+
+.um.um-account .um-account-name {
+  margin-top: 18px !important;
+  color: var(--bb-black) !important;
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif;
+  font-size: 1.35rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0;
+  line-height: 1.05;
+}
+
+.um.um-account .um-account-profile-link a {
+  color: var(--bb-blue) !important;
+  font-weight: 800;
+}
+
+.um.um-account .um-account-side ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.um.um-account .um-account-side li {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.um.um-account .um-account-side li a {
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, 1fr) 24px;
+  align-items: center;
+  min-height: 54px;
+  border: 0 !important;
+  border-top: 1px solid rgba(16, 37, 31, 0.16) !important;
+  border-radius: 0 !important;
+  background: rgba(255, 248, 224, 0.5) !important;
+  color: var(--bb-black) !important;
+  padding: 0 14px !important;
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-decoration: none !important;
+  text-transform: uppercase;
+}
+
+.um.um-account .um-account-side li a.current,
+.um.um-account .um-account-side li a.current:hover,
+.um.um-account .um-account-side li a:hover,
+.um.um-account .um-account-side li a:focus-visible {
+  background: var(--bb-blue) !important;
+  color: var(--bb-cream) !important;
+}
+
+.um.um-account .um-account-side li a.current *,
+.um.um-account .um-account-side li a:hover *,
+.um.um-account .um-account-side li a:focus-visible * {
+  color: var(--bb-cream) !important;
+}
+
+.um.um-account .um-account-side li a span.um-account-icon,
+.um.um-account .um-account-side li a i {
+  display: inline-grid !important;
+  width: 22px !important;
+  height: 22px !important;
+  place-items: center;
+  color: currentColor !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+}
+
+.um.um-account .um-account-side li a span.um-account-arrow {
+  justify-self: end;
+  color: currentColor !important;
+}
+
+.um.um-account .um-account-main {
+  grid-column: 2;
+  min-width: 0;
+  color: var(--bb-black);
+}
+
+.um.um-account .um-account-main,
+.um.um-account .um-account-main > *,
+.um.um-account .um-account-tab,
+.um.um-account .um-account-tab > *,
+.um.um-account .um-account-tab form {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.um.um-account .um-account-heading {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px !important;
+  color: var(--bb-black) !important;
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif;
+  font-size: clamp(1.45rem, 3vw, 2rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.um.um-account .um-account-tab {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+.um.um-account .um-field {
+  display: block !important;
+  width: min(720px, 100%) !important;
+  max-width: 720px !important;
+  clear: both !important;
+  padding-block: 0 20px !important;
+}
+
+.um.um-account .um-field-label {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-bottom: 8px !important;
+}
+
+.um.um-account .um-field-label label {
+  display: inline-block !important;
+  max-width: none !important;
+  white-space: nowrap;
+}
+
+.um.um-account .um-field-area,
+.um.um-account .um-field-block,
+.um.um-account p {
+  color: var(--bb-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.um.um-account .um-field-area {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: 720px !important;
+}
+
+.um.um-account input[type="text"],
+.um.um-account input[type="password"],
+.um.um-account input[type="email"],
+.um.um-account select,
+.um.um-account .select2-container .select2-selection,
+.um.um-account .select2-container .select2-choice {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  background: rgba(255, 248, 224, 0.92) !important;
+}
+
+.um.um-account input[type="text"],
+.um.um-account input[type="password"],
+.um.um-account input[type="email"],
+.um.um-account textarea,
+.um.um-account select,
+.um.um-account .select2-container .select2-selection,
+.um.um-account .select2-container .select2-choice {
+  border: 2px solid color-mix(in srgb, var(--bb-black) 22%, transparent) !important;
+  color: var(--bb-black) !important;
+  box-shadow: none !important;
+}
+
+.um.um-account input[type="text"]:focus,
+.um.um-account input[type="password"]:focus,
+.um.um-account input[type="email"]:focus,
+.um.um-account textarea:focus,
+.um.um-account select:focus,
+.um.um-account .select2-container--focus .select2-selection,
+.um.um-account .select2-container-active .select2-choice {
+  border-color: var(--bb-blue) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--bb-blue) 20%, transparent),
+    3px 3px 0 var(--bb-gold) !important;
+}
+
+.um.um-account select,
+.um.um-account .select2-container .select2-selection,
+.um.um-account .select2-container .select2-choice {
+  background:
+    linear-gradient(45deg, transparent 50%, var(--bb-blue) 50%) calc(100% - 24px) 50% / 10px 10px no-repeat,
+    linear-gradient(135deg, var(--bb-blue) 50%, transparent 50%) calc(100% - 17px) 50% / 10px 10px no-repeat,
+    rgba(255, 248, 224, 0.92) !important;
+}
+
+.um.um-account .um-col-alt,
+.um.um-account .um-left,
+.um.um-account .um-right {
+  float: none !important;
+  width: auto !important;
+}
+
+.um.um-account .um-col-alt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-top: 10px !important;
+}
+
+.um.um-account .um-tip,
+.um.um-account .um-tip:hover,
+.um.um-account .um-tip:focus {
+  display: inline-flex !important;
+  width: 22px !important;
+  height: 22px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-inline-start: 6px !important;
+  border: 2px solid var(--bb-black) !important;
+  border-radius: 50% !important;
+  background: var(--bb-gold) !important;
+  color: var(--bb-black) !important;
+  font-family: Inter, system-ui, sans-serif !important;
+  font-size: 0.8rem !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  box-shadow: 2px 2px 0 var(--bb-blue) !important;
+  opacity: 1 !important;
+}
+
+.um.um-account .um-tip i,
+.um.um-account .um-tip:before {
+  color: var(--bb-black) !important;
+}
+
+.um.um-account .um-tip i {
+  display: none !important;
+}
+
+.um.um-account .um-tip:before {
+  content: "?" !important;
+}
+
+.um.um-account .um-field-radio,
+.um.um-account .um-field-checkbox {
+  color: var(--bb-black) !important;
+}
+
+.um.um-account .um-field:has(.um-field-radio-state) .um-field-area,
+.um.um-account .um-field:has(.um-field-checkbox-state) .um-field-area {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 14px clamp(28px, 8vw, 96px);
+  align-items: center;
+}
+
+.um.um-account .um-field:has(.um-field-radio-state) .um-field-radio,
+.um.um-account .um-field:has(.um-field-checkbox-state) .um-field-checkbox {
+  display: inline-flex !important;
+  width: auto !important;
+  min-width: 86px;
+  align-items: center;
+  gap: 10px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.um.um-account .um-field-radio-state,
+.um.um-account .um-field-checkbox-state {
+  position: static !important;
+  display: inline-flex !important;
+  width: 22px !important;
+  height: 22px !important;
+  align-items: center;
+  justify-content: center;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+.um.um-account .um-field-radio-option,
+.um.um-account .um-field-checkbox-option {
+  display: inline-block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.um.um-account .um-field-radio-option,
+.um.um-account .um-field-checkbox-option {
+  color: var(--bb-ink-soft) !important;
+}
+
+.um.um-account .um-field-radio:hover .um-field-radio-option,
+.um.um-account .um-field-checkbox:hover .um-field-checkbox-option {
+  color: var(--bb-black) !important;
+}
+
+.um.um-account .um-field-radio-state i,
+.um.um-account .um-field-checkbox-state i {
+  color: var(--bb-blue) !important;
+}
+
+.um.um-account .um-field-radio-state i:before,
+.um.um-account .um-field-checkbox-state i:before {
+  color: var(--bb-blue) !important;
+}
+
+.um.um-account .um-button,
+.um.um-account input[type="submit"].um-button,
+.um.um-account a.um-button,
+.um.um-account button.um-button,
+.um.um-account .um-account-tab-privacy input[type="submit"],
+.um.um-account .um-account-tab-privacy input[type="button"],
+.um.um-account .um-account-tab-privacy button,
+.um.um-account .um-account-tab-privacy a.button,
+.um.um-account .um-account-tab-privacy [class*="request"],
+.um.um-account .um-account-tab-privacy [class*="Request"],
+.um.um-account .um-account-tab-privacy [class*="erase"],
+.um.um-account .um-account-tab-privacy [class*="Erase"],
+.um.um-account .um-account-tab-privacy [id*="request"],
+.um.um-account .um-account-tab-privacy [id*="erase"] {
+  border: 2px solid var(--bb-black) !important;
+  border-radius: 4px !important;
+  background: var(--bb-black) !important;
+  color: var(--bb-cream) !important;
+  box-shadow: 5px 5px 0 var(--bb-blue) !important;
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.um.um-account .um-button:hover,
+.um.um-account input[type="submit"].um-button:hover,
+.um.um-account a.um-button:hover,
+.um.um-account button.um-button:hover,
+.um.um-account .um-button:focus-visible,
+.um.um-account input[type="submit"].um-button:focus-visible,
+.um.um-account a.um-button:focus-visible,
+.um.um-account button.um-button:focus-visible,
+.um.um-account .um-account-tab-privacy input[type="submit"]:hover,
+.um.um-account .um-account-tab-privacy input[type="button"]:hover,
+.um.um-account .um-account-tab-privacy button:hover,
+.um.um-account .um-account-tab-privacy a.button:hover,
+.um.um-account .um-account-tab-privacy input[type="submit"]:focus-visible,
+.um.um-account .um-account-tab-privacy input[type="button"]:focus-visible,
+.um.um-account .um-account-tab-privacy button:focus-visible,
+.um.um-account .um-account-tab-privacy a.button:focus-visible,
+.um.um-account .um-account-tab-privacy [class*="request"]:hover,
+.um.um-account .um-account-tab-privacy [class*="Request"]:hover,
+.um.um-account .um-account-tab-privacy [class*="erase"]:hover,
+.um.um-account .um-account-tab-privacy [class*="Erase"]:hover,
+.um.um-account .um-account-tab-privacy [id*="request"]:hover,
+.um.um-account .um-account-tab-privacy [id*="erase"]:hover,
+.um.um-account .um-account-tab-privacy [class*="request"]:focus-visible,
+.um.um-account .um-account-tab-privacy [class*="Request"]:focus-visible,
+.um.um-account .um-account-tab-privacy [class*="erase"]:focus-visible,
+.um.um-account .um-account-tab-privacy [class*="Erase"]:focus-visible,
+.um.um-account .um-account-tab-privacy [id*="request"]:focus-visible,
+.um.um-account .um-account-tab-privacy [id*="erase"]:focus-visible {
+  background: var(--bb-blue) !important;
+  color: var(--bb-cream) !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 var(--bb-gold) !important;
+}
+
+.um.um-account .um-account-tab-privacy .um-field,
+.um.um-account .um-account-tab-privacy .um-field-block {
+  margin-bottom: clamp(18px, 2.5vw, 28px) !important;
+}
+
+
+body.um-page-account .um.um-account .um-account-main .um-account-tab .um-field {
+  box-sizing: border-box !important;
+  display: block !important;
+  float: none !important;
+  width: min(720px, 100%) !important;
+  max-width: 720px !important;
+}
+
+body.um-page-account .um.um-account .um-account-main .um-account-tab .um-field-label,
+body.um-page-account .um.um-account .um-account-main .um-account-tab .um-field-area {
+  box-sizing: border-box !important;
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: 720px !important;
+}
+
+body.um-page-account .um.um-account .um-account-main .um-account-tab input.um-form-field,
+body.um-page-account .um.um-account .um-account-main .um-account-tab textarea.um-form-field,
+body.um-page-account .um.um-account .um-account-main .um-account-tab select.um-form-field,
+body.um-page-account .um.um-account .um-account-main .um-account-tab .select2-container,
+body.um-page-account .um.um-account .um-account-main .um-account-tab .select2-selection,
+body.um-page-account .um.um-account .um-account-main .um-account-tab .select2-choice {
+  box-sizing: border-box !important;
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: 720px !important;
+}
+
+body.um-page-account .um.um-account .um-account-main .um-account-tab .um-field-label label {
+  display: inline-block !important;
+  width: auto !important;
+  max-width: none !important;
+  white-space: nowrap !important;
+}
+
+.um-account-main input.um-form-field,
+.um-account-main textarea.um-form-field,
+.um-account-main select.um-form-field,
+.um-account-main .um-field-area input,
+.um-account-main .um-field-area textarea,
+.um-account-main .um-field-area select {
+  box-sizing: border-box !important;
+  display: block !important;
+  float: none !important;
+  width: min(720px, 100%) !important;
+  max-width: 720px !important;
+}
+
+@media (max-width: 920px) {
+  body.um-page-account,
+  .bb-page-content:has(.um.um-account) {
+    --um-account-content: min(100% - 24px, 1180px);
+  }
+
+  body.um-page-account .bb-page-hero {
+    padding-block: 58px 72px;
+  }
+
+  body.um-page-account .bb-page-hero h1 {
+    font-size: clamp(3rem, 16vw, 5rem);
+  }
+
+  .um.um-account .um-form > form {
+    grid-template-columns: 1fr;
+  }
+
+  .um.um-account .um-account-side,
+  .um.um-account .um-account-main {
+    grid-column: 1;
+  }
+
+  .um.um-account .um-account-side li a {
+    grid-template-columns: 36px minmax(0, 1fr) 22px;
+  }
+
+}

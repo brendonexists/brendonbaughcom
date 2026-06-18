@@ -210,25 +210,6 @@ function _s_scripts()
 	$brand_theme_css_path = get_template_directory() . '/assets/css/brand-theme.css';
 	$brand_theme_css_ver  = file_exists( $brand_theme_css_path ) ? filemtime( $brand_theme_css_path ) : _S_VERSION;
 	wp_enqueue_style( 'brendon-core-brand-theme', get_template_directory_uri() . '/assets/css/brand-theme.css', $brand_theme_deps, $brand_theme_css_ver );
-	$um_profile_css_path = get_template_directory() . '/assets/css/ultimate-member-profile.css';
-	if ( file_exists( $um_profile_css_path ) ) {
-		wp_enqueue_style(
-			'brendon-core-ultimate-member-profile',
-			get_template_directory_uri() . '/assets/css/ultimate-member-profile.css',
-			array( 'brendon-core-brand-theme' ),
-			filemtime( $um_profile_css_path )
-		);
-	}
-	$um_profile_js_path = get_template_directory() . '/assets/js/ultimate-member-profile.js';
-	if ( file_exists( $um_profile_js_path ) ) {
-		wp_enqueue_script(
-			'brendon-core-ultimate-member-profile',
-			get_template_directory_uri() . '/assets/js/ultimate-member-profile.js',
-			array( 'um_profile' ),
-			filemtime( $um_profile_js_path ),
-			true
-		);
-	}
 	if ( is_front_page() ) {
 		$home_retro_css_path = get_template_directory() . '/assets/css/home-retro.css';
 		$home_retro_css_ver  = file_exists( $home_retro_css_path ) ? filemtime( $home_retro_css_path ) : _S_VERSION;
@@ -255,6 +236,45 @@ function _s_scripts()
 	}
 }
 add_action('wp_enqueue_scripts', '_s_scripts');
+
+/**
+ * Load Ultimate Member overrides after plugin assets so the cascade is predictable.
+ */
+function brendon_core_um_override_assets() {
+	$um_profile_css_path = get_template_directory() . '/assets/css/ultimate-member-profile.css';
+	if ( file_exists( $um_profile_css_path ) ) {
+		wp_enqueue_style(
+			'brendon-core-ultimate-member-profile',
+			get_template_directory_uri() . '/assets/css/ultimate-member-profile.css',
+			array( 'brendon-core-brand-theme' ),
+			filemtime( $um_profile_css_path )
+		);
+	}
+
+	$um_account_css_path = get_template_directory() . '/assets/css/ultimate-member-account.css';
+	if ( file_exists( $um_account_css_path ) ) {
+		wp_enqueue_style(
+			'brendon-core-ultimate-member-account',
+			get_template_directory_uri() . '/assets/css/ultimate-member-account.css',
+			array( 'brendon-core-brand-theme', 'brendon-core-ultimate-member-profile' ),
+			filemtime( $um_account_css_path )
+		);
+	}
+
+	$um_profile_js_path = get_template_directory() . '/assets/js/ultimate-member-profile.js';
+	if ( file_exists( $um_profile_js_path ) ) {
+		$deps = wp_script_is( 'um_profile', 'registered' ) ? array( 'um_profile' ) : array();
+
+		wp_enqueue_script(
+			'brendon-core-ultimate-member-profile',
+			get_template_directory_uri() . '/assets/js/ultimate-member-profile.js',
+			$deps,
+			filemtime( $um_profile_js_path ),
+			true
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'brendon_core_um_override_assets', 99 );
 
 /**
  * Show the logged-in user's display name on the primary profile menu item.
@@ -305,6 +325,7 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/live-now.php';
 require get_template_directory() . '/inc/at-every-turn.php';
 require get_template_directory() . '/inc/bible-study-live.php';
+require get_template_directory() . '/inc/prayer-wall.php';
 
 /**
  * Load Jetpack compatibility file.
