@@ -72,7 +72,7 @@ $tile_items = [
 	<section class="bb-retro-hero" aria-labelledby="bb-retro-title">
 		<div class="bb-retro-wrap">
 			<div class="bb-retro-wordmark" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-				<h1 id="bb-retro-title">BrendonExists</h1>
+				<h1 id="bb-retro-title">BrendonBaugh</h1>
 			</div>
 
 			<ul class="bb-retro-pillars" aria-label="<?php echo esc_attr_x( 'Stream hub pillars', 'front page list label', 'brendon-core' ); ?>">
