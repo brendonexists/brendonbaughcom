@@ -15,9 +15,9 @@
 		<footer class="bb-footer" role="contentinfo">
 			<div class="bb-wrap bb-footer__grid">
 				<div class="bb-footer__brand">
-					<span class="bb-footer__mark" aria-hidden="true">
+					<a class="bb-footer__mark" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 						<img class="bb-mark bb-mark--raven" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/home-retro/raven-logo.png' ); ?>" alt="">
-					</span>
+					</a>
 					<div>
 						<p class="bb-footer__eyebrow"><?php echo esc_html( brendon_core_footer_setting( 'eyebrow' ) ); ?></p>
 						<p class="bb-footer__statement"><?php echo esc_html( brendon_core_footer_setting( 'statement' ) ); ?></p>
@@ -39,7 +39,7 @@
 				</nav>
 
 				<div class="bb-footer__small">
-					<p>&copy; <?php echo esc_html(gmdate('Y')); ?> <?php bloginfo('name'); ?>.</p>
+					<p>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html( get_bloginfo( 'name' ) ); ?>.</p>
 					<p><?php echo esc_html( brendon_core_footer_setting( 'tagline' ) ); ?></p>
 				</div>
 			</div>

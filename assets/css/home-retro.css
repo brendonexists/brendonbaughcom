@@ -27,8 +27,7 @@ body.home .bb-header {
 }
 
 body.home .bb-primary-nav__list a,
-body.home .bb-submenu-toggle,
-body.home .bb-footer__statement {
+body.home .bb-submenu-toggle {
   color: var(--bb-retro-ink);
 }
 
@@ -89,6 +88,12 @@ body.home .bb-mark--raven {
 .bb-retro-hero {
   position: relative;
   overflow: clip;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(241, 230, 200, 0.28), transparent 32rem),
+    linear-gradient(180deg, rgba(241, 230, 200, 0.08), rgba(241, 230, 200, 0.64) 92%),
+    url("../images/home-retro/header-paper-map-v2.png") center center / cover,
+    url("../images/home-retro/paper-texture.jpg") center top / 900px auto repeat,
+    var(--bb-retro-paper);
   padding-block: clamp(34px, 5vw, 62px) clamp(54px, 7vw, 92px);
 }
 
@@ -311,9 +316,12 @@ body.home .bb-mark--raven {
   position: relative;
   border-top: 1px solid rgba(16, 37, 31, 0.24);
   background:
-    linear-gradient(rgba(8, 21, 18, 0.91), rgba(8, 21, 18, 0.94)),
-    url("../images/home-retro/forest-mountains-wide.jpg") center bottom / cover;
-  padding-block: clamp(54px, 8vw, 96px);
+    radial-gradient(circle at 15% 12%, rgba(210, 164, 58, 0.12), transparent 24rem),
+    radial-gradient(circle at 88% 8%, rgba(125, 154, 107, 0.12), transparent 22rem),
+    linear-gradient(rgba(8, 21, 18, 0.9), rgba(8, 21, 18, 0.95)),
+    url("../images/home-retro/forest-mountains-wide.jpg") center bottom / cover,
+    var(--bb-retro-dark);
+  padding-block: clamp(54px, 8vw, 90px) clamp(44px, 6vw, 68px);
   color: var(--bb-retro-paper);
 }
 
