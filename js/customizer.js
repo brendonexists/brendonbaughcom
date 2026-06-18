@@ -1,42 +1,51 @@
 /* global wp, jQuery */
 /**
- * File customizer.js.
- *
- * Theme Customizer enhancements for a better user experience.
- *
- * Contains handlers to make Theme Customizer preview reload changes asynchronously.
+ * Customizer live preview bindings for Brendon Core.
  */
 
 ( function( $ ) {
-	// Site title and description.
-	wp.customize( 'blogname', function( value ) {
-		value.bind( function( to ) {
-			$( '.site-title a' ).text( to );
+	var bindText = function( setting, selector ) {
+		wp.customize( setting, function( value ) {
+			value.bind( function( nextValue ) {
+				$( selector ).text( nextValue );
+			} );
 		} );
-	} );
-	wp.customize( 'blogdescription', function( value ) {
-		value.bind( function( to ) {
-			$( '.site-description' ).text( to );
+	};
+
+	var bindAttr = function( setting, selector, attr ) {
+		wp.customize( setting, function( value ) {
+			value.bind( function( nextValue ) {
+				$( selector ).attr( attr, nextValue );
+			} );
 		} );
+	};
+
+	bindText( 'brendon_core_home_wordmark', '.bb-retro-wordmark h1' );
+	bindText( 'brendon_core_home_latest_kicker', '.bb-retro-section-heading p' );
+	bindText( 'brendon_core_home_latest_heading', '.bb-retro-section-heading h2' );
+	bindText( 'brendon_core_home_latest_archive_label', '.bb-retro-section-heading a' );
+	bindAttr( 'brendon_core_home_writing_url', '.bb-retro-section-heading a', 'href' );
+
+	[ 0, 1, 2, 3 ].forEach( function( index ) {
+		bindText(
+			'brendon_core_home_pillar_' + index + '_label',
+			'.bb-retro-pillars li:not(.bb-retro-pillars__dot):eq(' + index + ') span:last-child'
+		);
 	} );
 
-	// Header text color.
-	wp.customize( 'header_textcolor', function( value ) {
-		value.bind( function( to ) {
-			if ( 'blank' === to ) {
-				$( '.site-title, .site-description' ).css( {
-					clip: 'rect(1px, 1px, 1px, 1px)',
-					position: 'absolute',
-				} );
-			} else {
-				$( '.site-title, .site-description' ).css( {
-					clip: 'auto',
-					position: 'relative',
-				} );
-				$( '.site-title a, .site-description' ).css( {
-					color: to,
-				} );
-			}
-		} );
+	[ 0, 1, 2, 3, 4, 5 ].forEach( function( index ) {
+		bindText(
+			'brendon_core_home_quick_link_' + index + '_label',
+			'.bb-retro-tile:eq(' + index + ') span:last-child'
+		);
+		bindAttr(
+			'brendon_core_home_quick_link_' + index + '_url',
+			'.bb-retro-tile:eq(' + index + ')',
+			'href'
+		);
 	} );
+
+	bindText( 'brendon_core_footer_eyebrow', '.bb-footer__eyebrow' );
+	bindText( 'brendon_core_footer_statement', '.bb-footer__statement' );
+	bindText( 'brendon_core_footer_tagline', '.bb-footer__small p:last-child' );
 }( jQuery ) );

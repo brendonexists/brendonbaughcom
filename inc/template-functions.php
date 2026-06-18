@@ -212,25 +212,11 @@ function brendon_core_writing_url() {
  */
 function brendon_core_home_defaults() {
 	return [
-		'hero_kicker'          => esc_html__( 'Brendon Exists', 'brendon-core' ),
-		'hero_heading'         => esc_html__( 'Documenting real life in public, without pretending it is cleaner than it is.', 'brendon-core' ),
-		'hero_lede'            => esc_html__( 'Faith, fatherhood, discipline, building, creative work, and the slow practice of becoming a whole person.', 'brendon-core' ),
-		'hero_primary_label'   => esc_html__( 'Read the Logs', 'brendon-core' ),
-		'hero_primary_url'     => home_url( '/writing' ),
-		'hero_secondary_label' => esc_html__( 'Start With the Story', 'brendon-core' ),
-		'hero_secondary_url'   => home_url( '/about' ),
-		'what_kicker'          => esc_html__( 'What this is', 'brendon-core' ),
-		'what_heading'         => esc_html__( 'A home base for the work under the work.', 'brendon-core' ),
-		'what_body'            => esc_html__( 'Not a persona. Not a content funnel. A place to keep receipts from real life: conviction, doubt, reps, prayers, unfinished builds, and lessons learned the hard way.', 'brendon-core' ),
-		'writing_heading'      => esc_html__( 'Logs from the field.', 'brendon-core' ),
-		'writing_url'          => home_url( '/writing' ),
-		'projects_kicker'      => esc_html__( 'Projects / Builds', 'brendon-core' ),
-		'projects_heading'     => esc_html__( 'The useful things', 'brendon-core' ),
-		'projects_subheading'  => esc_html__( 'Get a paper trail.', 'brendon-core' ),
-		'projects_category'    => 0,
-		'season_kicker'        => esc_html__( 'Current season', 'brendon-core' ),
-		'season_heading'       => esc_html__( 'Build the home. Keep the record. Tell the truth.', 'brendon-core' ),
-		'season_body'          => esc_html__( 'Less performance. More practice. A steady archive of what is being learned, made, repaired, and carried.', 'brendon-core' ),
+		'wordmark'             => esc_html__( 'BrendonBaugh', 'brendon-core' ),
+		'latest_kicker'        => esc_html__( 'Latest writing', 'brendon-core' ),
+		'latest_heading'       => esc_html__( 'Field notes from the build.', 'brendon-core' ),
+		'latest_archive_label' => esc_html__( 'All Writing', 'brendon-core' ),
+		'writing_url'          => brendon_core_writing_url(),
 	];
 }
 
@@ -248,6 +234,207 @@ function brendon_core_home_setting( $key ) {
 	}
 
 	return get_theme_mod( "brendon_core_home_{$key}", $defaults[ $key ] );
+}
+
+/**
+ * Default homepage pillar labels.
+ *
+ * @return array
+ */
+function brendon_core_home_pillar_defaults() {
+	return [
+		[
+			'label' => esc_html__( 'Notes', 'brendon-core' ),
+			'icon'  => 'notes',
+		],
+		[
+			'label' => esc_html__( 'Music', 'brendon-core' ),
+			'icon'  => 'music',
+		],
+		[
+			'label' => esc_html__( 'Faith', 'brendon-core' ),
+			'icon'  => 'faith',
+		],
+		[
+			'label' => esc_html__( 'Builds', 'brendon-core' ),
+			'icon'  => 'builds',
+		],
+	];
+}
+
+/**
+ * Get the editable homepage pillar labels.
+ *
+ * @return array
+ */
+function brendon_core_home_pillar_items() {
+	$items = [];
+
+	foreach ( brendon_core_home_pillar_defaults() as $index => $default ) {
+		$label = get_theme_mod( "brendon_core_home_pillar_{$index}_label", $default['label'] );
+		$icon  = get_theme_mod( "brendon_core_home_pillar_{$index}_icon", $default['icon'] );
+
+		if ( ! $label ) {
+			continue;
+		}
+
+		$items[] = [
+			'label' => sanitize_text_field( $label ),
+			'icon'  => brendon_core_sanitize_home_icon( $icon ),
+		];
+	}
+
+	return $items;
+}
+
+/**
+ * Default homepage quick-link tiles.
+ *
+ * @return array
+ */
+function brendon_core_home_quick_link_defaults() {
+	return [
+		[
+			'label' => esc_html__( 'About', 'brendon-core' ),
+			'url'   => home_url( '/about' ),
+			'icon'  => 'about',
+		],
+		[
+			'label' => esc_html__( 'Writings', 'brendon-core' ),
+			'url'   => home_url( '/category/writings/' ),
+			'icon'  => 'writings',
+		],
+		[
+			'label' => esc_html__( 'Projects', 'brendon-core' ),
+			'url'   => home_url( '/category/projects/' ),
+			'icon'  => 'projects',
+		],
+		[
+			'label' => esc_html__( 'Bible Study', 'brendon-core' ),
+			'url'   => home_url( '/bible-study' ),
+			'icon'  => 'bible-study',
+		],
+		[
+			'label' => esc_html__( 'Prayers', 'brendon-core' ),
+			'url'   => home_url( '/prayer-wall' ),
+			'icon'  => 'prayers',
+		],
+		[
+			'label' => esc_html__( 'Contact', 'brendon-core' ),
+			'url'   => home_url( '/contact' ),
+			'icon'  => 'contact',
+		],
+	];
+}
+
+/**
+ * Get the editable homepage quick-link tiles.
+ *
+ * @return array
+ */
+function brendon_core_home_quick_link_items() {
+	$items = [];
+
+	foreach ( brendon_core_home_quick_link_defaults() as $index => $default ) {
+		$label = get_theme_mod( "brendon_core_home_quick_link_{$index}_label", $default['label'] );
+		$url   = get_theme_mod( "brendon_core_home_quick_link_{$index}_url", $default['url'] );
+		$icon  = get_theme_mod( "brendon_core_home_quick_link_{$index}_icon", $default['icon'] );
+
+		if ( ! $label || ! $url ) {
+			continue;
+		}
+
+		$items[] = [
+			'label' => sanitize_text_field( $label ),
+			'url'   => esc_url_raw( $url ),
+			'icon'  => brendon_core_sanitize_home_icon( $icon ),
+		];
+	}
+
+	return $items;
+}
+
+/**
+ * Return SVG markup for homepage icon keys.
+ *
+ * @param string $icon Icon key.
+ * @return string
+ */
+function brendon_core_home_icon_svg( $icon ) {
+	$icons = [
+		'arrow-right'  => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M9 24h28M27 14l10 10-10 10" /></svg>',
+		'notes'       => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M11 18h23v12a10 10 0 0 1-10 10h-3A10 10 0 0 1 11 30V18Zm23 4h3a5 5 0 0 1 0 10h-3M17 12c-2-3 2-4 0-7m8 7c-2-3 2-4 0-7m8 7c-2-3 2-4 0-7M8 40h31" /></svg>',
+		'music'       => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="m31 6 5 5-13 13m9-15 7-3 3 3-3 7M21 23a10 10 0 1 0 4 4m-9 2 3 3m-7 2 2 2" /></svg>',
+		'faith'       => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M8 12c6-2 11-1 16 3 5-4 10-5 16-3v28c-6-2-11-1-16 3-5-4-10-5-16-3V12Zm16 3v28" /></svg>',
+		'builds'      => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M10 36h28M14 36V12h20v24M19 18h3m4 0h3m-10 7h3m4 0h3m-10 7h3m4 0h3M7 40h34" /></svg>',
+		'about'       => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 11a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM13 38c2.3-7 6-10.5 11-10.5S32.7 31 35 38" /></svg>',
+		'writings'    => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M17 10h17l5 5v23H17V10ZM34 10v6h5M22 22h11M22 29h11M22 36h7" /></svg>',
+		'projects'    => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M18 18 12 24l6 6M30 18l6 6-6 6M27 13 21 35" /></svg>',
+		'bible-study' => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 9v30M14 19h20M18 39h12" /></svg>',
+		'prayers'     => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 38s-13-7.4-13-17a7 7 0 0 1 13-3.6A7 7 0 0 1 37 21c0 9.6-13 17-13 17ZM24 17v21" /></svg>',
+		'contact'     => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M10 16h28v18H10V16ZM12 18l12 10 12-10" /></svg>',
+		'calendar'    => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M14 8v8m20-8v8M9 15h30v25H9V15Zm0 9h30M16 30h4m7 0h4m-15 6h4m7 0h4" /></svg>',
+		'compass'     => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 42a18 18 0 1 0 0-36 18 18 0 0 0 0 36Zm8-26-5 12-11 4 5-12 11-4Z" /></svg>',
+		'flame'       => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M25 43c8-2 12-7 12-15 0-7-4-12-11-20 1 7-1 10-6 14 1-5-1-8-5-11 1 8-5 12-5 19 0 8 7 13 15 13Z" /></svg>',
+		'home'        => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M7 24 24 9l17 15M12 21v20h24V21M20 41V29h8v12" /></svg>',
+		'map'         => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="m16 10 16-4 10 4v29l-10-4-16 4-10-4V6l10 4Zm0 0v29m16-33v29" /></svg>',
+		'pen'         => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="m30 9 9 9-21 21H9v-9L30 9Zm-4 4 9 9M8 41h32" /></svg>',
+		'shield'      => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 43s15-7 15-22V10L24 5 9 10v11c0 15 15 22 15 22Z" /></svg>',
+		'spark'       => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 5 28 19l14 5-14 5-4 14-5-14-13-5 13-5 5-14Zm-14 2 2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6Z" /></svg>',
+		'star'        => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="m24 6 5.4 11 12.1 1.8-8.8 8.6 2.1 12.1L24 33.8 13.2 39.5l2.1-12.1-8.8-8.6L18.6 17 24 6Z" /></svg>',
+		'target'      => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 42a18 18 0 1 0 0-36 18 18 0 0 0 0 36Zm0-8a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm0-6a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" /></svg>',
+		'terminal'    => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M8 11h32v26H8V11Zm7 8 6 5-6 5m10 0h10" /></svg>',
+		'video'       => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M9 15h24v18H9V15Zm24 7 8-5v14l-8-5" /></svg>',
+		'wrench'      => '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M29 7a10 10 0 0 0 12 12L21 39a7 7 0 0 1-10-10L31 9c-1-.8-1.5-1.3-2-2Z" /></svg>',
+	];
+
+	return $icons[ $icon ] ?? $icons['about'];
+}
+
+/**
+ * Homepage icon choices used by the Customizer.
+ *
+ * @return array
+ */
+function brendon_core_home_icon_choices() {
+	return [
+		'about'       => esc_html__( 'User', 'brendon-core' ),
+		'arrow-right' => esc_html__( 'Arrow Right', 'brendon-core' ),
+		'bible-study' => esc_html__( 'Cross', 'brendon-core' ),
+		'builds'      => esc_html__( 'Building', 'brendon-core' ),
+		'calendar'    => esc_html__( 'Calendar', 'brendon-core' ),
+		'compass'     => esc_html__( 'Compass', 'brendon-core' ),
+		'contact'     => esc_html__( 'Mail', 'brendon-core' ),
+		'faith'       => esc_html__( 'Book', 'brendon-core' ),
+		'flame'       => esc_html__( 'Flame', 'brendon-core' ),
+		'home'        => esc_html__( 'Home', 'brendon-core' ),
+		'map'         => esc_html__( 'Map', 'brendon-core' ),
+		'music'       => esc_html__( 'Music', 'brendon-core' ),
+		'notes'       => esc_html__( 'Coffee Notes', 'brendon-core' ),
+		'pen'         => esc_html__( 'Pen', 'brendon-core' ),
+		'prayers'     => esc_html__( 'Heart', 'brendon-core' ),
+		'projects'    => esc_html__( 'Code', 'brendon-core' ),
+		'shield'      => esc_html__( 'Shield', 'brendon-core' ),
+		'spark'       => esc_html__( 'Spark', 'brendon-core' ),
+		'star'        => esc_html__( 'Star', 'brendon-core' ),
+		'target'      => esc_html__( 'Target', 'brendon-core' ),
+		'terminal'    => esc_html__( 'Terminal', 'brendon-core' ),
+		'video'       => esc_html__( 'Video', 'brendon-core' ),
+		'wrench'      => esc_html__( 'Wrench', 'brendon-core' ),
+		'writings'    => esc_html__( 'Document', 'brendon-core' ),
+	];
+}
+
+/**
+ * Sanitize a homepage icon key.
+ *
+ * @param string $icon Icon key.
+ * @return string
+ */
+function brendon_core_sanitize_home_icon( $icon ) {
+	$choices = array_keys( brendon_core_home_icon_choices() );
+
+	return in_array( $icon, $choices, true ) ? $icon : 'about';
 }
 
 /**
