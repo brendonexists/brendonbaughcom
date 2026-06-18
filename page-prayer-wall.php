@@ -73,6 +73,21 @@ $prayer_query = new WP_Query(
 	<section class="bb-section bb-prayer-wall__section">
 		<div class="bb-wrap">
 			<?php if ( $prayer_query->have_posts() ) : ?>
+				<header class="bb-prayer-wall__section-header">
+					<div>
+						<p class="bb-kicker"><?php esc_html_e( 'Prayer request wall', 'brendon-core' ); ?></p>
+						<h2><?php esc_html_e( 'Latest requests', 'brendon-core' ); ?></h2>
+					</div>
+					<p>
+						<?php
+						printf(
+							/* translators: %s: request count. */
+							esc_html( _n( '%s public request', '%s public requests', (int) $prayer_query->found_posts, 'brendon-core' ) ),
+							esc_html( number_format_i18n( (int) $prayer_query->found_posts ) )
+						);
+						?>
+					</p>
+				</header>
 				<div class="bb-prayer-wall__grid">
 					<?php
 					while ( $prayer_query->have_posts() ) :
@@ -83,7 +98,7 @@ $prayer_query = new WP_Query(
 						$has_prayed  = brendon_core_prayer_wall_user_has_prayed( $post_id );
 						$button_text = $has_prayed ? __( 'Prayed', 'brendon-core' ) : __( 'I prayed', 'brendon-core' );
 						?>
-						<article <?php post_class( 'bb-prayer-card' ); ?>>
+						<article <?php post_class( 'bb-prayer-card ' . ( $is_praise ? 'bb-prayer-card--praise' : 'bb-prayer-card--request' ) ); ?>>
 							<header class="bb-prayer-card__header">
 								<span class="bb-prayer-card__type">
 									<?php echo esc_html( $is_praise ? __( 'Praise report', 'brendon-core' ) : __( 'Prayer request', 'brendon-core' ) ); ?>
