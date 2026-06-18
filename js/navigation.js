@@ -95,4 +95,19 @@
 
 		closeSubmenus();
 	} );
+
+	const siteHeader = document.querySelector( '.bb-header' );
+	const homeHero = document.querySelector( '.bb-retro-hero' );
+
+	if ( siteHeader && homeHero && document.body.classList.contains( 'home' ) ) {
+		const updateHeaderState = () => {
+			const heroBottom = homeHero.offsetTop + homeHero.offsetHeight;
+			const threshold = heroBottom - siteHeader.offsetHeight;
+			document.body.classList.toggle( 'is-home-hero-visible', window.scrollY < threshold );
+		};
+
+		updateHeaderState();
+		window.addEventListener( 'scroll', updateHeaderState, { passive: true } );
+		window.addEventListener( 'resize', updateHeaderState );
+	}
 }() );

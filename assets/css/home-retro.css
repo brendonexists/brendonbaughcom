@@ -20,10 +20,52 @@ body.front-page {
 }
 
 body.home .bb-header {
+  position: fixed;
+  inset: 0 0 auto;
+  isolation: isolate;
+  z-index: 80;
   border-bottom-color: var(--bb-retro-ink);
+  background: transparent;
+  box-shadow: 0 10px 24px rgba(8, 21, 18, 0.08);
+  transition: border-color 260ms ease, box-shadow 260ms ease;
+}
+
+body.home .bb-header::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   background:
     linear-gradient(rgba(241, 230, 200, 0.9), rgba(241, 230, 200, 0.9)),
     url("../images/home-retro/paper-texture.jpg") center / cover;
+  content: "";
+  opacity: 1;
+  transition: opacity 320ms ease;
+}
+
+body.home .bb-header__inner {
+  position: relative;
+  z-index: 1;
+  width: var(--bb-retro-wrap);
+  min-height: 104px;
+  padding-block: 18px 12px;
+}
+
+body.admin-bar.home .bb-header {
+  top: 32px;
+}
+
+body.home.is-home-hero-visible .bb-header {
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+body.home.is-home-hero-visible .bb-header::before {
+  opacity: 0;
+}
+
+body.home:not(.is-home-hero-visible) .bb-header:focus-within {
+  border-bottom-color: color-mix(in srgb, var(--bb-retro-ink) 42%, transparent);
+  box-shadow: 0 12px 28px rgba(8, 21, 18, 0.1);
 }
 
 body.home .bb-primary-nav__list a,
@@ -50,6 +92,12 @@ body.home .bb-primary-nav__list .sub-menu {
   box-shadow: 6px 6px 0 var(--bb-retro-ink);
 }
 
+@media screen and (max-width: 782px) {
+  body.admin-bar.home .bb-header {
+    top: 46px;
+  }
+}
+
 .bb-home-retro {
   min-height: 100vh;
   background:
@@ -68,15 +116,23 @@ body.home .bb-brand {
 
 body.home .bb-brand__mark {
   width: 72px;
-  height: 66px;
-  overflow: visible;
+  height: 72px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--bb-retro-ink) 34%, transparent);
+  border-radius: 50%;
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.9), rgba(241, 230, 200, 0.76)),
+    url("../images/home-retro/paper-texture.jpg") center / cover,
+    var(--bb-retro-paper);
+  box-shadow: 4px 4px 0 rgba(210, 164, 58, 0.82);
+  transform: rotate(-2deg);
 }
 
 body.home .bb-mark--raven {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 
@@ -94,7 +150,7 @@ body.home .bb-mark--raven {
     url("../images/home-retro/header-paper-map-v2.png") center center / cover,
     url("../images/home-retro/paper-texture.jpg") center top / 900px auto repeat,
     var(--bb-retro-paper);
-  padding-block: clamp(34px, 5vw, 62px) clamp(54px, 7vw, 92px);
+  padding-block: clamp(76px, 7vw, 108px) clamp(54px, 7vw, 92px);
 }
 
 .bb-retro-hero::before,
@@ -409,6 +465,17 @@ body.home .bb-mark--raven {
 @media (max-width: 720px) {
   :root {
     --bb-retro-wrap: min(100% - 24px, 1280px);
+  }
+
+  body.home .bb-header__inner {
+    min-height: 82px;
+    padding-block: 12px 8px;
+  }
+
+  body.home .bb-brand__mark {
+    width: 58px;
+    height: 58px;
+    box-shadow: 3px 3px 0 rgba(210, 164, 58, 0.82);
   }
 
   .bb-retro-wordmark h1 {
