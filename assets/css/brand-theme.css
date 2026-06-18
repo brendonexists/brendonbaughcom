@@ -1998,6 +1998,224 @@ h2,
   filter: saturate(0.82) contrast(1.08);
 }
 
+/* Single post reading page refresh. */
+.single-post .bb-log-main {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(210, 164, 58, 0.16), transparent 25rem),
+    radial-gradient(circle at 88% 12%, rgba(125, 154, 107, 0.16), transparent 26rem),
+    linear-gradient(rgba(241, 230, 200, 0.88), rgba(241, 230, 200, 0.94)),
+    url("../images/home-retro/paper-texture.jpg") center top / 900px auto repeat,
+    var(--bb-cream);
+}
+
+.single-post .bb-log-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(56px, 8vw, 104px) clamp(48px, 7vw, 86px);
+}
+
+.single-post .bb-log-hero::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 8px;
+  background: linear-gradient(90deg, var(--bb-sage), var(--bb-blue), var(--bb-gold));
+  content: "";
+}
+
+.single-post .bb-log-hero--has-image::before {
+  background:
+    linear-gradient(90deg, rgba(8, 21, 18, 0.92), rgba(8, 21, 18, 0.74)),
+    rgba(8, 21, 18, 0.42);
+}
+
+.single-post .bb-log-hero__inner {
+  max-width: 1120px;
+}
+
+.single-post .bb-log-hero h1 {
+  max-width: 18ch;
+  font-size: clamp(3.15rem, 7.2vw, 6.8rem);
+  overflow-wrap: anywhere;
+}
+
+.single-post .bb-log-meta {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  gap: 10px;
+  border: 1px solid rgba(241, 230, 200, 0.24);
+  border-radius: 999px;
+  background: rgba(8, 21, 18, 0.42);
+  padding: 9px 13px;
+  color: color-mix(in srgb, var(--bb-cream) 82%, transparent);
+}
+
+.single-post .bb-log-meta a {
+  color: var(--bb-gold);
+  text-decoration: none;
+}
+
+.single-post .bb-log-meta a:hover {
+  color: var(--bb-cream);
+}
+
+.single-post .bb-log-dek {
+  max-width: 62ch;
+  color: color-mix(in srgb, var(--bb-cream) 84%, transparent);
+  font-size: clamp(1.08rem, 1.7vw, 1.34rem);
+}
+
+.single-post .bb-log-shell {
+  max-width: 1180px;
+  margin-block: clamp(34px, 5vw, 62px) clamp(64px, 8vw, 104px);
+}
+
+.single-post .bb-log-layout {
+  grid-template-columns: minmax(190px, 230px) minmax(0, 1fr);
+  gap: clamp(24px, 4.4vw, 54px);
+}
+
+.single-post .bb-log-rail {
+  top: 100px;
+  border-width: 2px;
+  background:
+    linear-gradient(rgba(8, 21, 18, 0.94), rgba(8, 21, 18, 0.96)),
+    url("../images/home-retro/forest-mountains-wide.jpg") center bottom / cover,
+    var(--bb-dark);
+  color: var(--bb-cream);
+  box-shadow: 6px 6px 0 var(--bb-gold);
+}
+
+.single-post .bb-log-rail .bb-kicker,
+.single-post .bb-log-rail dt {
+  color: var(--bb-gold);
+}
+
+.single-post .bb-log-rail dd,
+.single-post .bb-log-rail a {
+  color: var(--bb-cream);
+}
+
+.single-post .bb-log-rail dd {
+  font-weight: 750;
+}
+
+.single-post .bb-log-rail__links {
+  border-top-color: rgba(241, 230, 200, 0.24);
+}
+
+.single-post .bb-log-rail__links a {
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  border: 1px solid rgba(241, 230, 200, 0.26);
+  border-radius: var(--bb-radius);
+  padding: 8px 10px;
+  color: var(--bb-gold);
+  text-decoration: none;
+}
+
+.single-post .bb-log-rail__links a:hover {
+  border-color: var(--bb-gold);
+  background: rgba(241, 230, 200, 0.08);
+  color: var(--bb-cream);
+}
+
+.single-post .bb-log-paper {
+  padding: clamp(30px, 5.5vw, 72px);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.86), rgba(241, 230, 200, 0.94)),
+    url("../images/home-retro/paper-texture.jpg") center top / 760px auto repeat,
+    var(--bb-cream);
+  box-shadow: 9px 9px 0 var(--bb-gold);
+}
+
+.single-post .bb-log-paper::before {
+  width: min(240px, 42%);
+  height: 12px;
+}
+
+.single-post .bb-log-content {
+  max-width: 720px;
+  color: color-mix(in srgb, var(--bb-dark) 88%, transparent);
+  font-size: clamp(1.08rem, 1.18vw, 1.2rem);
+  line-height: 1.86;
+}
+
+.single-post .bb-log-content > p:first-of-type {
+  color: var(--bb-dark);
+  font-size: clamp(1.18rem, 1.8vw, 1.38rem);
+  font-weight: 650;
+  line-height: 1.68;
+}
+
+.single-post .bb-log-content h2 {
+  margin-top: 2.35em;
+  border-bottom-width: 2px;
+  font-size: clamp(2rem, 3.6vw, 3rem);
+}
+
+.single-post .bb-log-content h3 {
+  font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+}
+
+.single-post .bb-log-content :is(ul, ol) {
+  padding-left: 1.45em;
+}
+
+.single-post .bb-log-content li {
+  padding-left: 0.18em;
+}
+
+.single-post .bb-log-content blockquote {
+  border-left-width: 6px;
+  padding: 20px 24px;
+  box-shadow: inset 0 0 0 1px rgba(8, 21, 18, 0.12);
+}
+
+.single-post .bb-log-content .wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block: 2em;
+}
+
+.single-post .bb-log-content .wp-block-button__link {
+  text-decoration: none;
+}
+
+.single-post .bb-log-end {
+  max-width: 720px;
+}
+
+.single-post .bb-log-end__recap {
+  border-left-color: var(--bb-gold);
+  background: rgba(125, 154, 107, 0.12);
+  padding: 16px 18px;
+}
+
+.single-post .bb-log-tags {
+  padding-top: 0;
+}
+
+.single-post .bb-log-nav__back,
+.single-post .bb-log-nav__post {
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.86), rgba(241, 230, 200, 0.94)),
+    url("../images/home-retro/paper-texture.jpg") center / cover,
+    var(--bb-cream);
+}
+
+.single-post .bb-log-comments {
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.88), rgba(241, 230, 200, 0.95)),
+    url("../images/home-retro/paper-texture.jpg") center / cover,
+    var(--bb-cream);
+  box-shadow: 7px 7px 0 var(--bb-gold);
+}
+
 .bb-button,
 .wp-block-button__link,
 input[type="submit"],
@@ -2768,7 +2986,15 @@ body.page-id-2505 .bb-singular__paper {
     grid-template-columns: 1fr;
   }
 
+  .single-post .bb-log-layout {
+    grid-template-columns: 1fr;
+  }
+
   .bb-log-comments {
+    grid-column: 1;
+  }
+
+  .single-post .bb-log-comments {
     grid-column: 1;
   }
 
@@ -2776,11 +3002,23 @@ body.page-id-2505 .bb-singular__paper {
     position: static;
   }
 
+  .single-post .bb-log-rail {
+    position: static;
+  }
+
   .bb-log-rail dl {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .single-post .bb-log-rail dl {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .bb-log-rail__links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .single-post .bb-log-rail__links {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -2823,15 +3061,30 @@ body.page-id-2505 .bb-singular__paper {
     padding-block: 42px 38px;
   }
 
+  .single-post .bb-log-hero {
+    padding-block: 48px 40px;
+  }
+
   .bb-log-hero h1 {
     max-width: 100%;
     font-size: 2.8rem;
     line-height: 0.95;
   }
 
+  .single-post .bb-log-hero h1 {
+    max-width: 100%;
+    font-size: clamp(2.55rem, 13vw, 4rem);
+    line-height: 0.98;
+  }
+
   .bb-log-meta {
     gap: 8px;
     margin-top: 22px;
+  }
+
+  .single-post .bb-log-meta {
+    border-radius: var(--bb-radius);
+    padding: 10px 12px;
   }
 
   .bb-log-meta__item {
@@ -2865,12 +3118,26 @@ body.page-id-2505 .bb-singular__paper {
     grid-template-columns: 1fr;
   }
 
+  .single-post .bb-log-rail dl,
+  .single-post .bb-log-rail__links {
+    grid-template-columns: 1fr;
+  }
+
   .bb-log-paper {
     padding: 22px;
   }
 
+  .single-post .bb-log-paper {
+    padding: 24px 20px;
+  }
+
   .bb-log-content {
     font-size: 1.03rem;
+    line-height: 1.82;
+  }
+
+  .single-post .bb-log-content {
+    font-size: 1.04rem;
     line-height: 1.82;
   }
 

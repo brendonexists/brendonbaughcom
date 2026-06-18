@@ -28,6 +28,10 @@ $primary_category = ! empty( $categories ) ? $categories[0] : null;
 				<h1><?php the_title(); ?></h1>
 
 				<div class="bb-log-meta" aria-label="<?php echo esc_attr_x( 'Post details', 'aria label', 'brendon-core' ); ?>">
+					<?php if ( $primary_category ) : ?>
+						<a href="<?php echo esc_url( get_category_link( $primary_category ) ); ?>"><?php echo esc_html( $primary_category->name ); ?></a>
+						<span aria-hidden="true">/</span>
+					<?php endif; ?>
 					<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date( 'F j, Y' ) ); ?></time>
 					<span aria-hidden="true">/</span>
 					<span>
