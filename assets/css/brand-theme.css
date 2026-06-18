@@ -2301,6 +2301,284 @@ select {
   margin: 0;
 }
 
+body:is(
+  .page-id-2505,
+  .page-id-2506,
+  .page-id-2507,
+  .page-id-2508,
+  .page-id-2509,
+  .page-id-2510,
+  .page-id-2511
+) .bb-page-hero {
+  border-bottom: 2px solid var(--bb-black);
+  background:
+    linear-gradient(rgba(8, 21, 18, 0.92), rgba(8, 21, 18, 0.94)),
+    url("../images/home-retro/forest-mountains-wide.jpg") center bottom / cover;
+}
+
+body:is(
+  .page-id-2505,
+  .page-id-2506,
+  .page-id-2507,
+  .page-id-2508,
+  .page-id-2509,
+  .page-id-2510,
+  .page-id-2511
+) .bb-page-hero h1 {
+  max-width: 12ch;
+  color: var(--bb-cream);
+  font-family: "Bowlby One SC", "League Spartan", Inter, system-ui, sans-serif;
+  font-size: clamp(2.8rem, 8vw, 5.8rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+body:is(
+  .page-id-2505,
+  .page-id-2506,
+  .page-id-2507,
+  .page-id-2508,
+  .page-id-2509,
+  .page-id-2510,
+  .page-id-2511
+) .bb-singular__wrap {
+  max-width: 980px;
+}
+
+body:is(
+  .page-id-2505,
+  .page-id-2506,
+  .page-id-2507,
+  .page-id-2508,
+  .page-id-2509,
+  .page-id-2510,
+  .page-id-2511
+) .bb-singular__paper {
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.92), rgba(241, 230, 200, 0.96)),
+    url("../images/home-retro/paper-texture.jpg") center / 900px auto repeat;
+  padding: clamp(24px, 5vw, 52px);
+}
+
+.um {
+  max-width: 720px;
+  margin-inline: auto !important;
+  color: var(--bb-black);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.um.um-profile,
+.um.um-directory,
+.um.um-account {
+  max-width: 100%;
+}
+
+.um a {
+  color: var(--bb-blue);
+  font-weight: 800;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.um a:hover {
+  color: var(--bb-black);
+}
+
+.um .um-form,
+.um .um-profile-body,
+.um .um-account-main,
+.um .um-members-wrapper,
+.um .um-directory .um-members-wrapper {
+  color: var(--bb-black);
+}
+
+.um .um-field {
+  padding-block: 0 18px;
+}
+
+.um .um-field-label,
+.um .um-field-label label,
+.um .um-account-heading,
+.um .um-profile-note,
+.um .um-members-pagi,
+.um .um-member-name,
+.um .um-member-meta-main,
+.um .um-member-tagline {
+  color: var(--bb-black);
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.um .um-field-label {
+  margin-bottom: 8px;
+}
+
+.um .um-field-label label {
+  font-size: 0.95rem;
+}
+
+.um input[type="text"],
+.um input[type="search"],
+.um input[type="password"],
+.um input[type="email"],
+.um input[type="url"],
+.um input[type="tel"],
+.um input[type="number"],
+.um textarea,
+.um select,
+.um .select2-container .select2-choice,
+.um .select2-container .select2-selection {
+  min-height: 48px !important;
+  border: 2px solid var(--bb-black) !important;
+  border-radius: 4px !important;
+  background: rgba(255, 248, 224, 0.88) !important;
+  color: var(--bb-black) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 1rem !important;
+}
+
+.um input:focus,
+.um textarea:focus,
+.um select:focus,
+.um .select2-container-active .select2-choice,
+.um .select2-container--focus .select2-selection {
+  border-color: var(--bb-blue) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--bb-blue) 24%, transparent),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.42) !important;
+  outline: 0;
+}
+
+.um .um-button,
+.um input[type="submit"].um-button,
+.um a.um-button,
+.um a.um-button.um-alt {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px !important;
+  border: 2px solid var(--bb-black) !important;
+  border-radius: 4px !important;
+  background: var(--bb-black) !important;
+  color: var(--bb-cream) !important;
+  padding: 12px 18px !important;
+  box-shadow: 5px 5px 0 var(--bb-blue);
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.12em;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.um .um-button:hover,
+.um input[type="submit"].um-button:hover,
+.um a.um-button:hover,
+.um a.um-button.um-alt:hover {
+  background: var(--bb-blue) !important;
+  color: var(--bb-cream) !important;
+  box-shadow: 3px 3px 0 var(--bb-black);
+  transform: translate(2px, 2px);
+}
+
+.um a.um-button.um-alt {
+  background: var(--bb-cream) !important;
+  color: var(--bb-black) !important;
+}
+
+.um .um-field-checkbox-option,
+.um .um-field-radio-option,
+.um .um-field-area,
+.um .um-field-block,
+.um .um-tip-text,
+.um .um-link-alt {
+  color: var(--bb-ink-soft);
+}
+
+.um .um-field-error,
+.um .um-error,
+.um .um-notice.err {
+  border: 2px solid #8b1d1d;
+  border-radius: 4px;
+  background: #fff0e8;
+  color: #8b1d1d;
+  font-weight: 800;
+}
+
+.um .um-notice.success,
+.um .um-message {
+  border: 2px solid var(--bb-black);
+  border-radius: 4px;
+  background: rgba(125, 154, 107, 0.18);
+  color: var(--bb-black);
+  font-weight: 800;
+}
+
+.um .um-profile-header,
+.um .um-header,
+.um .um-cover,
+.um .um-account-side,
+.um .um-member {
+  border: 2px solid var(--bb-black);
+  border-radius: var(--bb-radius);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.9), rgba(241, 230, 200, 0.94)),
+    url("../images/home-retro/paper-texture.jpg") center / 900px auto repeat;
+  box-shadow: 6px 6px 0 var(--bb-gold);
+}
+
+.um .um-profile-nav,
+.um .um-account-nav,
+.um .um-directory .um-members-filter-tag {
+  border-radius: 4px;
+  background: var(--bb-black);
+  color: var(--bb-cream);
+}
+
+.um .um-profile-nav a,
+.um .um-account-nav a {
+  color: var(--bb-cream) !important;
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.um .um-account-side li a.current,
+.um .um-account-side li a.current:hover,
+.um .um-profile-nav-item.active a,
+.um .um-profile-nav-item a:hover,
+.um .um-account-nav a:hover {
+  background: var(--bb-blue) !important;
+  color: var(--bb-cream) !important;
+}
+
+.um .um-member {
+  overflow: hidden;
+}
+
+.um .um-member-card,
+.um .um-member-photo,
+.um .um-member-card-container {
+  background: transparent !important;
+}
+
+.um .um-member-name a {
+  color: var(--bb-black) !important;
+  text-decoration: none;
+}
+
+.um .um-members-pagi span.current,
+.um .um-members-pagi a:hover {
+  background: var(--bb-black) !important;
+  color: var(--bb-cream) !important;
+}
+
 @media (max-width: 920px) {
   :root {
     --bb-section: clamp(52px, 12vw, 84px);
@@ -2612,6 +2890,37 @@ select {
   .search-form {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  body:is(
+    .page-id-2505,
+    .page-id-2506,
+    .page-id-2507,
+    .page-id-2508,
+    .page-id-2509,
+    .page-id-2510,
+    .page-id-2511
+  ) .bb-page-hero h1 {
+    font-size: clamp(2.7rem, 15vw, 4.6rem);
+  }
+
+  body:is(
+    .page-id-2505,
+    .page-id-2506,
+    .page-id-2507,
+    .page-id-2508,
+    .page-id-2509,
+    .page-id-2510,
+    .page-id-2511
+  ) .bb-singular__paper {
+    padding: 22px;
+    box-shadow: 5px 5px 0 var(--bb-blue);
+  }
+
+  .um .um-button,
+  .um input[type="submit"].um-button,
+  .um a.um-button {
+    width: 100%;
   }
 
   .bb-button,
