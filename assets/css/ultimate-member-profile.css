@@ -1,0 +1,726 @@
+/*
+Ultimate Member profile overrides.
+Scoped to profile output so login, register, account, and member directory pages keep the shared UM styling.
+*/
+
+body.um-page-user,
+.bb-page-content:has(.um.um-profile) {
+  --um-profile-content: min(1180px, calc(100vw - 48px));
+  --um-profile-gutter: max(24px, calc((100vw - 1180px) / 2));
+}
+
+body.um-page-user .bb-page-hero {
+  display: none;
+}
+
+body.um-page-user .bb-page-content,
+.bb-page-content:has(.um.um-profile) {
+  padding-block-start: 0;
+}
+
+body.um-page-user .bb-main,
+body.um-page-user .bb-page-content,
+body.um-page-user .bb-page-content .bb-wrap,
+body.um-page-user .bb-singular__wrap,
+body.um-page-user .bb-wrap.bb-singular__wrap,
+body.um-page-user .bb-singular__paper,
+body.um-page-user .entry-content,
+body.um-page-user .um,
+body.um-page-user .um.um-profile,
+body.um-page-user .um.um-profile .um-form,
+.bb-page-content:has(.um.um-profile) .bb-wrap,
+.bb-page-content:has(.um.um-profile) .bb-singular__wrap,
+.bb-page-content:has(.um.um-profile) .bb-singular__paper,
+.bb-page-content:has(.um.um-profile) .entry-content,
+.bb-page-content:has(.um.um-profile) .um.um-profile,
+.bb-page-content:has(.um.um-profile) .um.um-profile .um-form {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+body.um-page-user .bb-singular__wrap,
+.bb-page-content:has(.um.um-profile) .bb-singular__wrap {
+  padding-inline-end: 0;
+}
+
+body.um-page-user .bb-singular__paper,
+.bb-page-content:has(.um.um-profile) .bb-singular__paper {
+  border: 0;
+  background: transparent;
+  margin-top: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.um.um-profile {
+  display: grid;
+  gap: 0;
+  color: var(--bb-black);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.um.um-profile .um-form {
+  position: relative;
+  display: grid;
+  gap: 0;
+}
+
+.um.um-profile .um-header {
+  position: relative;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: clamp(340px, 34vw, 520px);
+  margin: 0 !important;
+  border: 0;
+  border-radius: 0;
+  background:
+    linear-gradient(rgba(8, 21, 18, 0.72), rgba(8, 21, 18, 0.9)),
+    url("../images/home-retro/forest-mountains-wide.jpg") center bottom / cover;
+  color: var(--bb-cream);
+  overflow: visible;
+  padding: 0 !important;
+  box-shadow: none;
+}
+
+.um.um-profile .um-header::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(8, 21, 18, 0.82), rgba(8, 21, 18, 0.34)),
+    linear-gradient(0deg, rgba(8, 21, 18, 0.86), rgba(8, 21, 18, 0.08) 58%);
+  content: "";
+  pointer-events: none;
+}
+
+.um.um-profile .um-header::after {
+  position: absolute;
+  inset: 24px var(--um-profile-gutter);
+  z-index: 3;
+  border: 1px solid rgba(241, 230, 200, 0.36);
+  content: "";
+  pointer-events: none;
+}
+
+.um.um-profile .um-cover,
+.um.um-profile .um-cover-overlay,
+.um.um-profile .um-cover-e,
+.um.um-profile .um-cover img {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent !important;
+  background-position: center !important;
+  background-size: cover !important;
+  box-shadow: none;
+  object-fit: cover;
+}
+
+.um.um-profile .um-cover {
+  z-index: auto;
+  bottom: auto !important;
+  height: clamp(340px, 34vw, 520px) !important;
+  min-height: clamp(340px, 34vw, 520px) !important;
+  overflow: visible !important;
+  pointer-events: none;
+}
+
+.um.um-profile .um-cover-overlay,
+.um.um-profile .um-cover-e,
+.um.um-profile .um-cover img {
+  pointer-events: none;
+}
+
+.um.um-profile .um-cover img,
+.um.um-profile .um-cover-overlay {
+  z-index: 0;
+}
+
+.um.um-profile .um-cover-e {
+  z-index: auto;
+}
+
+.um.um-profile .um-cover-overlay {
+  background: transparent !important;
+}
+
+.um.um-profile .um-form > .um-cover {
+  inset: 34px var(--um-profile-gutter) auto auto;
+  z-index: 30;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.um.um-profile .um-form > .um-cover .um-cover-e {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.um.um-profile .um-form > .um-cover .um-cover-overlay,
+.um.um-profile .um-form > .um-cover img {
+  display: none !important;
+}
+
+.um.um-profile .um-profile-photo {
+  position: absolute;
+  z-index: 4;
+  left: var(--um-profile-gutter);
+  bottom: clamp(34px, 5vw, 62px);
+  float: none !important;
+  width: clamp(112px, 11vw, 156px) !important;
+  margin: 0 !important;
+}
+
+.um.um-profile .um-profile-photo a.um-profile-photo-img,
+.um.um-profile .um-profile-photo img,
+.um.um-profile .um-avatar {
+  display: block;
+  width: clamp(112px, 11vw, 156px) !important;
+  height: clamp(112px, 11vw, 156px) !important;
+  border: 3px solid var(--bb-cream) !important;
+  border-radius: 4px !important;
+  background: var(--bb-cream);
+  box-shadow: 8px 8px 0 var(--bb-gold);
+  object-fit: cover;
+}
+
+.um.um-profile .um-profile-meta {
+  position: absolute;
+  z-index: 4;
+  right: var(--um-profile-gutter);
+  bottom: clamp(48px, 6vw, 82px);
+  left: calc(var(--um-profile-gutter) + clamp(142px, 14vw, 204px));
+  padding: 0 !important;
+}
+
+.um.um-profile .um-name,
+.um.um-profile .um-name a {
+  margin: 0 !important;
+  color: var(--bb-cream) !important;
+  font-family: "Bowlby One SC", "League Spartan", Inter, system-ui, sans-serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.9;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.um.um-profile .um-meta,
+.um.um-profile .um-meta-text,
+.um.um-profile .um-profile-note {
+  max-width: 58ch;
+  margin-top: 14px;
+  color: rgba(241, 230, 200, 0.82) !important;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.6;
+  text-transform: none;
+}
+
+.um.um-profile .um-profile-edit,
+.um.um-profile .um-profile-photo-overlay,
+.um.um-profile .um-profile-photo-overlay-s,
+.um.um-profile .um-profile-photo-overlay span {
+  position: relative;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.um.um-profile .um-profile-edit.um-profile-headericon {
+  position: absolute !important;
+  top: 34px !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: var(--um-profile-gutter) !important;
+  z-index: 28;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.um.um-profile .um-profile-edit-a {
+  display: inline-flex !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px solid var(--bb-cream) !important;
+  border-radius: 4px !important;
+  background: var(--bb-black) !important;
+  color: var(--bb-cream) !important;
+  padding: 10px 12px !important;
+  box-shadow: 5px 5px 0 var(--bb-gold);
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.08em;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  text-transform: uppercase;
+}
+
+.um.um-profile .um-profile-edit-a::after {
+  content: "Profile";
+}
+
+.um.um-profile .um-profile-edit-a i {
+  color: inherit !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+}
+
+.um.um-profile .um-profile-edit-a:hover,
+.um.um-profile .um-profile-edit-a:focus-visible {
+  background: var(--bb-blue) !important;
+  color: var(--bb-cream) !important;
+}
+
+.um.um-profile .um-cover-add,
+.um.um-profile .um-cover-edit,
+.um.um-profile .bb-um-cover-action {
+  position: absolute !important;
+  top: 34px !important;
+  right: var(--um-profile-gutter) !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 25;
+  display: inline-flex !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bb-cream) !important;
+  border-radius: 4px !important;
+  background: var(--bb-black) !important;
+  color: var(--bb-cream) !important;
+  padding: 10px 12px !important;
+  box-shadow: 5px 5px 0 var(--bb-gold);
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+
+.um.um-profile .um-cover-add:hover,
+.um.um-profile .um-cover-edit:hover,
+.um.um-profile .bb-um-cover-action:hover,
+.um.um-profile .um-cover-add:focus-visible,
+.um.um-profile .um-cover-edit:focus-visible,
+.um.um-profile .bb-um-cover-action:focus-visible {
+  background: var(--bb-blue) !important;
+  color: var(--bb-cream) !important;
+}
+
+.um.um-profile .bb-um-cover-action {
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-decoration: none !important;
+  text-transform: uppercase;
+}
+
+.um.um-profile:has(.bb-um-cover-action) .um-cover-add,
+.um.um-profile:has(.bb-um-cover-action) .um-cover-edit {
+  display: none !important;
+}
+
+.um.um-profile .um-cover-add-i,
+.um.um-profile .um-cover-edit-i {
+  position: static !important;
+  display: inline-flex !important;
+  width: auto !important;
+  height: auto !important;
+  align-items: center;
+  justify-content: center;
+  color: inherit !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+
+.um.um-profile .um-dropdown {
+  pointer-events: auto;
+  z-index: 30 !important;
+}
+
+.um.um-profile .um-dropdown,
+.um.um-profile .um-dropdown-b,
+.um.um-profile .um-dropdown ul {
+  border: 2px solid var(--bb-black) !important;
+  border-radius: 4px !important;
+  background:
+    linear-gradient(rgba(255, 248, 224, 0.96), rgba(255, 248, 224, 0.98)),
+    url("../images/home-retro/paper-texture.jpg") center / 900px auto repeat !important;
+  box-shadow: 6px 6px 0 var(--bb-gold) !important;
+  overflow: hidden;
+}
+
+.um.um-profile .um-dropdown {
+  width: min(240px, calc(100vw - 32px)) !important;
+}
+
+.um.um-profile .um-profile-edit .um-dropdown {
+  top: calc(100% + 12px) !important;
+  right: auto !important;
+  left: 0 !important;
+  text-align: left !important;
+}
+
+.um.um-profile .um-dropdown-arr {
+  display: none !important;
+}
+
+.um.um-profile .um-dropdown ul,
+.um.um-profile .um-dropdown li {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.um.um-profile .um-dropdown li + li {
+  border-top: 1px solid rgba(16, 37, 31, 0.18) !important;
+}
+
+.um.um-profile .um-dropdown li a {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  background: transparent !important;
+  color: var(--bb-black) !important;
+  padding: 12px 14px !important;
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em;
+  line-height: 1.1 !important;
+  text-decoration: none !important;
+  text-transform: uppercase;
+}
+
+.um.um-profile .um-dropdown li a:hover,
+.um.um-profile .um-dropdown li a:focus-visible {
+  background: var(--bb-blue) !important;
+  color: var(--bb-cream) !important;
+}
+
+.um-modal,
+.um-modal-overlay,
+#um_upload_single {
+  z-index: 100000 !important;
+}
+
+.um-modal-overlay {
+  background: rgba(8, 21, 18, 0.82) !important;
+}
+
+.um-modal {
+  border: 2px solid var(--bb-black) !important;
+  border-radius: var(--bb-radius) !important;
+  background:
+    linear-gradient(rgba(255, 248, 224, 0.96), rgba(255, 248, 224, 0.98)),
+    url("../images/home-retro/paper-texture.jpg") center / 900px auto repeat !important;
+  box-shadow: 8px 8px 0 var(--bb-gold) !important;
+  overflow: hidden;
+}
+
+.um-modal .um-modal-header {
+  border-bottom: 2px solid var(--bb-black) !important;
+  background: var(--bb-black) !important;
+  color: var(--bb-cream) !important;
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.um-modal .um-modal-body,
+.um-modal .um-modal-footer {
+  background: transparent !important;
+  color: var(--bb-black) !important;
+}
+
+.um-modal .um-single-image-upload,
+.um-modal .ajax-upload-dragdrop {
+  border: 2px dashed rgba(16, 37, 31, 0.28) !important;
+  border-radius: var(--bb-radius) !important;
+  background: rgba(241, 230, 200, 0.58) !important;
+  color: var(--bb-black) !important;
+}
+
+.um-modal .um-modal-btn,
+.um-modal .upload,
+.um-modal .ajax-file-upload {
+  border: 2px solid var(--bb-black) !important;
+  border-radius: 4px !important;
+  background: var(--bb-black) !important;
+  color: var(--bb-cream) !important;
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 var(--bb-gold) !important;
+}
+
+.um-modal .um-modal-btn.alt {
+  background: var(--bb-cream) !important;
+  color: var(--bb-black) !important;
+}
+
+.um-modal .um-modal-btn:hover,
+.um-modal .upload:hover,
+.um-modal .ajax-file-upload:hover {
+  background: var(--bb-blue) !important;
+  color: var(--bb-cream) !important;
+}
+
+.um.um-profile .um-profile-navbar,
+.um.um-profile .um-profile-nav,
+.um.um-profile .um-profile-body {
+  width: var(--um-profile-content) !important;
+  max-width: none !important;
+  margin-inline: auto !important;
+}
+
+.um.um-profile .um-profile-navbar,
+.um.um-profile .um-profile-nav {
+  margin-top: clamp(16px, 2.2vw, 28px) !important;
+}
+
+.um.um-profile .um-profile-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 2px solid var(--bb-black);
+  border-radius: 0 0 var(--bb-radius) var(--bb-radius);
+  background:
+    linear-gradient(rgba(241, 230, 200, 0.92), rgba(241, 230, 200, 0.96)),
+    url("../images/home-retro/paper-texture.jpg") center / 900px auto repeat;
+  padding: 10px;
+  box-shadow: 6px 6px 0 var(--bb-gold);
+}
+
+.um.um-profile .um-profile-nav-item,
+.um.um-profile .um-profile-nav a {
+  float: none !important;
+  width: auto !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+}
+
+.um.um-profile .um-profile-nav a {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  min-height: 44px;
+  background: var(--bb-black) !important;
+  color: var(--bb-cream) !important;
+  padding: 11px 16px !important;
+  font-family: "Barlow Condensed", Inter, system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  box-shadow: none !important;
+}
+
+.um.um-profile .um-profile-nav a.uimob800-show {
+  display: none !important;
+}
+
+.um.um-profile .um-profile-nav a.uimob800-hide {
+  display: inline-flex !important;
+}
+
+.um.um-profile .um-profile-nav a span.title,
+.um.um-profile .um-profile-nav a span:not(.title) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  line-height: 1;
+}
+
+.um.um-profile .um-profile-nav a i {
+  display: none !important;
+}
+
+.um.um-profile .um-profile-nav a span.title {
+  margin: 0 !important;
+  white-space: nowrap;
+}
+
+.um.um-profile .um-profile-nav-item.active a,
+.um.um-profile .um-profile-nav a:hover,
+.um.um-profile .um-profile-nav a:focus-visible {
+  background: var(--bb-blue) !important;
+  color: var(--bb-cream) !important;
+}
+
+.um.um-profile .um-profile-body {
+  margin-top: 18px !important;
+  border: 2px solid var(--bb-black);
+  border-radius: var(--bb-radius);
+  background:
+    linear-gradient(rgba(255, 248, 224, 0.82), rgba(255, 248, 224, 0.92)),
+    url("../images/home-retro/paper-texture.jpg") center / 900px auto repeat;
+  padding: clamp(22px, 4vw, 38px) !important;
+  box-shadow: 6px 6px 0 var(--bb-blue);
+}
+
+.um.um-profile .um-profile-body,
+.um.um-profile .um-profile-body[class],
+.um.um-profile .um-profile-body > *,
+.um.um-profile .um-row,
+.um.um-profile .um-col-1,
+.um.um-profile .um-col-2,
+.um.um-profile .um-col-alt {
+  max-width: none !important;
+}
+
+.um.um-profile .um-profile-body[class] {
+  color: var(--bb-ink-soft);
+}
+
+.um.um-profile .um-row {
+  border-color: rgba(16, 37, 31, 0.18);
+}
+
+.um.um-profile .um-field {
+  display: grid;
+  gap: 8px;
+  border-color: rgba(16, 37, 31, 0.18);
+  padding: 14px 0 !important;
+}
+
+.um.um-profile .um-field-label {
+  margin: 0;
+}
+
+.um.um-profile .um-field-value,
+.um.um-profile .um-field-area,
+.um.um-profile .um-field-block,
+.um.um-profile .um-profile-body p,
+.um.um-profile .um-profile-body li {
+  color: var(--bb-ink-soft);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.um.um-profile .um-profile-body h2,
+.um.um-profile .um-profile-body h3,
+.um.um-profile .um-profile-body h4 {
+  color: var(--bb-black);
+  font-family: "Barlow Condensed", "League Spartan", Inter, system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 920px) {
+  body.um-page-user,
+  .bb-page-content:has(.um.um-profile) {
+    --um-profile-content: min(100% - 24px, 1180px);
+    --um-profile-gutter: 12px;
+  }
+
+  .um.um-profile .um-header {
+    min-height: clamp(390px, 72vw, 520px);
+  }
+
+  .um.um-profile .um-cover {
+    height: clamp(390px, 72vw, 520px) !important;
+    min-height: clamp(390px, 72vw, 520px) !important;
+  }
+
+  .um.um-profile .um-header::after {
+    inset: 12px;
+  }
+
+  .um.um-profile .um-profile-edit.um-profile-headericon {
+    top: 28px !important;
+    left: 28px !important;
+  }
+
+  .um.um-profile .um-profile-edit-a::after {
+    content: "";
+  }
+
+  .um.um-profile .um-profile-photo {
+    left: 28px;
+    bottom: 178px;
+    width: 96px !important;
+  }
+
+  .um.um-profile .um-profile-photo a.um-profile-photo-img,
+  .um.um-profile .um-profile-photo img,
+  .um.um-profile .um-avatar {
+    width: 96px !important;
+    height: 96px !important;
+    box-shadow: 5px 5px 0 var(--bb-gold);
+  }
+
+  .um.um-profile .um-profile-meta {
+    right: 28px;
+    bottom: 34px;
+    left: 28px;
+  }
+
+  .um.um-profile .um-name,
+  .um.um-profile .um-name a {
+    font-size: clamp(2.35rem, 13vw, 4rem);
+  }
+
+  .um.um-profile .um-meta,
+  .um.um-profile .um-meta-text,
+  .um.um-profile .um-profile-note {
+    font-size: 0.95rem;
+  }
+
+  .um.um-profile .um-profile-nav {
+    border-radius: var(--bb-radius);
+    box-shadow: 5px 5px 0 var(--bb-gold);
+  }
+
+  .um.um-profile .um-profile-nav-item,
+  .um.um-profile .um-profile-nav a {
+    width: 100% !important;
+  }
+
+  .um.um-profile .um-profile-body {
+    padding: 20px !important;
+    box-shadow: 5px 5px 0 var(--bb-blue);
+  }
+}
+
+@media (max-width: 560px) {
+  .um.um-profile .um-header {
+    min-height: 430px;
+  }
+
+  .um.um-profile .um-cover {
+    height: 430px !important;
+    min-height: 430px !important;
+  }
+
+  .um.um-profile .um-profile-photo {
+    bottom: 204px;
+  }
+}

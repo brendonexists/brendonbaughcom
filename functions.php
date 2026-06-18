@@ -210,6 +210,25 @@ function _s_scripts()
 	$brand_theme_css_path = get_template_directory() . '/assets/css/brand-theme.css';
 	$brand_theme_css_ver  = file_exists( $brand_theme_css_path ) ? filemtime( $brand_theme_css_path ) : _S_VERSION;
 	wp_enqueue_style( 'brendon-core-brand-theme', get_template_directory_uri() . '/assets/css/brand-theme.css', $brand_theme_deps, $brand_theme_css_ver );
+	$um_profile_css_path = get_template_directory() . '/assets/css/ultimate-member-profile.css';
+	if ( file_exists( $um_profile_css_path ) ) {
+		wp_enqueue_style(
+			'brendon-core-ultimate-member-profile',
+			get_template_directory_uri() . '/assets/css/ultimate-member-profile.css',
+			array( 'brendon-core-brand-theme' ),
+			filemtime( $um_profile_css_path )
+		);
+	}
+	$um_profile_js_path = get_template_directory() . '/assets/js/ultimate-member-profile.js';
+	if ( file_exists( $um_profile_js_path ) ) {
+		wp_enqueue_script(
+			'brendon-core-ultimate-member-profile',
+			get_template_directory_uri() . '/assets/js/ultimate-member-profile.js',
+			array( 'um_profile' ),
+			filemtime( $um_profile_js_path ),
+			true
+		);
+	}
 	if ( is_front_page() ) {
 		$home_retro_css_path = get_template_directory() . '/assets/css/home-retro.css';
 		$home_retro_css_ver  = file_exists( $home_retro_css_path ) ? filemtime( $home_retro_css_path ) : _S_VERSION;
@@ -236,6 +255,33 @@ function _s_scripts()
 	}
 }
 add_action('wp_enqueue_scripts', '_s_scripts');
+
+/**
+ * Show the logged-in user's display name on the primary profile menu item.
+ *
+ * @param string   $title Menu item title.
+ * @param WP_Post  $item  Menu item object.
+ * @param stdClass $args  Menu arguments.
+ * @param int      $depth Menu depth.
+ * @return string
+ */
+function brendon_core_primary_profile_menu_title( $title, $item, $args, $depth ) {
+	if ( ! is_user_logged_in() || empty( $args->theme_location ) || 'menu-1' !== $args->theme_location || 0 !== (int) $depth ) {
+		return $title;
+	}
+
+	$item_url = isset( $item->url ) ? untrailingslashit( wp_parse_url( $item->url, PHP_URL_PATH ) ?: '' ) : '';
+
+	if ( 'User' !== wp_strip_all_tags( $title ) && '/user' !== $item_url ) {
+		return $title;
+	}
+
+	$current_user = wp_get_current_user();
+	$display_name = $current_user->display_name ?: $current_user->user_login;
+
+	return esc_html( $display_name );
+}
+add_filter( 'nav_menu_item_title', 'brendon_core_primary_profile_menu_title', 20, 4 );
 
 /**
  * Implement the Custom Header feature.
