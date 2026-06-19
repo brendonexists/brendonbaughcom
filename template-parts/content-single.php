@@ -103,10 +103,7 @@ $primary_category = ! empty( $categories ) ? $categories[0] : null;
 					</div>
 
 					<footer class="bb-log-end">
-						<div class="bb-log-end__recap">
-							<p class="bb-kicker"><?php esc_html_e( 'End of entry', 'brendon-core' ); ?></p>
-							<p><?php esc_html_e( 'A record kept in public. Not polished into something cleaner than it was.', 'brendon-core' ); ?></p>
-						</div>
+						
 
 						<?php if ( has_tag() ) : ?>
 							<div class="bb-log-tags">
