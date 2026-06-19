@@ -326,6 +326,7 @@ require get_template_directory() . '/inc/live-now.php';
 require get_template_directory() . '/inc/at-every-turn.php';
 require get_template_directory() . '/inc/bible-study-live.php';
 require get_template_directory() . '/inc/prayer-wall.php';
+require get_template_directory() . '/inc/bible-books-table.php';
 
 /**
  * Load Jetpack compatibility file.

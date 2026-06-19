@@ -1,0 +1,401 @@
+.bb-books {
+  --books-orange: #f45d22;
+  --books-yellow: #d6bf2a;
+  --books-green: #65a85b;
+  --books-blue: #36a9c7;
+  --books-pink: #df6f9d;
+  --books-paper: color-mix(in srgb, var(--bb-cream) 88%, #fff);
+}
+
+.bb-books .bb-wrap {
+  width: min(100% - 24px, 1640px);
+}
+
+.bb-books__hero {
+  border-bottom: 2px solid var(--bb-black);
+}
+
+.bb-books__hero.bb-section {
+  padding-block: clamp(46px, 7vw, 82px);
+}
+
+.bb-books__hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  gap: clamp(22px, 5vw, 52px);
+  align-items: end;
+}
+
+.bb-books__hero h1 {
+  max-width: 11ch;
+  font-size: clamp(3rem, 6.8vw, 6.2rem);
+}
+
+.bb-books__hero p {
+  margin-top: 22px;
+}
+
+.bb-books__progress {
+  display: grid;
+  gap: 12px;
+  border: 2px solid var(--bb-black);
+  border-radius: var(--bb-radius);
+  background: var(--bb-cream);
+  padding: 18px;
+  box-shadow: 5px 5px 0 var(--bb-black);
+}
+
+.bb-books__progress > span,
+.bb-books__progress a {
+  color: var(--bb-ink-muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.bb-books__progress strong {
+  display: block;
+  margin: 0;
+  color: var(--bb-black);
+  font-family: "Barlow Condensed", "League Spartan", Inter, system-ui, sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.bb-books__progress strong span {
+  display: inline;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+}
+
+.bb-books__progress a {
+  display: inline-flex;
+  margin-top: 0;
+}
+
+.bb-books__meter {
+  height: 12px;
+  margin-top: 0;
+  overflow: hidden;
+  border: 2px solid var(--bb-black);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bb-black) 10%, transparent);
+}
+
+.bb-books__meter span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--bb-blue);
+  border-radius: inherit;
+  transition: width 180ms ease;
+}
+
+.bb-books__workspace {
+  padding-top: clamp(28px, 4vw, 48px);
+}
+
+.bb-books__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: clamp(18px, 3vw, 30px);
+  align-items: start;
+}
+
+.bb-books__table-shell,
+.bb-books__detail {
+  border: 2px solid var(--bb-black);
+  border-radius: var(--bb-radius);
+  background: var(--books-paper);
+  box-shadow: 6px 6px 0 var(--bb-black);
+}
+
+.bb-books__table-shell {
+  min-width: 0;
+  padding: clamp(14px, 2vw, 20px);
+}
+
+.bb-books__filters,
+.bb-books__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bb-books__filters {
+  margin-bottom: 14px;
+}
+
+.bb-books__filters button,
+.bb-books__legend span,
+.bb-books__section-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border: 2px solid var(--bb-black);
+  border-radius: 999px;
+  background: var(--bb-cream);
+  color: var(--bb-black);
+  padding: 7px 11px 6px;
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.bb-books__filters button.is-active {
+  background: var(--bb-black);
+  color: var(--bb-cream);
+}
+
+.bb-books__legend {
+  margin-bottom: 16px;
+}
+
+.bb-books__legend span {
+  border-width: 1px;
+}
+
+.bb-books__scroller {
+  overflow-x: auto;
+  padding: 4px 4px 12px;
+  scrollbar-color: var(--bb-blue) color-mix(in srgb, var(--bb-black) 14%, transparent);
+}
+
+.bb-books__grid {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(82px, 1fr));
+  grid-template-rows: repeat(8, 40px 96px);
+  gap: 8px;
+  width: 100%;
+  min-width: 1162px;
+}
+
+.bb-books__section-label {
+  grid-column: var(--label-col);
+  grid-row: var(--label-row);
+  align-self: center;
+  justify-self: start;
+  width: auto;
+  min-width: max-content;
+  min-height: 32px;
+  padding-inline: 12px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.bb-book-tile {
+  position: relative;
+  display: grid;
+  grid-column: var(--book-col);
+  grid-row: var(--book-row);
+  grid-template-rows: auto 1fr auto;
+  min-width: 0;
+  min-height: 0;
+  border: 2px solid var(--bb-black);
+  border-radius: 4px;
+  background: var(--books-paper);
+  color: var(--bb-black);
+  padding: 8px 7px 7px;
+  text-align: left;
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--bb-black) 72%, transparent);
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+.bb-book-tile:hover,
+.bb-book-tile:focus-visible,
+.bb-book-tile.is-selected {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--bb-black);
+}
+
+.bb-book-tile.is-filtered {
+  opacity: 0.24;
+}
+
+.bb-book-tile.is-completed::after {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--bb-black);
+  border-radius: 50%;
+  background: var(--bb-blue);
+  content: "";
+}
+
+.bb-book-tile__abbr {
+  font-family: "Barlow Condensed", "League Spartan", Inter, system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 0.84;
+}
+
+.bb-book-tile__name,
+.bb-book-tile__chapters {
+  overflow: hidden;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1.08;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+.bb-book-tile__name {
+  align-self: end;
+}
+
+.bb-book-tile__chapters {
+  margin-top: 3px;
+  color: var(--bb-ink-muted);
+}
+
+.bb-book-tile[data-group="torah"],
+.bb-books__legend [data-group="torah"],
+.bb-books__section-label[data-group="torah"] {
+  background: color-mix(in srgb, var(--books-orange) 72%, var(--books-paper));
+}
+
+.bb-book-tile[data-group="history"],
+.bb-books__legend [data-group="history"],
+.bb-books__section-label[data-group="history"] {
+  background: color-mix(in srgb, var(--books-yellow) 64%, var(--books-paper));
+}
+
+.bb-book-tile[data-group="poetry"],
+.bb-books__legend [data-group="poetry"],
+.bb-books__section-label[data-group="poetry"] {
+  background: color-mix(in srgb, var(--books-pink) 58%, var(--books-paper));
+}
+
+.bb-book-tile[data-group="major-prophets"],
+.bb-books__legend [data-group="major-prophets"],
+.bb-books__section-label[data-group="major-prophets"],
+.bb-book-tile[data-group="general-letters"],
+.bb-books__legend [data-group="general-letters"],
+.bb-books__section-label[data-group="general-letters"] {
+  background: color-mix(in srgb, var(--books-blue) 58%, var(--books-paper));
+}
+
+.bb-book-tile[data-group="minor-prophets"],
+.bb-books__legend [data-group="minor-prophets"],
+.bb-books__section-label[data-group="minor-prophets"],
+.bb-book-tile[data-group="prophecy"],
+.bb-books__legend [data-group="prophecy"],
+.bb-books__section-label[data-group="prophecy"] {
+  background: color-mix(in srgb, var(--books-green) 58%, var(--books-paper));
+}
+
+.bb-book-tile[data-group="gospels"],
+.bb-books__legend [data-group="gospels"],
+.bb-books__section-label[data-group="gospels"] {
+  background: color-mix(in srgb, var(--books-orange) 66%, var(--books-paper));
+}
+
+.bb-book-tile[data-group="acts"],
+.bb-books__legend [data-group="acts"],
+.bb-books__section-label[data-group="acts"] {
+  background: color-mix(in srgb, var(--books-yellow) 58%, var(--books-paper));
+}
+
+.bb-book-tile[data-group="pauls-letters"],
+.bb-books__legend [data-group="pauls-letters"],
+.bb-books__section-label[data-group="pauls-letters"] {
+  background: color-mix(in srgb, var(--books-pink) 50%, var(--books-paper));
+}
+
+.bb-books__detail {
+  position: sticky;
+  top: 100px;
+  display: grid;
+  gap: 16px;
+  padding: clamp(18px, 3vw, 24px);
+}
+
+.bb-books__detail h2 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.bb-books__detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bb-books__detail-meta span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  border: 2px solid var(--bb-black);
+  border-radius: 999px;
+  padding: 7px 10px 6px;
+  color: var(--bb-ink-muted);
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.bb-books__detail p:not(.bb-kicker) {
+  margin: 0;
+  color: var(--bb-ink-soft);
+  line-height: 1.65;
+}
+
+.bb-books__complete-button {
+  width: 100%;
+}
+
+.bb-books__complete-button.is-completed {
+  background: var(--bb-black);
+  color: var(--bb-cream);
+}
+
+@media (max-width: 1040px) {
+  .bb-books__hero-inner,
+  .bb-books__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .bb-books__detail {
+    position: static;
+  }
+}
+
+@media (max-width: 680px) {
+  .bb-books__hero.bb-section {
+    padding-block: 40px;
+  }
+
+  .bb-books__hero h1 {
+    font-size: clamp(3rem, 16vw, 4.7rem);
+  }
+
+  .bb-books__progress,
+  .bb-books__table-shell,
+  .bb-books__detail {
+    box-shadow: 4px 4px 0 var(--bb-black);
+  }
+
+  .bb-books__grid {
+    grid-template-columns: repeat(13, 72px);
+    grid-template-rows: repeat(8, 38px 86px);
+    gap: 7px;
+    min-width: 1019px;
+  }
+
+  .bb-book-tile {
+    padding: 7px 6px 6px;
+  }
+
+  .bb-book-tile__abbr {
+    font-size: 1.75rem;
+  }
+}
