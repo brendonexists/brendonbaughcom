@@ -1,0 +1,624 @@
+.bb-bible-study {
+	background:
+		linear-gradient(var(--bb-border) 1px, transparent 1px),
+		linear-gradient(90deg, var(--bb-border) 1px, transparent 1px),
+		var(--bb-cream);
+	background-size: 56px 56px;
+	background-position: center top;
+	color: var(--bb-black);
+	min-height: 100vh;
+}
+
+.bb-bible-study * {
+	box-sizing: border-box;
+}
+
+.bb-bible-study__wrap {
+	margin: 0 auto;
+	max-width: 1180px;
+	padding: clamp(2rem, 5vw, 4rem) 1rem;
+	width: min(100%, calc(100vw - 16px));
+}
+
+.bb-bible-study__grid,
+.bb-bible-study__live-layout,
+.bb-bible-study__member-grid {
+	display: grid;
+	gap: 1.25rem;
+}
+
+.bb-bible-study__video-panel + .bb-bible-study__member-grid,
+.bb-bible-study__video-panel + .bb-bible-study__login {
+	margin-top: 1.25rem;
+}
+
+.bb-bible-study__live-layout,
+.bb-bible-study__member-grid {
+	align-items: start;
+	grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+}
+
+.bb-bible-study__hero {
+	margin-bottom: clamp(1.25rem, 3vw, 2rem);
+	max-width: 860px;
+}
+
+.bb-bible-study h1,
+.bb-bible-study h2,
+.bb-bible-study h3,
+.bb-bible-study p {
+	margin-top: 0;
+}
+
+.bb-bible-study h1 {
+	font-size: clamp(3rem, 6.5vw, 6rem);
+	line-height: 0.82;
+	margin: 0 0 1rem;
+	max-width: min(100%, 11ch);
+	overflow-wrap: break-word;
+	text-transform: uppercase;
+}
+
+.bb-bible-study h2 {
+	font-size: clamp(2rem, 4vw, 3.8rem);
+	line-height: 0.9;
+	margin-bottom: 1rem;
+	text-transform: uppercase;
+}
+
+.bb-bible-study h3 {
+	font-size: clamp(1.15rem, 2vw, 1.55rem);
+	line-height: 1;
+	margin-bottom: 0.65rem;
+	text-transform: uppercase;
+}
+
+.bb-bible-study p,
+.bb-bible-study-chat__notice {
+	color: var(--bb-ink-soft);
+	line-height: 1.65;
+}
+
+.bb-bible-study__hero p {
+	font-size: clamp(1.05rem, 2vw, 1.28rem);
+	max-width: 64ch;
+}
+
+.bb-bible-study__kicker,
+.bb-bible-study__chat-state,
+.bb-bible-study__archive-action,
+.bb-bible-study__schedule-status,
+.bb-bible-study__calendar-weekday {
+	color: var(--bb-blue);
+	font-size: 0.76rem;
+	font-weight: 900;
+	letter-spacing: 0;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.bb-bible-study__status {
+	align-items: center;
+	background: var(--bb-cream);
+	border: 2px solid var(--bb-black);
+	border-radius: var(--bb-radius);
+	box-shadow: 4px 4px 0 var(--bb-black);
+	color: var(--bb-black);
+	display: inline-flex;
+	font-weight: 900;
+	gap: 0.65rem;
+	margin-bottom: 1.25rem;
+	min-height: 44px;
+	padding: 0.65rem 0.9rem;
+	text-transform: uppercase;
+}
+
+.bb-bible-study__status-dot {
+	background: var(--bb-gold);
+	border: 2px solid var(--bb-black);
+	border-radius: 50%;
+	height: 0.8rem;
+	width: 0.8rem;
+}
+
+.bb-bible-study__status-dot--live {
+	background: #d34b35;
+}
+
+.bb-bible-study__panel,
+.bb-bible-study__video-panel,
+.bb-bible-study__login,
+.bb-bible-study__admin-note,
+.bb-bible-study__empty {
+	background: var(--bb-cream);
+	border: 2px solid var(--bb-black);
+	border-radius: var(--bb-radius);
+	box-shadow: 8px 8px 0 var(--bb-black);
+	color: var(--bb-black);
+}
+
+.bb-bible-study__panel,
+.bb-bible-study__login,
+.bb-bible-study__admin-note,
+.bb-bible-study__empty {
+	padding: clamp(1rem, 3vw, 1.6rem);
+}
+
+.bb-bible-study__panel--muted {
+	background: var(--bb-cream-soft);
+}
+
+.bb-bible-study__video-panel {
+	overflow: hidden;
+}
+
+.bb-bible-study__video-header,
+.bb-bible-study__chat-heading {
+	align-items: center;
+	border-bottom: 2px solid var(--bb-black);
+	display: flex;
+	gap: 1rem;
+	justify-content: space-between;
+	padding: 1rem clamp(1rem, 3vw, 1.5rem);
+}
+
+.bb-bible-study__video-header h2,
+.bb-bible-study__chat-heading h3 {
+	margin: 0;
+}
+
+.bb-bible-study__video-frame {
+	aspect-ratio: 16 / 9;
+	background: var(--bb-black);
+	position: relative;
+	width: 100%;
+}
+
+.bb-bible-study__video-frame iframe {
+	border: 0;
+	height: 100%;
+	inset: 0;
+	position: absolute;
+	width: 100%;
+}
+
+.bb-bible-study__empty {
+	align-items: center;
+	display: flex;
+	min-height: 12rem;
+}
+
+.bb-bible-study__admin-note {
+	background: color-mix(in srgb, var(--bb-gold) 20%, var(--bb-cream));
+}
+
+.bb-bible-study__admin-note a {
+	color: var(--bb-blue);
+	font-weight: 900;
+}
+
+.bb-bible-study__quick-video {
+	display: grid;
+	gap: 0.75rem;
+	grid-template-columns: minmax(0, 1fr) auto;
+	margin-top: 0.85rem;
+}
+
+.bb-bible-study__quick-video input,
+.bb-bible-study-chat__form textarea {
+	background: #fff9ed;
+	border: 2px solid var(--bb-black);
+	border-radius: var(--bb-radius);
+	color: var(--bb-black);
+	font: inherit;
+	min-height: 46px;
+	padding: 0.75rem 0.9rem;
+	width: 100%;
+}
+
+.bb-bible-study__admin-controls,
+.bb-bible-study__actions,
+.bb-bible-study__asset-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	list-style: none;
+	margin: 1.25rem 0 0;
+	padding: 0;
+}
+
+.bb-bible-study__button {
+	align-items: center;
+	background: var(--bb-blue);
+	border: 2px solid var(--bb-black);
+	border-radius: var(--bb-radius);
+	box-shadow: 4px 4px 0 var(--bb-black);
+	color: var(--bb-cream);
+	cursor: pointer;
+	display: inline-flex;
+	font-size: 0.86rem;
+	font-weight: 900;
+	justify-content: center;
+	line-height: 1;
+	min-height: 46px;
+	padding: 0.8rem 1rem;
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.bb-bible-study__button:hover,
+.bb-bible-study__button:focus {
+	background: var(--bb-black);
+	box-shadow: 2px 2px 0 var(--bb-black);
+	color: var(--bb-cream);
+	transform: translate(2px, 2px);
+}
+
+.bb-bible-study__button--ghost {
+	background: var(--bb-cream);
+	color: var(--bb-black);
+}
+
+.bb-bible-study__panel--assets {
+	align-self: start;
+}
+
+.bb-bible-study__asset-list {
+	display: grid;
+	gap: 0.7rem;
+	margin-top: 0.8rem;
+}
+
+.bb-bible-study__asset-list li {
+	min-width: 0;
+}
+
+.bb-bible-study__asset-list .bb-bible-study__button {
+	justify-content: flex-start;
+	line-height: 1.25;
+	min-height: 3.25rem;
+	overflow-wrap: anywhere;
+	text-align: left;
+	width: 100%;
+}
+
+.bb-bible-study__panel--chat {
+	display: grid;
+	gap: 0;
+	overflow: hidden;
+	padding: 0;
+}
+
+.bb-bible-study-chat {
+	display: grid;
+	grid-template-rows: minmax(18rem, 1fr) auto auto;
+	min-height: 34rem;
+}
+
+.bb-bible-study-chat__messages {
+	align-content: start;
+	background: color-mix(in srgb, var(--bb-black) 7%, var(--bb-cream));
+	display: grid;
+	gap: 0.75rem;
+	min-height: 18rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: clamp(1rem, 2.2vw, 1.35rem);
+}
+
+.bb-bible-study-chat__message {
+	background: #fff9ed;
+	border: 2px solid var(--bb-black);
+	border-radius: var(--bb-radius);
+	display: grid;
+	gap: 0.75rem;
+	grid-template-columns: 2.35rem minmax(0, 1fr);
+	min-width: 0;
+	padding: 0.85rem;
+}
+
+.bb-bible-study-chat__avatar {
+	background: var(--bb-cream);
+	border: 2px solid var(--bb-black);
+	border-radius: 50%;
+	height: 2.35rem;
+	object-fit: cover;
+	width: 2.35rem;
+}
+
+.bb-bible-study-chat__body {
+	min-width: 0;
+}
+
+.bb-bible-study-chat__meta {
+	align-items: baseline;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem 0.7rem;
+	line-height: 1.2;
+	margin: 0 0 0.35rem;
+}
+
+.bb-bible-study-chat__meta strong {
+	color: var(--bb-black);
+	font-size: 0.98rem;
+}
+
+.bb-bible-study-chat__meta span {
+	color: var(--bb-ink-muted);
+	font-size: 0.82rem;
+}
+
+.bb-bible-study-chat__body p {
+	color: var(--bb-ink-soft);
+	font-size: 0.98rem;
+	line-height: 1.45;
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+
+.bb-bible-study-chat__tools {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+	margin-top: 0.65rem;
+}
+
+.bb-bible-study-chat__tools button {
+	background: var(--bb-cream);
+	border: 2px solid var(--bb-black);
+	border-radius: var(--bb-radius);
+	color: var(--bb-black);
+	cursor: pointer;
+	font-size: 0.76rem;
+	font-weight: 800;
+	line-height: 1;
+	padding: 0.45rem 0.7rem;
+}
+
+.bb-bible-study-chat__form {
+	align-items: stretch;
+	background: #fff9ed;
+	border-top: 2px solid var(--bb-black);
+	display: grid;
+	gap: 0;
+	grid-template-columns: minmax(0, 1fr) 5.8rem;
+	margin: 0;
+	overflow: hidden;
+}
+
+.bb-bible-study-chat__form textarea {
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	height: 4.25rem;
+	line-height: 1.4;
+	min-height: 4.25rem;
+	padding: 1rem 1.1rem;
+	resize: none;
+}
+
+.bb-bible-study-chat__form .bb-bible-study__button {
+	border: 0;
+	border-left: 2px solid var(--bb-black);
+	border-radius: 0;
+	box-shadow: none;
+	height: auto;
+	min-height: 4.25rem;
+	padding: 0 1rem;
+}
+
+.bb-bible-study-chat__notice {
+	font-size: 0.9rem;
+	margin: 0;
+	padding: 0.85rem 1.15rem 1rem;
+}
+
+.bb-bible-study-chat__notice:empty {
+	display: none;
+}
+
+.bb-bible-study__archive-list {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	margin-top: 1rem;
+}
+
+.bb-bible-study__schedule + .bb-bible-study__archive-list,
+.bb-bible-study__schedule + .bb-bible-study__panel,
+.bb-bible-study__archive-list + .bb-bible-study__schedule {
+	margin-top: 1.5rem;
+}
+
+.bb-bible-study__archive-card,
+.bb-bible-study__schedule-item,
+.bb-bible-study__calendar-day {
+	background: #fff9ed;
+	border: 2px solid var(--bb-black);
+	border-radius: var(--bb-radius);
+	color: var(--bb-black);
+	min-width: 0;
+	text-decoration: none;
+}
+
+.bb-bible-study__archive-card {
+	display: grid;
+	gap: 0.65rem;
+	padding: 1rem;
+}
+
+.bb-bible-study__archive-card:hover,
+.bb-bible-study__archive-card:focus,
+.bb-bible-study__schedule-item:hover,
+.bb-bible-study__schedule-item:focus-within {
+	background: color-mix(in srgb, var(--bb-gold) 18%, #fff9ed);
+	color: var(--bb-black);
+	transform: translateY(-1px);
+}
+
+.bb-bible-study__archive-card h2,
+.bb-bible-study__archive-card h3,
+.bb-bible-study__archive-card p {
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+
+.bb-bible-study__schedule {
+	display: grid;
+	gap: 1.25rem;
+}
+
+.bb-bible-study__schedule-layout {
+	align-items: start;
+	display: grid;
+	gap: 1.25rem;
+	grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+}
+
+.bb-bible-study__calendar {
+	display: grid;
+	gap: 0.5rem;
+	grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.bb-bible-study__calendar-weekday {
+	text-align: center;
+}
+
+.bb-bible-study__calendar-day {
+	display: grid;
+	gap: 0.35rem;
+	min-height: 7rem;
+	padding: 0.55rem;
+}
+
+.bb-bible-study__calendar-day--empty {
+	background: color-mix(in srgb, var(--bb-black) 4%, var(--bb-cream));
+	border-style: dashed;
+	box-shadow: none;
+}
+
+.bb-bible-study__calendar-day--today {
+	background: color-mix(in srgb, var(--bb-gold) 20%, #fff9ed);
+}
+
+.bb-bible-study__calendar-date {
+	font-weight: 900;
+}
+
+.bb-bible-study__calendar-event {
+	background: var(--bb-blue);
+	border: 2px solid var(--bb-black);
+	border-radius: var(--bb-radius);
+	color: var(--bb-cream);
+	display: block;
+	font-size: 0.75rem;
+	font-weight: 800;
+	line-height: 1.2;
+	overflow-wrap: anywhere;
+	padding: 0.35rem;
+	text-decoration: none;
+}
+
+.bb-bible-study__schedule-list {
+	display: grid;
+	gap: 0.8rem;
+}
+
+.bb-bible-study__schedule-item {
+	display: grid;
+	grid-template-columns: 4.5rem minmax(0, 1fr);
+	overflow: hidden;
+}
+
+.bb-bible-study__schedule-date {
+	align-items: center;
+	background: var(--bb-black);
+	color: var(--bb-cream);
+	display: grid;
+	font-weight: 900;
+	justify-items: center;
+	padding: 0.8rem 0.5rem;
+	text-transform: uppercase;
+}
+
+.bb-bible-study__schedule-date strong {
+	font-size: 1.8rem;
+	line-height: 1;
+}
+
+.bb-bible-study__schedule-body {
+	display: grid;
+	gap: 0.35rem;
+	padding: 0.9rem;
+}
+
+.bb-bible-study__schedule-body h3,
+.bb-bible-study__schedule-body p {
+	margin: 0;
+}
+
+.bb-bible-study__schedule-link {
+	color: inherit;
+	display: contents;
+	text-decoration: none;
+}
+
+.bb-bible-study__schedule-empty {
+	margin: 0;
+}
+
+@media (max-width: 900px) {
+	.bb-bible-study__live-layout,
+	.bb-bible-study__member-grid,
+	.bb-bible-study__schedule-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.bb-bible-study__archive-list {
+		grid-template-columns: 1fr;
+	}
+
+	.bb-bible-study__quick-video {
+		grid-template-columns: 1fr;
+	}
+
+	.bb-bible-study__video-header,
+	.bb-bible-study__chat-heading {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+}
+
+@media (max-width: 640px) {
+	.bb-bible-study__calendar {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+
+	.bb-bible-study__calendar-weekday,
+	.bb-bible-study__calendar-day--empty {
+		display: none;
+	}
+
+	.bb-bible-study__calendar-day {
+		min-height: auto;
+	}
+
+	.bb-bible-study-chat {
+		min-height: 30rem;
+	}
+
+	.bb-bible-study-chat__form {
+		grid-template-columns: 1fr;
+	}
+
+	.bb-bible-study-chat__form .bb-bible-study__button {
+		border-left: 0;
+		border-top: 2px solid var(--bb-black);
+		min-height: 3.25rem;
+	}
+}

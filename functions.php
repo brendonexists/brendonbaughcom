@@ -210,6 +210,11 @@ function _s_scripts()
 	$brand_theme_css_path = get_template_directory() . '/assets/css/brand-theme.css';
 	$brand_theme_css_ver  = file_exists( $brand_theme_css_path ) ? filemtime( $brand_theme_css_path ) : _S_VERSION;
 	wp_enqueue_style( 'brendon-core-brand-theme', get_template_directory_uri() . '/assets/css/brand-theme.css', $brand_theme_deps, $brand_theme_css_ver );
+	if ( is_page_template( 'page-bible-study.php' ) || is_page_template( 'page-bible-study-calendar.php' ) || is_singular( 'bb_study_session' ) || is_post_type_archive( 'bb_study_session' ) ) {
+		$bible_study_css_path = get_template_directory() . '/assets/css/bible-study.css';
+		$bible_study_css_ver  = file_exists( $bible_study_css_path ) ? filemtime( $bible_study_css_path ) : _S_VERSION;
+		wp_enqueue_style( 'brendon-core-bible-study', get_template_directory_uri() . '/assets/css/bible-study.css', array( 'brendon-core-brand-theme' ), $bible_study_css_ver );
+	}
 	if ( is_front_page() ) {
 		$home_retro_css_path = get_template_directory() . '/assets/css/home-retro.css';
 		$home_retro_css_ver  = file_exists( $home_retro_css_path ) ? filemtime( $home_retro_css_path ) : _S_VERSION;

@@ -360,6 +360,191 @@ function brendon_core_bible_study_past_sessions( $limit = 6 ) {
 	return array_slice( $sessions, 0, absint( $limit ) ?: 6 );
 }
 
+function brendon_core_bible_study_schedule_sessions( $limit = 48 ) {
+	$sessions = array();
+
+	foreach ( brendon_core_bible_study_query_sessions() as $session ) {
+		$meta      = brendon_core_bible_study_session_meta( $session->ID );
+		$timestamp = brendon_core_bible_study_datetime_to_timestamp( $meta['scheduled_start'] );
+
+		if ( ! $timestamp ) {
+			continue;
+		}
+
+		$sessions[] = array(
+			'post'      => $session,
+			'timestamp' => $timestamp,
+			'meta'      => $meta,
+		);
+	}
+
+	usort(
+		$sessions,
+		function ( $first, $second ) {
+			return $first['timestamp'] <=> $second['timestamp'];
+		}
+	);
+
+	return array_slice( $sessions, 0, absint( $limit ) ?: 48 );
+}
+
+function brendon_core_bible_study_schedule_status( $session_data ) {
+	$now       = time();
+	$timestamp = absint( $session_data['timestamp'] ?? 0 );
+	$meta      = $session_data['meta'] ?? array();
+
+	if ( $timestamp > $now ) {
+		return array(
+			'slug'  => 'upcoming',
+			'label' => __( 'Upcoming', 'brendon-core' ),
+		);
+	}
+
+	if ( ! empty( $meta['archive_video_id'] ) ) {
+		return array(
+			'slug'  => 'archived',
+			'label' => __( 'Replay Ready', 'brendon-core' ),
+		);
+	}
+
+	return array(
+		'slug'  => 'past',
+		'label' => __( 'Past Study', 'brendon-core' ),
+	);
+}
+
+function brendon_core_bible_study_render_schedule( $args = array() ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'title'       => __( 'Bible Study Calendar', 'brendon-core' ),
+			'description' => __( 'See what is coming up and revisit previous Bible studies from the same schedule that powers the live room.', 'brendon-core' ),
+			'limit'       => 48,
+		)
+	);
+
+	$sessions = brendon_core_bible_study_schedule_sessions( $args['limit'] );
+	$timezone = brendon_core_bible_study_schedule_timezone();
+	$now      = time();
+	$upcoming = array_values(
+		array_filter(
+			$sessions,
+			function ( $session_data ) use ( $now ) {
+				return $session_data['timestamp'] >= $now;
+			}
+		)
+	);
+	$past = array_values(
+		array_filter(
+			$sessions,
+			function ( $session_data ) use ( $now ) {
+				return $session_data['timestamp'] < $now;
+			}
+		)
+	);
+	$past = array_reverse( $past );
+
+	$month_anchor = $upcoming ? $upcoming[0]['timestamp'] : $now;
+	$month_start  = new DateTimeImmutable( wp_date( 'Y-m-01 00:00:00', $month_anchor, $timezone ), $timezone );
+	$days_in_month = (int) $month_start->format( 't' );
+	$first_weekday = (int) $month_start->format( 'w' );
+	$events_by_day = array();
+
+	foreach ( $sessions as $session_data ) {
+		$key = wp_date( 'Y-m-d', $session_data['timestamp'], $timezone );
+		if ( 0 === strpos( $key, $month_start->format( 'Y-m' ) ) ) {
+			$events_by_day[ $key ][] = $session_data;
+		}
+	}
+	?>
+	<section class="bb-bible-study__panel bb-bible-study__schedule" aria-labelledby="bb-bible-study-schedule-title">
+		<div>
+			<p class="bb-bible-study__kicker"><?php echo esc_html__( 'Schedule', 'brendon-core' ); ?></p>
+			<h2 id="bb-bible-study-schedule-title"><?php echo esc_html( $args['title'] ); ?></h2>
+			<?php if ( $args['description'] ) : ?>
+				<p><?php echo esc_html( $args['description'] ); ?></p>
+			<?php endif; ?>
+		</div>
+
+		<?php if ( $sessions ) : ?>
+			<div class="bb-bible-study__schedule-layout">
+				<div>
+					<h3><?php echo esc_html( wp_date( 'F Y', $month_anchor, $timezone ) ); ?></h3>
+					<div class="bb-bible-study__calendar" aria-label="<?php echo esc_attr__( 'Bible study monthly calendar', 'brendon-core' ); ?>">
+						<?php foreach ( array( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ) as $weekday ) : ?>
+							<div class="bb-bible-study__calendar-weekday"><?php echo esc_html( $weekday ); ?></div>
+						<?php endforeach; ?>
+
+						<?php for ( $blank = 0; $blank < $first_weekday; $blank++ ) : ?>
+							<div class="bb-bible-study__calendar-day bb-bible-study__calendar-day--empty" aria-hidden="true"></div>
+						<?php endfor; ?>
+
+						<?php for ( $day = 1; $day <= $days_in_month; $day++ ) : ?>
+							<?php
+							$date_key = $month_start->setDate( (int) $month_start->format( 'Y' ), (int) $month_start->format( 'm' ), $day )->format( 'Y-m-d' );
+							$is_today = wp_date( 'Y-m-d', $now, $timezone ) === $date_key;
+							?>
+							<div class="bb-bible-study__calendar-day<?php echo $is_today ? ' bb-bible-study__calendar-day--today' : ''; ?>">
+								<span class="bb-bible-study__calendar-date"><?php echo esc_html( (string) $day ); ?></span>
+								<?php foreach ( $events_by_day[ $date_key ] ?? array() as $event ) : ?>
+									<a class="bb-bible-study__calendar-event" href="<?php echo esc_url( get_permalink( $event['post'] ) ); ?>">
+										<?php echo esc_html( get_the_title( $event['post'] ) ); ?>
+									</a>
+								<?php endforeach; ?>
+							</div>
+						<?php endfor; ?>
+					</div>
+				</div>
+
+				<div class="bb-bible-study__schedule-list">
+					<h3><?php echo esc_html__( 'Upcoming Studies', 'brendon-core' ); ?></h3>
+					<?php if ( $upcoming ) : ?>
+						<?php foreach ( array_slice( $upcoming, 0, 6 ) as $session_data ) : ?>
+							<?php brendon_core_bible_study_render_schedule_item( $session_data ); ?>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<p class="bb-bible-study__schedule-empty"><?php echo esc_html__( 'No upcoming studies are scheduled yet.', 'brendon-core' ); ?></p>
+					<?php endif; ?>
+
+					<h3><?php echo esc_html__( 'Recent Studies', 'brendon-core' ); ?></h3>
+					<?php if ( $past ) : ?>
+						<?php foreach ( array_slice( $past, 0, 6 ) as $session_data ) : ?>
+							<?php brendon_core_bible_study_render_schedule_item( $session_data ); ?>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<p class="bb-bible-study__schedule-empty"><?php echo esc_html__( 'Past studies will appear here after they are scheduled.', 'brendon-core' ); ?></p>
+					<?php endif; ?>
+				</div>
+			</div>
+		<?php else : ?>
+			<p class="bb-bible-study__schedule-empty"><?php echo esc_html__( 'No scheduled Bible studies were found yet.', 'brendon-core' ); ?></p>
+		<?php endif; ?>
+	</section>
+	<?php
+}
+
+function brendon_core_bible_study_render_schedule_item( $session_data ) {
+	$post      = $session_data['post'];
+	$timestamp = absint( $session_data['timestamp'] );
+	$status    = brendon_core_bible_study_schedule_status( $session_data );
+	$timezone  = brendon_core_bible_study_schedule_timezone();
+	?>
+	<article class="bb-bible-study__schedule-item bb-bible-study__schedule-item--<?php echo esc_attr( $status['slug'] ); ?>">
+		<a class="bb-bible-study__schedule-link" href="<?php echo esc_url( get_permalink( $post ) ); ?>">
+			<div class="bb-bible-study__schedule-date">
+				<span><?php echo esc_html( wp_date( 'M', $timestamp, $timezone ) ); ?></span>
+				<strong><?php echo esc_html( wp_date( 'j', $timestamp, $timezone ) ); ?></strong>
+			</div>
+			<div class="bb-bible-study__schedule-body">
+				<span class="bb-bible-study__schedule-status"><?php echo esc_html( $status['label'] ); ?></span>
+				<h3><?php echo esc_html( get_the_title( $post ) ); ?></h3>
+				<p><?php echo esc_html( brendon_core_bible_study_format_session_time( $post->ID ) ); ?></p>
+			</div>
+		</a>
+	</article>
+	<?php
+}
+
 function brendon_core_bible_study_get_scheduled_context() {
 	$now      = time();
 	$current  = null;
